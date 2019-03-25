@@ -13,8 +13,8 @@
       <div class="container">
         <div class="columns is-multiline">
 
-          <div class="column is-one-quarter" v-for="city in cities" :key="city.name">
-           
+          <div class="column is-one-quarter" v-for="city in cities" :key="city.id">
+
             <div class="card">
              <div class="card-image has-text-centered">
                 <figure class="image is-3by2">
@@ -47,42 +47,15 @@
 
 
 <script>
+
+import cities from '~/apollo/queries/cities'
+
 export default {
-    data () {
-        return {
-            cities: [
-                {
-                    name: "Munich",
-                    country: "Germany",
-                    votes: 1500,  
-                },
-                {
-                    name: "Barcelona",
-                    country: "Spain",
-                    votes: 1300,
-                },
-                {
-                    name: "Milano",
-                    country: "Italy",
-                    votes: 900,
-                },
-                {
-                    name: "Amsterdam",
-                    country: "Netherlands",
-                    votes: 500,
-                },
-                {
-                    name: "Paris",
-                    country: "France",
-                    votes: 200,
-                },
-                {
-                    name: "London",
-                    country: "England",
-                    votes: 65,
-                }
-            ]
-        }
+    apollo: {
+      cities: {
+        prefetch: true,
+        query: cities
+      }
     }
 }
 </script>

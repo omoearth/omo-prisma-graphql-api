@@ -2,7 +2,6 @@
   <section class="">
     <Header />
     <Illustration />
-    <Vimdeo />
     <Vimeo />
     <Explain />
     <Voting />
@@ -11,6 +10,7 @@
 </template>
 
 <script>
+
 import Header from '~/components/Header'
 import Illustration from '~/components/Illustration'
 import Explain from '~/components/Explain'
@@ -19,6 +19,7 @@ import Voting from '~/components/Voting'
 import Pricing from '~/components/Pricing'
 
 export default {
+
   name: 'HomePage',
 
   components: {

@@ -21,7 +21,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: 'green' },
 
   /*
   ** Global CSS
@@ -39,10 +39,16 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://buefy.github.io/#/documentation
     'nuxt-buefy',
+    '@nuxtjs/apollo',
   ],
-
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'https://eu1.prisma.sh/samuel-andert-d264c8/stylearth/dev/'
+      }
+    }
+  },
   /*
   ** Build configuration
   */
@@ -54,3 +60,4 @@ export default {
     }
   }
 }
+
