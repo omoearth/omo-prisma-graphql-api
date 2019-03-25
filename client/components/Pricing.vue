@@ -8,7 +8,7 @@
             and our estimated pricing for our future mobility flatrates
         </p>
         <p>
-            The first voters with the most voting points will win a lifelong 1€ all inclusive flatrate  
+            The first 1.000 voters with the most voting points will win a lifelong 1€ all inclusive flatrate  
         </p>
     </div>
     <br>
