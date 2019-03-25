@@ -1,0 +1,6 @@
+endpoint: https://eu1.prisma.sh/samuel-andert-d264c8/stylearth/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/

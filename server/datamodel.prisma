@@ -1,0 +1,12 @@
+type City {
+  id: ID! @unique
+  name: String!
+  country: Country!
+  votes: Int
+}
+
+type Country {
+  id: ID! @unique
+  name: String!
+  cities: [City]
+}
