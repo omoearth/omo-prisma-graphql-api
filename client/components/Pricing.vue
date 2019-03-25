@@ -7,6 +7,9 @@
         <p class="subtitle is-4 is-size-5-mobile">
             and our estimated pricing for our future mobility flatrates
         </p>
+        <p>
+            The first voters with the most voting points will win a lifelong 1€ all inclusive flatrate  
+        </p>
     </div>
     <br>
     <br>

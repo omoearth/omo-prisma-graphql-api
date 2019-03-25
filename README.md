@@ -5,6 +5,10 @@
 ## Build Setup
 
 ``` bash
+
+# go to the client folder 
+$ cd client
+
 # install dependencies
 $ yarn install
 
