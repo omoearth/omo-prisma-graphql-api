@@ -1,15 +1,21 @@
 {
-  "name": "gridsome",
+  "name": "stylearth",
+  "version": "1.0.0",
+  "description": "the power of movement",
+  "author": "Samuel Andert",
   "private": true,
   "scripts": {
-    "build": "gridsome build",
-    "develop": "gridsome develop",
-    "explore": "gridsome explore"
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "bulma": "^0.7.4",
-    "bulma-pricingtable": "^0.2.0",
-    "gridsome": "^0.5.0"
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.4.0",
+    "nuxt-buefy": "^0.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }

@@ -1,8 +1,22 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f1015a4d-511f-4092-98fa-e2bf16ccbd72/deploy-status)](https://app.netlify.com/sites/stylearth/deploys)
+# stylearth
 
-1. git clone repo
-2. 'npm install'
+> the power of movement
 
-activate
-3. Activate git lfsd 
-3. 'gridsome develop'
+## Build Setup
+
+``` bash
+# install dependencies
+$ yarn install
+
+# serve with hot reload at localhost:3000
+$ yarn run dev
+
+# build for production and launch server
+$ yarn run build
+$ yarn start
+
+# generate static project
+$ yarn run generate
+```
+
+For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
