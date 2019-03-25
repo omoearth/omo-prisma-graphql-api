@@ -1,0 +1,21 @@
+{
+  "name": "stylearth",
+  "version": "1.0.0",
+  "description": "the power of movement",
+  "author": "Samuel Andert",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.4.0",
+    "nuxt-buefy": "^0.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
