@@ -21,6 +21,7 @@
     "vue-template-compiler": "^2.6.10"
   },
   "devDependencies": {
+    "@babel/polyfill": "^7.4.0",
     "nodemon": "^1.18.9"
   }
 }
