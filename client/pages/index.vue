@@ -4,7 +4,7 @@
     <Illustration />
     <Vimeo />
     <Explain />
-    <Voting />
+    <!-- <Voting /> -->
     <Pricing />
   </section>
 </template>
@@ -15,7 +15,7 @@ import Header from '~/components/Header'
 import Illustration from '~/components/Illustration'
 import Explain from '~/components/Explain'
 import Vimeo from '~/components/Vimeo'
-import Voting from '~/components/Voting'
+// import Voting from '~/components/Voting'
 import Pricing from '~/components/Pricing'
 
 export default {
@@ -26,7 +26,7 @@ export default {
     Header,
     Explain,
     Illustration,
-    Voting,
+    // Voting,
     Pricing,
     Vimeo
   }

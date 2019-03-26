@@ -1,54 +1,53 @@
-import pkg from './package'
-
 export default {
   mode: 'universal',
-
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: "stylearth",
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: "the power of movement" }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
+  serverMiddleware: [
+    '~/middleware/log.js'
+  ],
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: 'green' },
+  loading: { color: '#fff' },
 
   /*
   ** Global CSS
   */
-  css: [
-  ],
+  // css: [
+  // ],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-  ],
+  // plugins: [
+  // ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
     'nuxt-buefy',
-    '@nuxtjs/apollo',
+    // '@nuxtjs/apollo'
   ],
-  apollo: {
-    clientConfigs: {
-      default: {
-        httpEndpoint: 'https://eu1.prisma.sh/samuel-andert-d264c8/stylearth/dev/'
-      }
-    }
-  },
+  // apollo: {
+  //   clientConfigs: {
+  //     default: {
+  //       httpEndpoint: 'https://eu1.prisma.sh/samuel-andert-d264c8/stylearth/dev/'
+  //     }
+  //   }
+  // },
   /*
   ** Build configuration
   */
