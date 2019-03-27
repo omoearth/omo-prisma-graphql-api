@@ -28,7 +28,7 @@
                 <div class="media">
                   <div class="media-content">
                     <p class="title is-4">{{city.name}}</p>
-                    <p class="subtitle is-6">{{city.country}}</p>
+                    <p class="subtitle is-6">{{city.country.name}}</p>
                   </div>
                 </div>
                 

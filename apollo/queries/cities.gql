@@ -2,7 +2,9 @@
     cities {
         id
         name
-        country
         votes
+        country {
+            name
+        }
     }
 }
