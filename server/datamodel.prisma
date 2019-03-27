@@ -4,4 +4,3 @@ type City {
   country: String!
   votes: Int
 }
-
