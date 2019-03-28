@@ -19,9 +19,6 @@ import Cities from '~/components/Cities'
 import Pricing from '~/components/Pricing'
 
 export default {
-
-  name: 'HomePage',
-
   components: {
     Header,
     Explain,

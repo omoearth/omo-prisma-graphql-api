@@ -1,43 +1,42 @@
 export default {
   mode: 'universal',
-
   /*
   ** Headers of the page
   */
   head: {
+    title: "stylearth",
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: "description" }
+      { hid: 'description', name: 'description', content: "the power of movement" }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: 'green' },
+  loading: { color: '#fff' },
 
   /*
   ** Global CSS
   */
-  css: [
-  ],
+  // css: [
+  // ],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-  ],
+  // plugins: [
+  // ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
     'nuxt-buefy',
-    '@nuxtjs/apollo',
+    '@nuxtjs/apollo'
   ],
   apollo: {
     clientConfigs: {

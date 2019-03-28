@@ -4,6 +4,7 @@
   "description": "the power of movement",
   "author": "Samuel Andert",
   "private": true,
+  "license": "GPL",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
@@ -11,13 +12,11 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "access-log": "^0.4.1",
     "@nuxtjs/apollo": "^4.0.0-rc4",
     "cross-env": "^5.2.0",
-    "graphql-tag": "^2.10.1",
-    "nuxt": "^2.4.0",
-    "nuxt-buefy": "^0.3.2",
-    "vue-server-renderer": "2.6.10",
-    "vue-template-compiler": "2.6.10"
+    "nuxt": "^2.5.1",
+    "nuxt-buefy": "^0.3.2"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.4.0",

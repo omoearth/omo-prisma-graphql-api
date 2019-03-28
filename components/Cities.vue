@@ -18,7 +18,7 @@
             <div class="card">
              <div class="card-image has-text-centered">
                 <figure class="image is-3by2">
-                  <img :src="'/cities/' + city.name + '.jpg'" :alt="city.name">
+                  <img :src="'cities/' + city.name + '.jpg'" :alt="city.name">
                 </figure>
                 <div class="card-content is-overlay is-clipped is-center">
                   <p class="title is-1 has-text-white">{{city.votes}}</p>  
