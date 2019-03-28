@@ -3,15 +3,24 @@
       <div class="hero-body background-image">
         <div class="container has-text-centered">         
           <p class="title is-size-1-mobile is-size-special">
-            IT IS YOUR ERA NOW
+            {{title}}
           </p>
           <p class="subtitle is-2 is-size-4-mobile is-size-3-tablet">
-            to inspire and build together the most extraordinary green earth
+            {{subtitle}}
           </p>
         </div>
       </div>
     </section>
 </template>
+
+<script>
+  export default {
+    props: [
+      "title", 
+      "subtitle"
+    ],
+  }
+</script>
 
 <style scoped>
 

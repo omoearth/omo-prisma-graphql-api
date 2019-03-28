@@ -50,6 +50,10 @@ export default {
           title: 'Home',
           to: { name: 'index' }
         },
+        {
+          title: 'About Us',
+          to: { name: 'about' }
+        },
       ]
     }
   }
