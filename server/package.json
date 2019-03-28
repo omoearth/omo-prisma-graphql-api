@@ -1,0 +1,26 @@
+{
+  "name": "city-vote",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^3.0.5",
+    "graphql-yoga": "^1.17.4",
+    "prisma-client-lib": "^1.29.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaensen/city-vote.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaensen/city-vote/issues"
+  },
+  "homepage": "https://github.com/jaensen/city-vote#readme"
+}
