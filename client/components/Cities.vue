@@ -34,7 +34,7 @@
                 
               </div>
               <footer class="card-footer">
-                <button class="button is-success is-fullwidth">VOTE FOR {{city.name}}</button>
+                <button class="button is-success is-fullwidth" @click="vote(city.name, city.id)">VOTE FOR {{city.name}}</button>
               </footer> 
             </div>
 
@@ -51,12 +51,17 @@
 import cities from '~/apollo/queries/cities'
 
 export default {
-    apollo: {
-      cities: {
-        prefetch: true,
-        query: cities
-      }
+  apollo: {
+    cities: {
+      prefetch: true,
+      query: cities
     }
+  },
+  methods: {
+    vote: function(name, id) {
+      alert('voted for city ' + name)
+    }
+  }
 }
 </script>
 
