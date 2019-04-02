@@ -41,10 +41,8 @@ export default {
   /*
   ** Nuxt.js modules
   */
-  modules: [
-    'nuxt-buefy',
-    '@nuxtjs/apollo'
-  ],
+  modules: [ '~/modules' ],
+  
   apollo: {
     clientConfigs: {
       default: {
