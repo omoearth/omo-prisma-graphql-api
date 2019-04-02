@@ -9,7 +9,7 @@
         </p>
       </div>
       <div class="container">         
-        <img :src="imageUrl" />
+        <img :src="buildImageUrl()" />
       </div>
       <br>
       <div class="container has-text-centered">         
@@ -28,5 +28,10 @@
       "imageUrl",
       "text"
     ],
+    methods: {
+      buildImageUrl: function () {
+        return require(`@/assets/banner.png`);
+      },
+    }
   }
 </script>

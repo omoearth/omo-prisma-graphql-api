@@ -18,7 +18,7 @@
             <div class="card">
              <div class="card-image has-text-centered">
                 <figure class="image is-3by2">
-                  <img :src="'/cities/' + city.name + '.jpg'" :alt="city.name">
+                  <img :src="buildImageUrl(city.name)" />
                 </figure>
                 <div class="card-content is-overlay is-clipped is-center">
                   <p class="title is-1 has-text-white">{{city.testvotes}}</p>  
@@ -59,8 +59,11 @@ export default {
   },
   methods: {
     vote: function(name, id) {
-      alert('voted for city ' + name)
-    }
+      alert('voted for ' + name)
+    },
+    buildImageUrl: function (name) {
+      return require(`@/assets/cities/` + name.toLowerCase() + `.jpg`);
+    },
   }
 }
 </script>

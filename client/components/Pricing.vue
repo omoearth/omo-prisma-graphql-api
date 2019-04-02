@@ -20,8 +20,8 @@
                 <div class="card">
                     <div class="card-image has-text-centered">
                         <figure class="image">
-                            <img :src="'/products/' + product.image + '.png'" :alt="product.name">
-                    </figure>
+                            <img :src="buildImageUrl(product.image)" :alt="product.name">
+                        </figure>
                     </div>
                     <div class="card-content">
                         <div class="media">
@@ -213,6 +213,11 @@ export default {
                 },
             ]
         }
+    },
+    methods: {
+      buildImageUrl: function (name) {
+        return require(`@/assets/products/` + name + `.png`);
+      },
     }
 }
 </script>
