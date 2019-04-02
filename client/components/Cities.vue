@@ -21,7 +21,7 @@
                   <img :src="'cities/' + city.name + '.jpg'" :alt="city.name">
                 </figure>
                 <div class="card-content is-overlay is-clipped is-center">
-                  <p class="title is-1 has-text-white">{{city.votes}}</p>  
+                  <p class="title is-1 has-text-white">{{city.testvotes}}</p>  
                 </div>
               </div>
               <div class="card-content">
