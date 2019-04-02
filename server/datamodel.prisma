@@ -25,6 +25,7 @@ type City {
   name: String!
   country: Country!
   votes: [Vote!]!
+  testvotes: Int!
 }
 
 type Vote {
