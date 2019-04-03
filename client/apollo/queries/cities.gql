@@ -1,8 +1,8 @@
 {
-    cities(orderBy: testvotes_DESC) {
+    cities(orderBy: votes_DESC) {
         id
         name
-        testvotes
+        votes
         country {
             name
         }
