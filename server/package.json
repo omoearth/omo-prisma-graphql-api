@@ -1,26 +1,19 @@
 {
-  "name": "city-vote",
+  "name": "minga-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "dependencies": {
-    "bcrypt": "^3.0.5",
-    "graphql-yoga": "^1.17.4",
-    "prisma-client-lib": "^1.29.1"
-  },
-  "devDependencies": {},
+  "main": "api.js",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon api.js --exec babel-node"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jaensen/city-vote.git"
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "graphql-yoga": "^1.17.4",
+    "nuxt": "^2.6.1",
+    "prisma-client-lib": "^1.30.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jaensen/city-vote/issues"
-  },
-  "homepage": "https://github.com/jaensen/city-vote#readme"
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
 }
