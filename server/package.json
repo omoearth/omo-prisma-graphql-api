@@ -4,7 +4,7 @@
   "main": "api.js",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon api.js --exec babel-node"
+    "server": "nodemon api.js --ext js,graphql --exec babel-node"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",

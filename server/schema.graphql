@@ -1,0 +1,38 @@
+ type Query {
+    users(filter: String): [User!]!
+    cities(filter: String): [City!]!
+    votes: [Vote!]!
+}
+type Mutation {
+    createUser(data: CreateUserInput): User!
+    deleteUser(id: ID!): User! 
+    createCity(data: CreateCityInput): City!
+}
+input CreateUserInput {
+    name: String!
+    email: String!
+} 
+input CreateCityInput {
+    name: String!
+    country: ID!
+} 
+type User {
+    id: ID!
+    name: String!
+    email: String!
+}
+type City {
+    id: ID!
+    name: String!
+    votes: [Vote!]
+    country: Country!
+}
+type Country {
+    id: ID!
+    name: String!
+}
+type Vote {
+    id: ID!
+    city: City!
+    user: User!
+}
