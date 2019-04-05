@@ -11,8 +11,8 @@ type Mutation {
     createVote(data: CreateVoteInput!): Vote!
 }
 type Subscription {
-    vote(cityId: ID!): Vote!
-    city: City!
+    vote(cityId: ID!): VoteSubscriptionPayload!
+    city: CitySubscriptionPayload!
 }
 input CreateUserInput {
     name: String!
@@ -49,4 +49,20 @@ type Vote {
     id: ID!
     city: City!
     user: User!
+}
+
+type CitySubscriptionPayload {
+    mutation: MutationType!
+    data: City!
+}
+
+type VoteSubscriptionPayload {
+    mutation: MutationType!
+    data: Vote!
+}
+
+enum MutationType {
+    CREATED
+    UPDATED
+    DELETED
 }

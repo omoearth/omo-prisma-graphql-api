@@ -56,7 +56,12 @@ const Mutation = {
             ...data
         }
         db.cities.push(city)
-        pubsub.publish('city', {city})
+        pubsub.publish('city', {
+            city: {
+                mutation: 'CREATED',
+                data: city                
+            }
+        })
         return city
     },
     createVote(parent, {data}, {db, pubsub}, info) {
@@ -77,7 +82,12 @@ const Mutation = {
 
         db.votes.push(vote)
 
-        pubsub.publish(`vote ${data.city}`, { vote })
+        pubsub.publish(`vote ${data.city}`, { 
+            vote: {
+                mutation: "CREATED",
+                data: vote
+            }
+         })
         return vote
     }
 }
