@@ -16,6 +16,23 @@ const Mutation = {
 
         return user
     },
+    updateUser(parent, {id, data}, {db}, info) {
+        const user = db.users.find((user) => user.id === id )
+        if (!user) {
+            throw new Error ("no user with this id found")
+        }
+        if (typeof data.email === 'string') {
+            const emailTaken = db.users.find((user) => user.email === data.email)
+            if(emailTaken) {
+                throw new Error("Email is already taken")
+            }
+            user.email = data.email
+        }
+        if (typeof data.name === 'string') {
+            user.name = data.name
+        }
+        return user
+    },
     deleteUser(parent, args, {db}, info) {
         const userIndex = db.users.findIndex((user) => user.id === args.id)
         if(userIndex === -1) {

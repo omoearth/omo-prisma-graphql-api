@@ -4,13 +4,18 @@
     votes: [Vote!]!
 }
 type Mutation {
-    createUser(data: CreateUserInput): User!
+    createUser(data: CreateUserInput!): User!
+    updateUser(id: ID!, data: UpdateUserInput!): User!
     deleteUser(id: ID!): User! 
     createCity(data: CreateCityInput): City!
 }
 input CreateUserInput {
     name: String!
     email: String!
+} 
+input UpdateUserInput {
+    name: String
+    email: String
 } 
 input CreateCityInput {
     name: String!
