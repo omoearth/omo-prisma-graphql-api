@@ -7,7 +7,12 @@ type Mutation {
     createUser(data: CreateUserInput!): User!
     updateUser(id: ID!, data: UpdateUserInput!): User!
     deleteUser(id: ID!): User! 
-    createCity(data: CreateCityInput): City!
+    createCity(data: CreateCityInput!): City!
+    createVote(data: CreateVoteInput!): Vote!
+}
+type Subscription {
+    vote(cityId: ID!): Vote!
+    city: City!
 }
 input CreateUserInput {
     name: String!
@@ -20,6 +25,10 @@ input UpdateUserInput {
 input CreateCityInput {
     name: String!
     country: ID!
+} 
+input CreateVoteInput {
+    city: ID!
+    user: ID!
 } 
 type User {
     id: ID!

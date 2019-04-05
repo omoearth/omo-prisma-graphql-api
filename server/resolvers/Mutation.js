@@ -1,16 +1,16 @@
 import uuidv4 from 'uuid/v4'
 
 const Mutation = {
-    createUser(parent, args, {db}, info) {
+    createUser(parent, {data}, {db}, info) {
         const emailTaken = db.users.some((user) => {
-            return user.email === args.data.email 
+            return user.email === data.email 
         })
         if (emailTaken) {
             throw new Error("Email already taken")
         }
         const user = {
             id: uuidv4(),
-            ...args.data
+            ...data
         }
         db.users.push(user)
 
@@ -33,30 +33,52 @@ const Mutation = {
         }
         return user
     },
-    deleteUser(parent, args, {db}, info) {
-        const userIndex = db.users.findIndex((user) => user.id === args.id)
+    deleteUser(parent, {id}, {db}, info) {
+        const userIndex = db.users.findIndex((user) => user.id === id)
         if(userIndex === -1) {
             throw new Error("user not existing")
         }
         const deletedUsers = db.users.splice(userIndex, 1)
 
         votes = db.votes.filter((vote) => {
-            const match = vote.user === args.id
+            const match = vote.user === id
             return !match
         })
         return deletedUsers[0]
     },
-    createCity(parent, args, {db}, info) {
-        const countryExist = db.countries.some((country) => country.id === args.data.country) 
+    createCity(parent, {data}, {db, pubsub}, info) {
+        const countryExist = db.countries.some((country) => country.id === data.country) 
         if(!countryExist) {
             throw new Error("country not found")
         }
         const city = {
             id: uuidv4(),
-            ...args.data
+            ...data
         }
         db.cities.push(city)
+        pubsub.publish('city', {city})
         return city
+    },
+    createVote(parent, {data}, {db, pubsub}, info) {
+        const cityExist = db.cities.some((city) => city.id === data.city) 
+        const userExist = db.users.some((user) => user.id === data.user) 
+
+        if(!cityExist) {
+            throw new Error("no city found with this name")
+        }
+        if(!userExist) {
+            throw new Error("no user found")
+        }
+
+        const vote = {
+            id: uuidv4(),
+            ...data
+        }
+
+        db.votes.push(vote)
+
+        pubsub.publish(`vote ${data.city}`, { vote })
+        return vote
     }
 }
 
