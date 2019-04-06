@@ -1,27 +1,84 @@
+import uuidv4 from 'uuid/v4'
+
 const Mutation = {
-    async createUser(parent, { data }, { prisma }, info) {
-        return prisma.mutation.createUser({ data }, info)
+    async createUser(parent, args, { prisma }, info) {
+        return prisma.mutation.createUser({ data: args.data }, info)
     },
-    async deleteUser(parent, { id }, { prisma }, info) {
-        return prisma.mutation.deleteUser({ where: { id }}, info) 
+    async deleteUser(parent, args, { prisma }, info) {
+        return prisma.mutation.deleteUser({
+            where: {
+                id: args.id
+            }
+        }, info)
     },
-    async updateUser(parent, { id, data }, { prisma }, info) {
+    async updateUser(parent, args, { prisma }, info) {
         return prisma.mutation.updateUser({
-            where: { id },
-            data
-        }, info )
+            where: {
+                id: args.id
+            },
+            data: args.data
+        }, info)
     },
-    async createCity(parent, { data }, { prisma }, info) {
-        return prisma.mutation.createCity({ data }, info)
+    createPost(parent, args, { prisma }, info) {
+        return prisma.mutation.createPost({
+            data: {
+                title: args.data.title,
+                body: args.data.body,
+                published: args.data.published,
+                author: {
+                    connect: {
+                        id: args.data.author
+                    }
+                }
+            }
+        }, info)
     },
-    async deleteCity(parent, { id }, { prisma }, info) {
-        return prisma.mutation.deleteCity({ where: { id }}, info) 
+    deletePost(parent, args, { prisma }, info) {
+        return prisma.mutation.deletePost({
+            where: {
+                id: args.id
+            }
+        }, info)
     },
-    async updateCity(parent, { id, data }, { prisma }, info) {
-        return prisma.mutation.updateCity({
-            where: { id },
-            data
-        }, info )
+    updatePost(parent, args, { prisma }, info) {
+        return prisma.mutation.updatePost({
+            where: {
+                id: args.id
+            },
+            data: args.data
+        }, info)
+    },
+    createComment(parent, args, { prisma }, info) {
+        return prisma.mutation.createComment({
+            data: {
+                text: args.data.text,
+                author: {
+                    connect: {
+                        id: args.data.author
+                    }
+                },
+                post: {
+                    connect: {
+                        id: args.data.post
+                    }
+                }
+            }
+        }, info)
+    },
+    deleteComment(parent, args, { prisma }, info) {
+        return prisma.mutation.deleteComment({
+            where: {
+                id: args.id
+            }
+        }, info)
+    },
+    updateComment(parent, args, { prisma }, info) {
+        return prisma.mutation.updateComment({
+            where: {
+                id: args.id
+            },
+            data: args.data
+        }, info)
     }
 }
 

@@ -1,19 +1,20 @@
 const Subscription = {
-    // vote: {
-    //     subscribe(parent, {cityId}, {db, pubsub}, info)  {
-    //         const city = db.cities.find((city) => city.id === cityId)
-    //         if (!city) {
-    //             throw new Error("city not found")
-    //         }
-    //         return pubsub.asyncIterator(`vote ${cityId}`)
-    //     }  
-    // },
-    // city: {
-    //     subscribe(parent, args, {pubsub}, info) {
-    //         return pubsub.asyncIterator('city')
-    //     }
-    // }
+    comment: {
+        subscribe(parent, { postId }, { db, pubsub }, info){
+            const post = db.posts.find((post) => post.id === postId && post.published)
+
+            if (!post) {
+                throw new Error('Post not found')
+            }
+
+            return pubsub.asyncIterator(`comment ${postId}`)
+        }
+    },
+    post: {
+        subscribe(parent, args, { pubsub }, info) {
+            return pubsub.asyncIterator('post')
+        }
+    }
 }
 
-export { Subscription as default}
-
+export { Subscription as default }
