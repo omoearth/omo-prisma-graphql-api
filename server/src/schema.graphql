@@ -81,10 +81,10 @@ enum MutationType {
 
 type CitySubscriptionPayload {
     mutation: MutationType!
-    data: City!
+    node: City
 }
 
 type VoteSubscriptionPayload {
     mutation: MutationType!
-    data: Vote!
+    node: Vote
 }
