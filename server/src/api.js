@@ -4,8 +4,8 @@ import prisma from './prisma'
 import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
 import Subscription from './resolvers/Subscription'
-import Post from './resolvers/Post'
-import Comment from './resolvers/Comment'
+import City from './resolvers/City'
+import Vote from './resolvers/Vote'
 import User from './resolvers/User'
 
 const pubsub = new PubSub()
@@ -16,8 +16,8 @@ const server = new GraphQLServer ({
         Query,
         Mutation,
         Subscription,
-        Post,
-        Comment,
+        City,
+        Vote,
         User
     },
     context: {

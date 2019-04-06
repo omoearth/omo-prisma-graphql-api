@@ -1,26 +1,24 @@
 type Query {
     users(query: String): [User!]!
-    posts(query: String): [Post!]!
-    comments: [Comment!]!
-    me: User!
-    post: Post!
+    cities(query: String): [City!]!
+    votes: [Vote!]!
 }
 
 type Mutation {
     createUser(data: CreateUserInput!): User!
     deleteUser(id: ID!): User!
     updateUser(id: ID!, data: UpdateUserInput!): User!
-    createPost(data: CreatePostInput!): Post!
-    deletePost(id: ID!): Post!
-    updatePost(id: ID!, data: UpdatePostInput!): Post!
-    createComment(data: CreateCommentInput!): Comment!
-    deleteComment(id: ID!): Comment!
-    updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+    createCity(data: CreateCityInput!): City!
+    deleteCity(id: ID!): City!
+    updateCity(id: ID!, data: UpdateCityInput!): City!
+    createVote(data: CreateVoteInput!): Vote!
+    deleteVote(id: ID!): Vote!
+    updateVote(id: ID!, data: UpdateVoteInput!): Vote!
 }
 
 type Subscription {
-    comment(postId: ID!): CommentSubscriptionPayload!
-    post: PostSubscriptionPayload!
+    vote(cityId: ID!): VoteSubscriptionPayload!
+    city: CitySubscriptionPayload!
 }
 
 input CreateUserInput {
@@ -33,51 +31,46 @@ input UpdateUserInput {
     email: String
 }
 
-input CreatePostInput {
-    title: String!
-    body: String!
-    published: Boolean!
+input CreateCityInput {
+    name: String!
+    available: Boolean!
+    major: ID!
+}
+
+input UpdateCityInput {
+    name: String
+    available: Boolean
+}
+
+input CreateVoteInput {
     author: ID!
+    city: ID!
 }
 
-input UpdatePostInput {
-    title: String
-    body: String
-    published: Boolean
-}
-
-input CreateCommentInput {
-    text: String!
-    author: ID!
-    post: ID!
-}
-
-input UpdateCommentInput {
-    text: String
+input UpdateVoteInput {
+    city: ID!
 }
 
 type User {
     id: ID!
     name: String!
     email: String!
-    posts: [Post!]!
-    comments: [Comment!]!
+    cities: [City!]!
+    votes: [Vote!]!
 }
 
-type Post {
+type City {
     id: ID!
-    title: String!
-    body: String!
-    published: Boolean!
-    author: User!
-    comments: [Comment!]!
+    name: String!
+    available: Boolean!
+    major: User!
+    votes: [Vote!]!
 }
 
-type Comment {
+type Vote {
     id: ID!
-    text: String!
     author: User!
-    post: Post!
+    city: City!
 }
 
 enum MutationType {
@@ -86,12 +79,12 @@ enum MutationType {
     DELETED
 }
 
-type PostSubscriptionPayload {
+type CitySubscriptionPayload {
     mutation: MutationType!
-    data: Post!
+    data: City!
 }
 
-type CommentSubscriptionPayload {
+type VoteSubscriptionPayload {
     mutation: MutationType!
-    data: Comment!
+    data: Vote!
 }

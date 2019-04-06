@@ -14,23 +14,17 @@ const Query = {
 
         return prisma.query.users(opArgs, info)
     },
-    posts(parent, args, { prisma }, info) {
+    cities(parent, args, { prisma }, info) {
         const opArgs = {}
 
         if (args.query) {
-            opArgs.where = {
-                OR: [{
-                    title_contains: args.query
-                }, {
-                    body_contains: args.query
-                }]
-            }
+            opArgs.where = { name_contains: args.query }
         }
 
-        return prisma.query.posts(opArgs, info)
+        return prisma.query.cities(opArgs, info)
     },
-    comments(parent, args, { prisma }, info) {
-        return prisma.query.comments(null, info)
+    votes(parent, args, { prisma }, info) {
+        return prisma.query.votes(null, info)
     }
 }
 

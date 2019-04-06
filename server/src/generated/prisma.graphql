@@ -1,15 +1,15 @@
 # source: http://localhost:4466/prisma/dev/
-# timestamp: Sat Apr 06 2019 16:48:48 GMT+0200 (GMT+02:00)
+# timestamp: Sat Apr 06 2019 17:48:33 GMT+0200 (GMT+02:00)
 
-type AggregateComment {
-  count: Int!
-}
-
-type AggregatePost {
+type AggregateCity {
   count: Int!
 }
 
 type AggregateUser {
+  count: Int!
+}
+
+type AggregateVote {
   count: Int!
 }
 
@@ -18,86 +18,93 @@ type BatchPayload {
   count: Long!
 }
 
-type Comment implements Node {
+type City implements Node {
   id: ID!
-  text: String!
-  author: User!
-  post: Post!
+  name: String!
+  available: Boolean!
+  major: User!
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
 
 """A connection to a list of items."""
-type CommentConnection {
+type CityConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [CommentEdge]!
-  aggregate: AggregateComment!
+  edges: [CityEdge]!
+  aggregate: AggregateCity!
 }
 
-input CommentCreateInput {
+input CityCreateInput {
   id: ID
-  text: String!
-  author: UserCreateOneWithoutCommentsInput!
-  post: PostCreateOneWithoutCommentsInput!
+  name: String!
+  available: Boolean!
+  major: UserCreateOneWithoutCitiesInput!
+  votes: VoteCreateManyWithoutCityInput
 }
 
-input CommentCreateManyWithoutAuthorInput {
-  create: [CommentCreateWithoutAuthorInput!]
-  connect: [CommentWhereUniqueInput!]
+input CityCreateManyWithoutMajorInput {
+  create: [CityCreateWithoutMajorInput!]
+  connect: [CityWhereUniqueInput!]
 }
 
-input CommentCreateManyWithoutPostInput {
-  create: [CommentCreateWithoutPostInput!]
-  connect: [CommentWhereUniqueInput!]
+input CityCreateOneWithoutVotesInput {
+  create: CityCreateWithoutVotesInput
+  connect: CityWhereUniqueInput
 }
 
-input CommentCreateWithoutAuthorInput {
+input CityCreateWithoutMajorInput {
   id: ID
-  text: String!
-  post: PostCreateOneWithoutCommentsInput!
+  name: String!
+  available: Boolean!
+  votes: VoteCreateManyWithoutCityInput
 }
 
-input CommentCreateWithoutPostInput {
+input CityCreateWithoutVotesInput {
   id: ID
-  text: String!
-  author: UserCreateOneWithoutCommentsInput!
+  name: String!
+  available: Boolean!
+  major: UserCreateOneWithoutCitiesInput!
 }
 
 """An edge in a connection."""
-type CommentEdge {
+type CityEdge {
   """The item at the end of the edge."""
-  node: Comment!
+  node: City!
 
   """A cursor for use in pagination."""
   cursor: String!
 }
 
-enum CommentOrderByInput {
+enum CityOrderByInput {
   id_ASC
   id_DESC
-  text_ASC
-  text_DESC
+  name_ASC
+  name_DESC
+  available_ASC
+  available_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
 }
 
-type CommentPreviousValues {
+type CityPreviousValues {
   id: ID!
-  text: String!
+  name: String!
+  available: Boolean!
 }
 
-input CommentScalarWhereInput {
+input CityScalarWhereInput {
   """Logical AND on all given filters."""
-  AND: [CommentScalarWhereInput!]
+  AND: [CityScalarWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [CommentScalarWhereInput!]
+  OR: [CityScalarWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [CommentScalarWhereInput!]
+  NOT: [CityScalarWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -138,64 +145,68 @@ input CommentScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  text: String
+  name: String
 
   """All values that are not equal to given value."""
-  text_not: String
+  name_not: String
 
   """All values that are contained in given list."""
-  text_in: [String!]
+  name_in: [String!]
 
   """All values that are not contained in given list."""
-  text_not_in: [String!]
+  name_not_in: [String!]
 
   """All values less than the given value."""
-  text_lt: String
+  name_lt: String
 
   """All values less than or equal the given value."""
-  text_lte: String
+  name_lte: String
 
   """All values greater than the given value."""
-  text_gt: String
+  name_gt: String
 
   """All values greater than or equal the given value."""
-  text_gte: String
+  name_gte: String
 
   """All values containing the given string."""
-  text_contains: String
+  name_contains: String
 
   """All values not containing the given string."""
-  text_not_contains: String
+  name_not_contains: String
 
   """All values starting with the given string."""
-  text_starts_with: String
+  name_starts_with: String
 
   """All values not starting with the given string."""
-  text_not_starts_with: String
+  name_not_starts_with: String
 
   """All values ending with the given string."""
-  text_ends_with: String
+  name_ends_with: String
 
   """All values not ending with the given string."""
-  text_not_ends_with: String
+  name_not_ends_with: String
+  available: Boolean
+
+  """All values that are not equal to given value."""
+  available_not: Boolean
 }
 
-type CommentSubscriptionPayload {
+type CitySubscriptionPayload {
   mutation: MutationType!
-  node: Comment
+  node: City
   updatedFields: [String!]
-  previousValues: CommentPreviousValues
+  previousValues: CityPreviousValues
 }
 
-input CommentSubscriptionWhereInput {
+input CitySubscriptionWhereInput {
   """Logical AND on all given filters."""
-  AND: [CommentSubscriptionWhereInput!]
+  AND: [CitySubscriptionWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [CommentSubscriptionWhereInput!]
+  OR: [CitySubscriptionWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [CommentSubscriptionWhereInput!]
+  NOT: [CitySubscriptionWhereInput!]
 
   """The subscription event gets dispatched when it's listed in mutation_in"""
   mutation_in: [MutationType!]
@@ -214,93 +225,87 @@ input CommentSubscriptionWhereInput {
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
   updatedFields_contains_some: [String!]
-  node: CommentWhereInput
+  node: CityWhereInput
 }
 
-input CommentUpdateInput {
-  text: String
-  author: UserUpdateOneRequiredWithoutCommentsInput
-  post: PostUpdateOneRequiredWithoutCommentsInput
+input CityUpdateInput {
+  name: String
+  available: Boolean
+  major: UserUpdateOneRequiredWithoutCitiesInput
+  votes: VoteUpdateManyWithoutCityInput
 }
 
-input CommentUpdateManyDataInput {
-  text: String
+input CityUpdateManyDataInput {
+  name: String
+  available: Boolean
 }
 
-input CommentUpdateManyMutationInput {
-  text: String
+input CityUpdateManyMutationInput {
+  name: String
+  available: Boolean
 }
 
-input CommentUpdateManyWithoutAuthorInput {
-  create: [CommentCreateWithoutAuthorInput!]
-  connect: [CommentWhereUniqueInput!]
-  set: [CommentWhereUniqueInput!]
-  disconnect: [CommentWhereUniqueInput!]
-  delete: [CommentWhereUniqueInput!]
-  update: [CommentUpdateWithWhereUniqueWithoutAuthorInput!]
-  updateMany: [CommentUpdateManyWithWhereNestedInput!]
-  deleteMany: [CommentScalarWhereInput!]
-  upsert: [CommentUpsertWithWhereUniqueWithoutAuthorInput!]
+input CityUpdateManyWithoutMajorInput {
+  create: [CityCreateWithoutMajorInput!]
+  connect: [CityWhereUniqueInput!]
+  set: [CityWhereUniqueInput!]
+  disconnect: [CityWhereUniqueInput!]
+  delete: [CityWhereUniqueInput!]
+  update: [CityUpdateWithWhereUniqueWithoutMajorInput!]
+  updateMany: [CityUpdateManyWithWhereNestedInput!]
+  deleteMany: [CityScalarWhereInput!]
+  upsert: [CityUpsertWithWhereUniqueWithoutMajorInput!]
 }
 
-input CommentUpdateManyWithoutPostInput {
-  create: [CommentCreateWithoutPostInput!]
-  connect: [CommentWhereUniqueInput!]
-  set: [CommentWhereUniqueInput!]
-  disconnect: [CommentWhereUniqueInput!]
-  delete: [CommentWhereUniqueInput!]
-  update: [CommentUpdateWithWhereUniqueWithoutPostInput!]
-  updateMany: [CommentUpdateManyWithWhereNestedInput!]
-  deleteMany: [CommentScalarWhereInput!]
-  upsert: [CommentUpsertWithWhereUniqueWithoutPostInput!]
+input CityUpdateManyWithWhereNestedInput {
+  where: CityScalarWhereInput!
+  data: CityUpdateManyDataInput!
 }
 
-input CommentUpdateManyWithWhereNestedInput {
-  where: CommentScalarWhereInput!
-  data: CommentUpdateManyDataInput!
+input CityUpdateOneRequiredWithoutVotesInput {
+  create: CityCreateWithoutVotesInput
+  connect: CityWhereUniqueInput
+  update: CityUpdateWithoutVotesDataInput
+  upsert: CityUpsertWithoutVotesInput
 }
 
-input CommentUpdateWithoutAuthorDataInput {
-  text: String
-  post: PostUpdateOneRequiredWithoutCommentsInput
+input CityUpdateWithoutMajorDataInput {
+  name: String
+  available: Boolean
+  votes: VoteUpdateManyWithoutCityInput
 }
 
-input CommentUpdateWithoutPostDataInput {
-  text: String
-  author: UserUpdateOneRequiredWithoutCommentsInput
+input CityUpdateWithoutVotesDataInput {
+  name: String
+  available: Boolean
+  major: UserUpdateOneRequiredWithoutCitiesInput
 }
 
-input CommentUpdateWithWhereUniqueWithoutAuthorInput {
-  where: CommentWhereUniqueInput!
-  data: CommentUpdateWithoutAuthorDataInput!
+input CityUpdateWithWhereUniqueWithoutMajorInput {
+  where: CityWhereUniqueInput!
+  data: CityUpdateWithoutMajorDataInput!
 }
 
-input CommentUpdateWithWhereUniqueWithoutPostInput {
-  where: CommentWhereUniqueInput!
-  data: CommentUpdateWithoutPostDataInput!
+input CityUpsertWithoutVotesInput {
+  update: CityUpdateWithoutVotesDataInput!
+  create: CityCreateWithoutVotesInput!
 }
 
-input CommentUpsertWithWhereUniqueWithoutAuthorInput {
-  where: CommentWhereUniqueInput!
-  update: CommentUpdateWithoutAuthorDataInput!
-  create: CommentCreateWithoutAuthorInput!
+input CityUpsertWithWhereUniqueWithoutMajorInput {
+  where: CityWhereUniqueInput!
+  update: CityUpdateWithoutMajorDataInput!
+  create: CityCreateWithoutMajorInput!
 }
 
-input CommentUpsertWithWhereUniqueWithoutPostInput {
-  where: CommentWhereUniqueInput!
-  update: CommentUpdateWithoutPostDataInput!
-  create: CommentCreateWithoutPostInput!
-}
-
-input CommentWhereInput {
+input CityWhereInput {
   """Logical AND on all given filters."""
-  AND: [CommentWhereInput!]
+  AND: [CityWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [CommentWhereInput!]
+  OR: [CityWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [CommentWhereInput!]
+  NOT: [CityWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -341,51 +346,57 @@ input CommentWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  text: String
+  name: String
 
   """All values that are not equal to given value."""
-  text_not: String
+  name_not: String
 
   """All values that are contained in given list."""
-  text_in: [String!]
+  name_in: [String!]
 
   """All values that are not contained in given list."""
-  text_not_in: [String!]
+  name_not_in: [String!]
 
   """All values less than the given value."""
-  text_lt: String
+  name_lt: String
 
   """All values less than or equal the given value."""
-  text_lte: String
+  name_lte: String
 
   """All values greater than the given value."""
-  text_gt: String
+  name_gt: String
 
   """All values greater than or equal the given value."""
-  text_gte: String
+  name_gte: String
 
   """All values containing the given string."""
-  text_contains: String
+  name_contains: String
 
   """All values not containing the given string."""
-  text_not_contains: String
+  name_not_contains: String
 
   """All values starting with the given string."""
-  text_starts_with: String
+  name_starts_with: String
 
   """All values not starting with the given string."""
-  text_not_starts_with: String
+  name_not_starts_with: String
 
   """All values ending with the given string."""
-  text_ends_with: String
+  name_ends_with: String
 
   """All values not ending with the given string."""
-  text_not_ends_with: String
-  author: UserWhereInput
-  post: PostWhereInput
+  name_not_ends_with: String
+  available: Boolean
+
+  """All values that are not equal to given value."""
+  available_not: Boolean
+  major: UserWhereInput
+  votes_every: VoteWhereInput
+  votes_some: VoteWhereInput
+  votes_none: VoteWhereInput
 }
 
-input CommentWhereUniqueInput {
+input CityWhereUniqueInput {
   id: ID
 }
 
@@ -400,23 +411,22 @@ scalar Long
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
-  createPost(data: PostCreateInput!): Post!
-  createComment(data: CommentCreateInput!): Comment!
+  createCity(data: CityCreateInput!): City!
+  createVote(data: VoteCreateInput!): Vote!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
+  updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): City
+  updateVote(data: VoteUpdateInput!, where: VoteWhereUniqueInput!): Vote
   deleteUser(where: UserWhereUniqueInput!): User
-  deletePost(where: PostWhereUniqueInput!): Post
-  deleteComment(where: CommentWhereUniqueInput!): Comment
+  deleteCity(where: CityWhereUniqueInput!): City
+  deleteVote(where: VoteWhereUniqueInput!): Vote
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
+  upsertCity(where: CityWhereUniqueInput!, create: CityCreateInput!, update: CityUpdateInput!): City!
+  upsertVote(where: VoteWhereUniqueInput!, create: VoteCreateInput!, update: VoteUpdateInput!): Vote!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
-  updateManyComments(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
+  updateManyCities(data: CityUpdateManyMutationInput!, where: CityWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyPosts(where: PostWhereInput): BatchPayload!
-  deleteManyComments(where: CommentWhereInput): BatchPayload!
+  deleteManyCities(where: CityWhereInput): BatchPayload!
+  deleteManyVotes(where: VoteWhereInput): BatchPayload!
   executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
@@ -447,494 +457,20 @@ type PageInfo {
   endCursor: String
 }
 
-type Post implements Node {
-  id: ID!
-  title: String!
-  body: String!
-  published: Boolean!
-  author: User!
-  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
-}
-
-"""A connection to a list of items."""
-type PostConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [PostEdge]!
-  aggregate: AggregatePost!
-}
-
-input PostCreateInput {
-  id: ID
-  title: String!
-  body: String!
-  published: Boolean!
-  author: UserCreateOneWithoutPostsInput!
-  comments: CommentCreateManyWithoutPostInput
-}
-
-input PostCreateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
-}
-
-input PostCreateOneWithoutCommentsInput {
-  create: PostCreateWithoutCommentsInput
-  connect: PostWhereUniqueInput
-}
-
-input PostCreateWithoutAuthorInput {
-  id: ID
-  title: String!
-  body: String!
-  published: Boolean!
-  comments: CommentCreateManyWithoutPostInput
-}
-
-input PostCreateWithoutCommentsInput {
-  id: ID
-  title: String!
-  body: String!
-  published: Boolean!
-  author: UserCreateOneWithoutPostsInput!
-}
-
-"""An edge in a connection."""
-type PostEdge {
-  """The item at the end of the edge."""
-  node: Post!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum PostOrderByInput {
-  id_ASC
-  id_DESC
-  title_ASC
-  title_DESC
-  body_ASC
-  body_DESC
-  published_ASC
-  published_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type PostPreviousValues {
-  id: ID!
-  title: String!
-  body: String!
-  published: Boolean!
-}
-
-input PostScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [PostScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [PostScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [PostScalarWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  title: String
-
-  """All values that are not equal to given value."""
-  title_not: String
-
-  """All values that are contained in given list."""
-  title_in: [String!]
-
-  """All values that are not contained in given list."""
-  title_not_in: [String!]
-
-  """All values less than the given value."""
-  title_lt: String
-
-  """All values less than or equal the given value."""
-  title_lte: String
-
-  """All values greater than the given value."""
-  title_gt: String
-
-  """All values greater than or equal the given value."""
-  title_gte: String
-
-  """All values containing the given string."""
-  title_contains: String
-
-  """All values not containing the given string."""
-  title_not_contains: String
-
-  """All values starting with the given string."""
-  title_starts_with: String
-
-  """All values not starting with the given string."""
-  title_not_starts_with: String
-
-  """All values ending with the given string."""
-  title_ends_with: String
-
-  """All values not ending with the given string."""
-  title_not_ends_with: String
-  body: String
-
-  """All values that are not equal to given value."""
-  body_not: String
-
-  """All values that are contained in given list."""
-  body_in: [String!]
-
-  """All values that are not contained in given list."""
-  body_not_in: [String!]
-
-  """All values less than the given value."""
-  body_lt: String
-
-  """All values less than or equal the given value."""
-  body_lte: String
-
-  """All values greater than the given value."""
-  body_gt: String
-
-  """All values greater than or equal the given value."""
-  body_gte: String
-
-  """All values containing the given string."""
-  body_contains: String
-
-  """All values not containing the given string."""
-  body_not_contains: String
-
-  """All values starting with the given string."""
-  body_starts_with: String
-
-  """All values not starting with the given string."""
-  body_not_starts_with: String
-
-  """All values ending with the given string."""
-  body_ends_with: String
-
-  """All values not ending with the given string."""
-  body_not_ends_with: String
-  published: Boolean
-
-  """All values that are not equal to given value."""
-  published_not: Boolean
-}
-
-type PostSubscriptionPayload {
-  mutation: MutationType!
-  node: Post
-  updatedFields: [String!]
-  previousValues: PostPreviousValues
-}
-
-input PostSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [PostSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [PostSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [PostSubscriptionWhereInput!]
-
-  """The subscription event gets dispatched when it's listed in mutation_in"""
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: PostWhereInput
-}
-
-input PostUpdateInput {
-  title: String
-  body: String
-  published: Boolean
-  author: UserUpdateOneRequiredWithoutPostsInput
-  comments: CommentUpdateManyWithoutPostInput
-}
-
-input PostUpdateManyDataInput {
-  title: String
-  body: String
-  published: Boolean
-}
-
-input PostUpdateManyMutationInput {
-  title: String
-  body: String
-  published: Boolean
-}
-
-input PostUpdateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  disconnect: [PostWhereUniqueInput!]
-  delete: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
-  updateMany: [PostUpdateManyWithWhereNestedInput!]
-  deleteMany: [PostScalarWhereInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
-}
-
-input PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput!
-  data: PostUpdateManyDataInput!
-}
-
-input PostUpdateOneRequiredWithoutCommentsInput {
-  create: PostCreateWithoutCommentsInput
-  connect: PostWhereUniqueInput
-  update: PostUpdateWithoutCommentsDataInput
-  upsert: PostUpsertWithoutCommentsInput
-}
-
-input PostUpdateWithoutAuthorDataInput {
-  title: String
-  body: String
-  published: Boolean
-  comments: CommentUpdateManyWithoutPostInput
-}
-
-input PostUpdateWithoutCommentsDataInput {
-  title: String
-  body: String
-  published: Boolean
-  author: UserUpdateOneRequiredWithoutPostsInput
-}
-
-input PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  data: PostUpdateWithoutAuthorDataInput!
-}
-
-input PostUpsertWithoutCommentsInput {
-  update: PostUpdateWithoutCommentsDataInput!
-  create: PostCreateWithoutCommentsInput!
-}
-
-input PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  update: PostUpdateWithoutAuthorDataInput!
-  create: PostCreateWithoutAuthorInput!
-}
-
-input PostWhereInput {
-  """Logical AND on all given filters."""
-  AND: [PostWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [PostWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [PostWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  title: String
-
-  """All values that are not equal to given value."""
-  title_not: String
-
-  """All values that are contained in given list."""
-  title_in: [String!]
-
-  """All values that are not contained in given list."""
-  title_not_in: [String!]
-
-  """All values less than the given value."""
-  title_lt: String
-
-  """All values less than or equal the given value."""
-  title_lte: String
-
-  """All values greater than the given value."""
-  title_gt: String
-
-  """All values greater than or equal the given value."""
-  title_gte: String
-
-  """All values containing the given string."""
-  title_contains: String
-
-  """All values not containing the given string."""
-  title_not_contains: String
-
-  """All values starting with the given string."""
-  title_starts_with: String
-
-  """All values not starting with the given string."""
-  title_not_starts_with: String
-
-  """All values ending with the given string."""
-  title_ends_with: String
-
-  """All values not ending with the given string."""
-  title_not_ends_with: String
-  body: String
-
-  """All values that are not equal to given value."""
-  body_not: String
-
-  """All values that are contained in given list."""
-  body_in: [String!]
-
-  """All values that are not contained in given list."""
-  body_not_in: [String!]
-
-  """All values less than the given value."""
-  body_lt: String
-
-  """All values less than or equal the given value."""
-  body_lte: String
-
-  """All values greater than the given value."""
-  body_gt: String
-
-  """All values greater than or equal the given value."""
-  body_gte: String
-
-  """All values containing the given string."""
-  body_contains: String
-
-  """All values not containing the given string."""
-  body_not_contains: String
-
-  """All values starting with the given string."""
-  body_starts_with: String
-
-  """All values not starting with the given string."""
-  body_not_starts_with: String
-
-  """All values ending with the given string."""
-  body_ends_with: String
-
-  """All values not ending with the given string."""
-  body_not_ends_with: String
-  published: Boolean
-
-  """All values that are not equal to given value."""
-  published_not: Boolean
-  author: UserWhereInput
-  comments_every: CommentWhereInput
-  comments_some: CommentWhereInput
-  comments_none: CommentWhereInput
-}
-
-input PostWhereUniqueInput {
-  id: ID
-}
-
 enum PrismaDatabase {
   default
 }
 
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
-  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
+  cities(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [City]!
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote]!
   user(where: UserWhereUniqueInput!): User
-  post(where: PostWhereUniqueInput!): Post
-  comment(where: CommentWhereUniqueInput!): Comment
+  city(where: CityWhereUniqueInput!): City
+  vote(where: VoteWhereUniqueInput!): Vote
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
-  commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
+  citiesConnection(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CityConnection!
+  votesConnection(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VoteConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -945,16 +481,16 @@ type Query {
 
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
-  comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
+  city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
+  vote(where: VoteSubscriptionWhereInput): VoteSubscriptionPayload
 }
 
 type User implements Node {
   id: ID!
   name: String!
   email: String!
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
-  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  cities(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [City!]
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
 
 """A connection to a list of items."""
@@ -971,32 +507,32 @@ input UserCreateInput {
   id: ID
   name: String!
   email: String!
-  posts: PostCreateManyWithoutAuthorInput
-  comments: CommentCreateManyWithoutAuthorInput
+  cities: CityCreateManyWithoutMajorInput
+  votes: VoteCreateManyWithoutAuthorInput
 }
 
-input UserCreateOneWithoutCommentsInput {
-  create: UserCreateWithoutCommentsInput
+input UserCreateOneWithoutCitiesInput {
+  create: UserCreateWithoutCitiesInput
   connect: UserWhereUniqueInput
 }
 
-input UserCreateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
+input UserCreateOneWithoutVotesInput {
+  create: UserCreateWithoutVotesInput
   connect: UserWhereUniqueInput
 }
 
-input UserCreateWithoutCommentsInput {
+input UserCreateWithoutCitiesInput {
   id: ID
   name: String!
   email: String!
-  posts: PostCreateManyWithoutAuthorInput
+  votes: VoteCreateManyWithoutAuthorInput
 }
 
-input UserCreateWithoutPostsInput {
+input UserCreateWithoutVotesInput {
   id: ID
   name: String!
   email: String!
-  comments: CommentCreateManyWithoutAuthorInput
+  cities: CityCreateManyWithoutMajorInput
 }
 
 """An edge in a connection."""
@@ -1067,8 +603,8 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   name: String
   email: String
-  posts: PostUpdateManyWithoutAuthorInput
-  comments: CommentUpdateManyWithoutAuthorInput
+  cities: CityUpdateManyWithoutMajorInput
+  votes: VoteUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateManyMutationInput {
@@ -1076,40 +612,40 @@ input UserUpdateManyMutationInput {
   email: String
 }
 
-input UserUpdateOneRequiredWithoutCommentsInput {
-  create: UserCreateWithoutCommentsInput
+input UserUpdateOneRequiredWithoutCitiesInput {
+  create: UserCreateWithoutCitiesInput
   connect: UserWhereUniqueInput
-  update: UserUpdateWithoutCommentsDataInput
-  upsert: UserUpsertWithoutCommentsInput
+  update: UserUpdateWithoutCitiesDataInput
+  upsert: UserUpsertWithoutCitiesInput
 }
 
-input UserUpdateOneRequiredWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
+input UserUpdateOneRequiredWithoutVotesInput {
+  create: UserCreateWithoutVotesInput
   connect: UserWhereUniqueInput
-  update: UserUpdateWithoutPostsDataInput
-  upsert: UserUpsertWithoutPostsInput
+  update: UserUpdateWithoutVotesDataInput
+  upsert: UserUpsertWithoutVotesInput
 }
 
-input UserUpdateWithoutCommentsDataInput {
+input UserUpdateWithoutCitiesDataInput {
   name: String
   email: String
-  posts: PostUpdateManyWithoutAuthorInput
+  votes: VoteUpdateManyWithoutAuthorInput
 }
 
-input UserUpdateWithoutPostsDataInput {
+input UserUpdateWithoutVotesDataInput {
   name: String
   email: String
-  comments: CommentUpdateManyWithoutAuthorInput
+  cities: CityUpdateManyWithoutMajorInput
 }
 
-input UserUpsertWithoutCommentsInput {
-  update: UserUpdateWithoutCommentsDataInput!
-  create: UserCreateWithoutCommentsInput!
+input UserUpsertWithoutCitiesInput {
+  update: UserUpdateWithoutCitiesDataInput!
+  create: UserCreateWithoutCitiesInput!
 }
 
-input UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput!
-  create: UserCreateWithoutPostsInput!
+input UserUpsertWithoutVotesInput {
+  update: UserUpdateWithoutVotesDataInput!
+  create: UserCreateWithoutVotesInput!
 }
 
 input UserWhereInput {
@@ -1241,15 +777,281 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
-  comments_every: CommentWhereInput
-  comments_some: CommentWhereInput
-  comments_none: CommentWhereInput
+  cities_every: CityWhereInput
+  cities_some: CityWhereInput
+  cities_none: CityWhereInput
+  votes_every: VoteWhereInput
+  votes_some: VoteWhereInput
+  votes_none: VoteWhereInput
 }
 
 input UserWhereUniqueInput {
   id: ID
   email: String
+}
+
+type Vote implements Node {
+  id: ID!
+  author: User!
+  city: City!
+}
+
+"""A connection to a list of items."""
+type VoteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [VoteEdge]!
+  aggregate: AggregateVote!
+}
+
+input VoteCreateInput {
+  id: ID
+  author: UserCreateOneWithoutVotesInput!
+  city: CityCreateOneWithoutVotesInput!
+}
+
+input VoteCreateManyWithoutAuthorInput {
+  create: [VoteCreateWithoutAuthorInput!]
+  connect: [VoteWhereUniqueInput!]
+}
+
+input VoteCreateManyWithoutCityInput {
+  create: [VoteCreateWithoutCityInput!]
+  connect: [VoteWhereUniqueInput!]
+}
+
+input VoteCreateWithoutAuthorInput {
+  id: ID
+  city: CityCreateOneWithoutVotesInput!
+}
+
+input VoteCreateWithoutCityInput {
+  id: ID
+  author: UserCreateOneWithoutVotesInput!
+}
+
+"""An edge in a connection."""
+type VoteEdge {
+  """The item at the end of the edge."""
+  node: Vote!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum VoteOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type VotePreviousValues {
+  id: ID!
+}
+
+input VoteScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VoteScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VoteScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VoteScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+}
+
+type VoteSubscriptionPayload {
+  mutation: MutationType!
+  node: Vote
+  updatedFields: [String!]
+  previousValues: VotePreviousValues
+}
+
+input VoteSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VoteSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VoteSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VoteSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: VoteWhereInput
+}
+
+input VoteUpdateInput {
+  author: UserUpdateOneRequiredWithoutVotesInput
+  city: CityUpdateOneRequiredWithoutVotesInput
+}
+
+input VoteUpdateManyWithoutAuthorInput {
+  create: [VoteCreateWithoutAuthorInput!]
+  connect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  delete: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutAuthorInput!]
+}
+
+input VoteUpdateManyWithoutCityInput {
+  create: [VoteCreateWithoutCityInput!]
+  connect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  delete: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutCityInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutCityInput!]
+}
+
+input VoteUpdateWithoutAuthorDataInput {
+  city: CityUpdateOneRequiredWithoutVotesInput
+}
+
+input VoteUpdateWithoutCityDataInput {
+  author: UserUpdateOneRequiredWithoutVotesInput
+}
+
+input VoteUpdateWithWhereUniqueWithoutAuthorInput {
+  where: VoteWhereUniqueInput!
+  data: VoteUpdateWithoutAuthorDataInput!
+}
+
+input VoteUpdateWithWhereUniqueWithoutCityInput {
+  where: VoteWhereUniqueInput!
+  data: VoteUpdateWithoutCityDataInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutAuthorInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateWithoutAuthorDataInput!
+  create: VoteCreateWithoutAuthorInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutCityInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateWithoutCityDataInput!
+  create: VoteCreateWithoutCityInput!
+}
+
+input VoteWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VoteWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VoteWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VoteWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  author: UserWhereInput
+  city: CityWhereInput
+}
+
+input VoteWhereUniqueInput {
+  id: ID
 }

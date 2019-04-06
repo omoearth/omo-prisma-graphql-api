@@ -2,22 +2,20 @@ type User {
   id: ID! @unique
   name: String!
   email: String! @unique
-  posts: [Post!]! @relation(name: "PostToUser", onDelete: CASCADE)
-  comments: [Comment!]! @relation(name: "CommentToUser", onDelete: CASCADE)
+  cities: [City!]! @relation(name: "CityToUser", onDelete: SET_NULL)
+  votes: [Vote!]! @relation(name: "VoteToUser", onDelete: CASCADE)
 }
 
-type Post {
+type City {
   id: ID! @unique
-  title: String!
-  body: String!
-  published: Boolean!
-  author: User! @relation(name: "PostToUser", onDelete: SET_NULL)
-  comments: [Comment!]! @relation(name: "CommentToPost", onDelete: CASCADE)
+  name: String!
+  available: Boolean!
+  major: User! @relation(name: "CityToUser", onDelete: SET_NULL)
+  votes: [Vote!] @relation(name: "VoteToCity", onDelete: CASCADE)
 }
 
-type Comment {
+type Vote {
   id: ID! @unique
-  text: String!
-  author: User! @relation(name: "CommentToUser", onDelete: SET_NULL)
-  post: Post!@relation(name: "CommentToPost", onDelete: SET_NULL)
+  author: User! @relation(name: "VoteToUser", onDelete: SET_NULL)
+  city: City! @relation(name: "VoteToCity", onDelete: SET_NULL)
 }
