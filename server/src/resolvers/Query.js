@@ -1,5 +1,5 @@
 const Query = {
-    users(parent, { filter }, {db, prisma}, info) {
+    users(parent, { filter }, { prisma }, info) {
         const args = {} 
         if (filter) {
             args.where = {
@@ -12,7 +12,7 @@ const Query = {
         }
         return prisma.query.users(args, info)
     },
-    cities(parent, { filter }, {db, prisma}, info) { 
+    cities(parent, { filter }, { prisma }, info) { 
         const args = {}
         if (filter) {
             args.where = {
@@ -20,15 +20,6 @@ const Query = {
             }
         }
         return prisma.query.cities(args, info)
-    },
-    votes(parent, {filter}, {db, prisma}, info) {
-        const args = {}
-        if (filter) {
-            args.where = {
-                city_contains: filter
-            }
-        }
-        return prisma.query.votes(args, info)
     }
 }
 

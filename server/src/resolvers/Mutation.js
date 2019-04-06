@@ -1,94 +1,27 @@
-import uuidv4 from 'uuid/v4'
-
 const Mutation = {
-    createUser(parent, {data}, {db}, info) {
-        const emailTaken = db.users.some((user) => {
-            return user.email === data.email 
-        })
-        if (emailTaken) {
-            throw new Error("Email already taken")
-        }
-        const user = {
-            id: uuidv4(),
-            ...data
-        }
-        db.users.push(user)
-
-        return user
+    async createUser(parent, { data }, { prisma }, info) {
+        return prisma.mutation.createUser({ data }, info)
     },
-    updateUser(parent, {id, data}, {db}, info) {
-        const user = db.users.find((user) => user.id === id )
-        if (!user) {
-            throw new Error ("no user with this id found")
-        }
-        if (typeof data.email === 'string') {
-            const emailTaken = db.users.find((user) => user.email === data.email)
-            if(emailTaken) {
-                throw new Error("Email is already taken")
-            }
-            user.email = data.email
-        }
-        if (typeof data.name === 'string') {
-            user.name = data.name
-        }
-        return user
+    async deleteUser(parent, { id }, { prisma }, info) {
+        return prisma.mutation.deleteUser({ where: { id }}, info) 
     },
-    deleteUser(parent, {id}, {db}, info) {
-        const userIndex = db.users.findIndex((user) => user.id === id)
-        if(userIndex === -1) {
-            throw new Error("user not existing")
-        }
-        const deletedUsers = db.users.splice(userIndex, 1)
-
-        votes = db.votes.filter((vote) => {
-            const match = vote.user === id
-            return !match
-        })
-        return deletedUsers[0]
+    async updateUser(parent, { id, data }, { prisma }, info) {
+        return prisma.mutation.updateUser({
+            where: { id },
+            data
+        }, info )
     },
-    createCity(parent, {data}, {db, pubsub}, info) {
-        const countryExist = db.countries.some((country) => country.id === data.country) 
-        if(!countryExist) {
-            throw new Error("country not found")
-        }
-        const city = {
-            id: uuidv4(),
-            ...data
-        }
-        db.cities.push(city)
-        pubsub.publish('city', {
-            city: {
-                mutation: 'CREATED',
-                data: city                
-            }
-        })
-        return city
+    async createCity(parent, { data }, { prisma }, info) {
+        return prisma.mutation.createCity({ data }, info)
     },
-    createVote(parent, {data}, {db, pubsub}, info) {
-        const cityExist = db.cities.some((city) => city.id === data.city) 
-        const userExist = db.users.some((user) => user.id === data.user) 
-
-        if(!cityExist) {
-            throw new Error("no city found with this name")
-        }
-        if(!userExist) {
-            throw new Error("no user found")
-        }
-
-        const vote = {
-            id: uuidv4(),
-            ...data
-        }
-
-        db.votes.push(vote)
-
-        pubsub.publish(`vote ${data.city}`, { 
-            vote: {
-                mutation: "CREATED",
-                data: vote
-            }
-         })
-        return vote
+    async deleteCity(parent, { id }, { prisma }, info) {
+        return prisma.mutation.deleteCity({ where: { id }}, info) 
+    },
+    async updateCity(parent, { id, data }, { prisma }, info) {
+        return prisma.mutation.updateCity({
+            where: { id },
+            data
+        }, info )
     }
 }
 

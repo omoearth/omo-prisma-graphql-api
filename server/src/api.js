@@ -1,11 +1,9 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga'
-import db from './db'
 import prisma from './prisma'
 
 import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
 import Subscription from './resolvers/Subscription'
-import Vote from './resolvers/Vote'
 import City from './resolvers/City'
 
 const pubsub = new PubSub()
@@ -16,11 +14,9 @@ const server = new GraphQLServer ({
         Query,
         Mutation,
         Subscription,
-        City,
-        Vote
+        City
     },
     context: {
-        db,
         pubsub,
         prisma
     }
