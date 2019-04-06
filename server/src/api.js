@@ -1,5 +1,7 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga'
 import db from './db'
+import './prisma'
+
 import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
 import Subscription from './resolvers/Subscription'
@@ -9,7 +11,7 @@ import City from './resolvers/City'
 const pubsub = new PubSub()
 
 const server = new GraphQLServer ({
-    typeDefs: "./schema.graphql",
+    typeDefs: "./src/schema.graphql",
     resolvers: {
         Query,
         Mutation,

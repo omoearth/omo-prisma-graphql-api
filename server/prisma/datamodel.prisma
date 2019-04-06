@@ -1,0 +1,19 @@
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  cities: [City!]
+}
+
+type City {
+  id: ID! @unique
+  name: String!
+  published: Boolean!
+  leader: User!
+}
+
+type Vote {
+  id: ID! @unique
+  user: User!
+  city: City!
+}
