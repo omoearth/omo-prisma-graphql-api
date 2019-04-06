@@ -1,23 +1,34 @@
 const Query = {
-    users(parent, args, {db}, info) {
-        if(!args.filter ) {
-            return db.users
-        } 
-        return db.users.filter((user) => {
-            return db.user.name.toLocaleLowerCase().includes(args.filter.toLocaleLowerCase())
-        })
+    users(parent, { filter }, {db, prisma}, info) {
+        const args = {} 
+        if (filter) {
+            args.where = {
+                OR: [{
+                    name_contains: filter
+                },{
+                    email_contains: filter
+                }]
+            }
+        }
+        return prisma.query.users(args, info)
     },
-   cities(parent, args, {db}, info) {
-       if(!args.filter) {
-           return db.cities
-       }
-       return db.cities.filter((city) => {
-           const isCityMatch = city.name.toLocaleLowerCase().includes(args.filter.toLocaleLowerCase())
-           return isCityMatch 
-       })
-   },
-   votes(parent, args, {db}, info) {
-        return db.votes
+    cities(parent, { filter }, {db, prisma}, info) { 
+        const args = {}
+        if (filter) {
+            args.where = {
+                name_contains: filter
+            }
+        }
+        return prisma.query.cities(args, info)
+    },
+    votes(parent, {filter}, {db, prisma}, info) {
+        const args = {}
+        if (filter) {
+            args.where = {
+                city_contains: filter
+            }
+        }
+        return prisma.query.votes(args, info)
     }
 }
 

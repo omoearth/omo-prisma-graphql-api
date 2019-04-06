@@ -1,9 +1,48 @@
-import {Prisma} from 'prisma-binding'
+import { Prisma } from 'prisma-binding'
 
 const prisma = new Prisma({
     typeDefs: 'src/generated/prisma.graphql',
-    endpoint: 'http://localhost:4466'
+    endpoint: 'http://localhost:4466/prisma/dev'
 }) 
+
+export { prisma as default }
+
+// const createCityForUser = async (userId, data) => {
+//     const userExists = await prisma.exists.User({
+//         id: userId
+//     })
+    
+//     if(!userExists) {
+//         throw new Error("no user with this ide")
+//     }
+
+//     const city = await prisma.mutation.createCity({
+//         data: {  
+//             ...data,
+//             leader: {
+//                 connect: {
+//                     id: userId
+//                 }
+//             }
+//         }
+//     }, '{ id name leader { id name } }' )
+//     return city.leader
+// }
+
+// createCityForUser("cju4q5qda00y60759ws3ko0kb", {
+//     name: "Berlin",
+//     published: true
+// }).then((city) => {
+//     console.log(JSON.stringify(city, undefined, 2))
+// }).catch((err) => {
+//      console.log(err)
+// })
+
+// prisma.exists.User({
+//     email: "cajus@styl.earth"
+// }).then((exists) => {
+//     console.log(exists)
+// })
 
 // prisma.query.users(null, '{id name }').then((data) => {
 //     console.log(JSON.stringify(data, undefined, 2))

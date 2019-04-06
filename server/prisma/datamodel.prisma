@@ -1,19 +1,30 @@
 type User {
   id: ID! @unique
-  name: String!
+  name: String! 
   email: String! @unique
-  cities: [City!]
+  cities: [City!]!
 }
 
 type City {
   id: ID! @unique
   name: String!
-  published: Boolean!
-  leader: User!
+  users: [User!]!
+  votes: [Vote!]!
 }
+
+# type City {
+#   id: ID! @unique
+#   name: String!
+#   votes: [Vote!]! @relation(name: "VoteToUser", onDelete: CASCADE)
+#   country: Country! 
+# }
 
 type Vote {
   id: ID! @unique
-  user: User!
   city: City!
 }
+
+# type Country {
+#   id: ID! @unique
+#   name: String!
+# }

@@ -1,4 +1,4 @@
- type Query {
+type Query {
     users(filter: String): [User!]!
     cities(filter: String): [City!]!
     votes: [Vote!]!
