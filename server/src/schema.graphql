@@ -61,7 +61,7 @@ input CreateVoteInput {
 type User {
     id: ID!
     name: String!
-    email: String!
+    email: String
     cities: [City!]!
     votes: [Vote!]!
 }
