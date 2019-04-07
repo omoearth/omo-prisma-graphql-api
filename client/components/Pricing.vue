@@ -60,7 +60,7 @@ export default {
         return {
             products: [
                 {
-                    name: 'Share Flat',
+                    name: 'Car Surfing',
                     image: '0_rideshare',
                     price: '0',
                     estimated: 'START NOW',

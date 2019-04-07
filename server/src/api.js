@@ -20,10 +20,13 @@ const server = new GraphQLServer ({
         Vote,
         User
     },
-    context: {
-        pubsub,
-        prisma
-    }
+    context(request) {
+        return {
+            pubsub,
+            prisma,
+            request
+        }
+    } 
 }) 
 
 server.start(()=> {
