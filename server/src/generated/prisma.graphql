@@ -1,5 +1,5 @@
-# source: http://localhost:4466/prisma/dev/
-# timestamp: Sat Apr 06 2019 17:48:33 GMT+0200 (GMT+02:00)
+# source: http://localhost:4466/prisma/dev
+# timestamp: Sun Apr 07 2019 10:03:40 GMT+0200 (GMT+02:00)
 
 type AggregateCity {
   count: Int!
@@ -489,6 +489,7 @@ type User implements Node {
   id: ID!
   name: String!
   email: String!
+  password: String!
   cities(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [City!]
   votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
@@ -507,6 +508,7 @@ input UserCreateInput {
   id: ID
   name: String!
   email: String!
+  password: String!
   cities: CityCreateManyWithoutMajorInput
   votes: VoteCreateManyWithoutAuthorInput
 }
@@ -525,6 +527,7 @@ input UserCreateWithoutCitiesInput {
   id: ID
   name: String!
   email: String!
+  password: String!
   votes: VoteCreateManyWithoutAuthorInput
 }
 
@@ -532,6 +535,7 @@ input UserCreateWithoutVotesInput {
   id: ID
   name: String!
   email: String!
+  password: String!
   cities: CityCreateManyWithoutMajorInput
 }
 
@@ -551,6 +555,8 @@ enum UserOrderByInput {
   name_DESC
   email_ASC
   email_DESC
+  password_ASC
+  password_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -561,6 +567,7 @@ type UserPreviousValues {
   id: ID!
   name: String!
   email: String!
+  password: String!
 }
 
 type UserSubscriptionPayload {
@@ -603,6 +610,7 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   name: String
   email: String
+  password: String
   cities: CityUpdateManyWithoutMajorInput
   votes: VoteUpdateManyWithoutAuthorInput
 }
@@ -610,6 +618,7 @@ input UserUpdateInput {
 input UserUpdateManyMutationInput {
   name: String
   email: String
+  password: String
 }
 
 input UserUpdateOneRequiredWithoutCitiesInput {
@@ -629,12 +638,14 @@ input UserUpdateOneRequiredWithoutVotesInput {
 input UserUpdateWithoutCitiesDataInput {
   name: String
   email: String
+  password: String
   votes: VoteUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateWithoutVotesDataInput {
   name: String
   email: String
+  password: String
   cities: CityUpdateManyWithoutMajorInput
 }
 
@@ -777,6 +788,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
   cities_every: CityWhereInput
   cities_some: CityWhereInput
   cities_none: CityWhereInput
