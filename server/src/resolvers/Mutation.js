@@ -60,7 +60,7 @@ const Mutation = {
             data: {
                 name: data.name,
                 available: data.available,
-                major: {
+                author: {
                     connect: {
                         id: userId
                     }
@@ -72,7 +72,7 @@ const Mutation = {
         const userId = getUserId(request)
         const cityExists = await prisma.exists.City({
             id,
-            major: {
+            author: {
                 id: userId
             }
         })
@@ -87,7 +87,7 @@ const Mutation = {
         const userId = getUserId(request)
         const cityExists = await prisma.exists.City({
             id,
-            major: {
+            author: {
                 id: userId
             }
         })

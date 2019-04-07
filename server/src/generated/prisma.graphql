@@ -1,5 +1,5 @@
 # source: http://localhost:4466/prisma/dev
-# timestamp: Sun Apr 07 2019 10:03:40 GMT+0200 (GMT+02:00)
+# timestamp: Sun Apr 07 2019 15:38:13 GMT+0200 (GMT+02:00)
 
 type AggregateCity {
   count: Int!
@@ -22,7 +22,7 @@ type City implements Node {
   id: ID!
   name: String!
   available: Boolean!
-  major: User!
+  author: User!
   votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
 
@@ -40,12 +40,12 @@ input CityCreateInput {
   id: ID
   name: String!
   available: Boolean!
-  major: UserCreateOneWithoutCitiesInput!
+  author: UserCreateOneWithoutCitiesInput!
   votes: VoteCreateManyWithoutCityInput
 }
 
-input CityCreateManyWithoutMajorInput {
-  create: [CityCreateWithoutMajorInput!]
+input CityCreateManyWithoutAuthorInput {
+  create: [CityCreateWithoutAuthorInput!]
   connect: [CityWhereUniqueInput!]
 }
 
@@ -54,7 +54,7 @@ input CityCreateOneWithoutVotesInput {
   connect: CityWhereUniqueInput
 }
 
-input CityCreateWithoutMajorInput {
+input CityCreateWithoutAuthorInput {
   id: ID
   name: String!
   available: Boolean!
@@ -65,7 +65,7 @@ input CityCreateWithoutVotesInput {
   id: ID
   name: String!
   available: Boolean!
-  major: UserCreateOneWithoutCitiesInput!
+  author: UserCreateOneWithoutCitiesInput!
 }
 
 """An edge in a connection."""
@@ -231,7 +231,7 @@ input CitySubscriptionWhereInput {
 input CityUpdateInput {
   name: String
   available: Boolean
-  major: UserUpdateOneRequiredWithoutCitiesInput
+  author: UserUpdateOneRequiredWithoutCitiesInput
   votes: VoteUpdateManyWithoutCityInput
 }
 
@@ -245,16 +245,16 @@ input CityUpdateManyMutationInput {
   available: Boolean
 }
 
-input CityUpdateManyWithoutMajorInput {
-  create: [CityCreateWithoutMajorInput!]
+input CityUpdateManyWithoutAuthorInput {
+  create: [CityCreateWithoutAuthorInput!]
   connect: [CityWhereUniqueInput!]
   set: [CityWhereUniqueInput!]
   disconnect: [CityWhereUniqueInput!]
   delete: [CityWhereUniqueInput!]
-  update: [CityUpdateWithWhereUniqueWithoutMajorInput!]
+  update: [CityUpdateWithWhereUniqueWithoutAuthorInput!]
   updateMany: [CityUpdateManyWithWhereNestedInput!]
   deleteMany: [CityScalarWhereInput!]
-  upsert: [CityUpsertWithWhereUniqueWithoutMajorInput!]
+  upsert: [CityUpsertWithWhereUniqueWithoutAuthorInput!]
 }
 
 input CityUpdateManyWithWhereNestedInput {
@@ -269,7 +269,7 @@ input CityUpdateOneRequiredWithoutVotesInput {
   upsert: CityUpsertWithoutVotesInput
 }
 
-input CityUpdateWithoutMajorDataInput {
+input CityUpdateWithoutAuthorDataInput {
   name: String
   available: Boolean
   votes: VoteUpdateManyWithoutCityInput
@@ -278,12 +278,12 @@ input CityUpdateWithoutMajorDataInput {
 input CityUpdateWithoutVotesDataInput {
   name: String
   available: Boolean
-  major: UserUpdateOneRequiredWithoutCitiesInput
+  author: UserUpdateOneRequiredWithoutCitiesInput
 }
 
-input CityUpdateWithWhereUniqueWithoutMajorInput {
+input CityUpdateWithWhereUniqueWithoutAuthorInput {
   where: CityWhereUniqueInput!
-  data: CityUpdateWithoutMajorDataInput!
+  data: CityUpdateWithoutAuthorDataInput!
 }
 
 input CityUpsertWithoutVotesInput {
@@ -291,10 +291,10 @@ input CityUpsertWithoutVotesInput {
   create: CityCreateWithoutVotesInput!
 }
 
-input CityUpsertWithWhereUniqueWithoutMajorInput {
+input CityUpsertWithWhereUniqueWithoutAuthorInput {
   where: CityWhereUniqueInput!
-  update: CityUpdateWithoutMajorDataInput!
-  create: CityCreateWithoutMajorInput!
+  update: CityUpdateWithoutAuthorDataInput!
+  create: CityCreateWithoutAuthorInput!
 }
 
 input CityWhereInput {
@@ -390,7 +390,7 @@ input CityWhereInput {
 
   """All values that are not equal to given value."""
   available_not: Boolean
-  major: UserWhereInput
+  author: UserWhereInput
   votes_every: VoteWhereInput
   votes_some: VoteWhereInput
   votes_none: VoteWhereInput
@@ -509,7 +509,7 @@ input UserCreateInput {
   name: String!
   email: String!
   password: String!
-  cities: CityCreateManyWithoutMajorInput
+  cities: CityCreateManyWithoutAuthorInput
   votes: VoteCreateManyWithoutAuthorInput
 }
 
@@ -536,7 +536,7 @@ input UserCreateWithoutVotesInput {
   name: String!
   email: String!
   password: String!
-  cities: CityCreateManyWithoutMajorInput
+  cities: CityCreateManyWithoutAuthorInput
 }
 
 """An edge in a connection."""
@@ -611,7 +611,7 @@ input UserUpdateInput {
   name: String
   email: String
   password: String
-  cities: CityUpdateManyWithoutMajorInput
+  cities: CityUpdateManyWithoutAuthorInput
   votes: VoteUpdateManyWithoutAuthorInput
 }
 
@@ -646,7 +646,7 @@ input UserUpdateWithoutVotesDataInput {
   name: String
   email: String
   password: String
-  cities: CityUpdateManyWithoutMajorInput
+  cities: CityUpdateManyWithoutAuthorInput
 }
 
 input UserUpsertWithoutCitiesInput {

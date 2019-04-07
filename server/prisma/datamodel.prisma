@@ -11,7 +11,7 @@ type City {
   id: ID! @unique
   name: String!
   available: Boolean!
-  major: User! @relation(name: "CityToUser", onDelete: SET_NULL)
+  author: User! @relation(name: "CityToUser", onDelete: SET_NULL)
   votes: [Vote!] @relation(name: "VoteToCity", onDelete: CASCADE)
 }
 

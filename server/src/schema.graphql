@@ -1,7 +1,10 @@
 type Query {
-    users(query: String): [User!]!
-    cities(query: String): [City!]!
+    users(filter: String): [User!]!
+    cities(filter: String): [City!]!
     votes: [Vote!]!
+    city(id: ID!): City!
+    me: User!
+    myCities(filter: String): [City!]! 
 }
 
 type Mutation {
@@ -47,7 +50,7 @@ input CreateCityInput {
 }
 
 input UpdateCityInput {
-    name: String!
+    name: String
     available: Boolean
 }
 
@@ -67,7 +70,7 @@ type City {
     id: ID!
     name: String!
     available: Boolean!
-    major: User!
+    author: User!
     votes: [Vote!]!
 }
 
