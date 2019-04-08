@@ -5,7 +5,6 @@ import { resolvers, fragmentReplacements } from './resolvers/index'
 
 const pubsub = new PubSub()
 
-
 const server = new GraphQLServer ({
     typeDefs: "./src/schema.graphql",
     resolvers, 
