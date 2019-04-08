@@ -1,22 +1,27 @@
 import getUserId from "../utils/getUserId"
 
 const Query = {
-    users(parent, args, { prisma }, info) {
-        const opArgs = {}
+    users(parent, { first, skip, filter }, { prisma }, info) {
+        const args = {
+            skip,
+            first
+        }
         
-        if (args.query) {
-            opArgs.where = {
+        if (filter) {
+            args.where = {
                 OR: [{
-                    name_contains: args.query
+                    name_contains: filter
                 }]
             }
         }
 
-        return prisma.query.users(opArgs, info)
+        return prisma.query.users(args, info)
     },
 
-    cities(parent, { filter }, { prisma }, info) {
+    cities(parent, { skip, first, filter }, { prisma }, info) {
         const args = {
+            skip,
+            first,
             where: {
                 available: true
             }

@@ -1,6 +1,6 @@
 type Query {
-    users(filter: String): [User!]!
-    cities(filter: String): [City!]!
+    users(filter: String, first: Int, skip: Int): [User!]!
+    cities(filter: String, first: Int, skip: Int): [City!]!
     votes: [Vote!]!
     city(id: ID!): City!
     me: User!
