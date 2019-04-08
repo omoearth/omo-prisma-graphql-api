@@ -101,7 +101,13 @@ const Mutation = {
     },
     async createVote(parent, { data }, { prisma, request }, info) {
         const userId = getUserId(request)
-
+        const cityExists = await prisma.exists.City({
+           id: data.city,
+           available: true
+        })
+        if(!cityExists){
+            throw new Error("City doesn't not exists")
+        }
         return prisma.mutation.createVote({
             data: {
                 author: {
