@@ -1,6 +1,8 @@
+# import UserOrderByInput, CityOrderByInput from './generated/prisma.graphql'
+
 type Query {
-    users(filter: String, first: Int, skip: Int, after: String): [User!]!
-    cities(filter: String, first: Int, skip: Int, after: String): [City!]!
+    users(filter: String, first: Int, skip: Int, after: String, orderBy: UserOrderByInput): [User!]!
+    cities(filter: String, first: Int, skip: Int, after: String, orderBy: CityOrderByInput): [City!]!
     votes: [Vote!]!
     city(id: ID!): City!
     me: User!

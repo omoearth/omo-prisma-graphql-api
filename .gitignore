@@ -58,6 +58,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# config
+config
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
