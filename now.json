@@ -1,9 +1,0 @@
-{
-    "version": 2,
-    "name": "api",
-    "env": {
-        "IS_NOW": "true"
-    },
-    "builds": [{ "src": "src/api.js", "use": "@now/node-server@canary" }],
-    "routes": [{ "src": "/.*", "dest": "src/api.js" }]
-}
