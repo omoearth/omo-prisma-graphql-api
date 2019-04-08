@@ -59,7 +59,7 @@ typings/
 .env
 
 # config
-config
+config/
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
