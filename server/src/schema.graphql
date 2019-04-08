@@ -1,6 +1,6 @@
 type Query {
-    users(filter: String, first: Int, skip: Int): [User!]!
-    cities(filter: String, first: Int, skip: Int): [City!]!
+    users(filter: String, first: Int, skip: Int, after: String): [User!]!
+    cities(filter: String, first: Int, skip: Int, after: String): [City!]!
     votes: [Vote!]!
     city(id: ID!): City!
     me: User!
@@ -64,6 +64,8 @@ type User {
     email: String
     cities: [City!]!
     votes: [Vote!]!
+    createdAt: String!
+    updatedAt: String!
 }
 
 type City {
@@ -72,12 +74,16 @@ type City {
     available: Boolean!
     author: User!
     votes: [Vote!]!
+    createdAt: String!
+    updatedAt: String!
 }
 
 type Vote {
     id: ID!
     author: User!
     city: City!
+    createdAt: String!
+    updatedAt: String!
 }
 
 enum MutationType {

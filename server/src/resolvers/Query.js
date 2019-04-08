@@ -1,10 +1,11 @@
 import getUserId from "../utils/getUserId"
 
 const Query = {
-    users(parent, { first, skip, filter }, { prisma }, info) {
+    users(parent, { first, skip, after, filter }, { prisma }, info) {
         const args = {
             skip,
-            first
+            first,
+            after
         }
         
         if (filter) {
@@ -18,10 +19,11 @@ const Query = {
         return prisma.query.users(args, info)
     },
 
-    cities(parent, { skip, first, filter }, { prisma }, info) {
+    cities(parent, { skip, first, after, filter }, { prisma }, info) {
         const args = {
             skip,
             first,
+            after,
             where: {
                 available: true
             }
