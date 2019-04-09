@@ -59,3 +59,34 @@ test('Should create new user', async () => {
     const exists = await prisma.exists.User( { id : response.data.createUser.user.id })
     expect(exists).toBe(true)
 }) 
+
+
+test('Should expose public author profiles', async () => {
+    const getUsers = gql`
+        query { 
+            users {
+                id
+                name
+            }
+        }
+    `
+    const response = await client.query({ query: getUsers })
+
+    expect(response.data.users.length).toBe(1)
+    expect(response.data.users[0].name).toBe("Maja Mama-Maria")
+})
+
+test('Should expose public cities', async () => {
+    const getCities = gql`
+        query {
+            cities {
+                id
+                name
+                available
+            }
+        }
+    `
+    const response = await client.query({ query: getCities})
+    expect(response.data.cities.length).toBe(1)
+    expect(response.data.cities[0].available).toBe(true)
+})
