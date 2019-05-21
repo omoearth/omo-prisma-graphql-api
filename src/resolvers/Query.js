@@ -55,10 +55,6 @@ const Query = {
         return prisma.query.cities(args, info)
     },
 
-    votes(parent, args, { prisma }, info) {
-        return prisma.query.votes(null, info)
-    },
-
     me(parent, { id }, { prisma, request }, info) {
         const userId = getUserId(request)
         return prisma.query.user({

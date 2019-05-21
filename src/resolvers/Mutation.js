@@ -61,22 +61,22 @@ const Mutation = {
             data: {
                 name: data.name,
                 available: data.available,
-                author: {
-                    connect: {
-                        id: userId
-                    }
-                }
+                // author: {
+                //     connect: {
+                //         id: userId
+                //     }
+                // }
             }
         }, info)
     },
     async deleteCity(parent, { id }, { prisma, request }, info) {
         const userId = getUserId(request)
-        const cityExists = await prisma.exists.City({
-            id,
-            author: {
-                id: userId
-            }
-        })
+        // const cityExists = await prisma.exists.City({
+        //     id,
+        //     author: {
+        //         id: userId
+        //     }
+        // })
         if (!cityExists) {
             throw new Error("Not possible to delete City")
         }
@@ -86,57 +86,18 @@ const Mutation = {
     },
     async updateCity(parent, { id, data }, { prisma, request }, info) {
         const userId = getUserId(request)
-        const cityExists = await prisma.exists.City({
-            id,
-            author: {
-                id: userId
-            }
-        })
+        // const cityExists = await prisma.exists.City({
+        //     id,
+        //     author: {
+        //         id: userId
+        //     }
+        // })
         if(!cityExists) {
             throw new Error("Not possible to update City")
         }
         return prisma.mutation.updateCity({
             where: { id },
             data
-        }, info)
-    },
-    async createVote(parent, { data }, { prisma, request }, info) {
-        const userId = getUserId(request)
-        const cityExists = await prisma.exists.City({
-           id: data.city,
-           available: true
-        })
-        if(!cityExists){
-            throw new Error("City doesn't not exists")
-        }
-        return prisma.mutation.createVote({
-            data: {
-                author: {
-                    connect: {
-                        id: userId
-                    }
-                },
-                city: {
-                    connect: {
-                        id: data.city
-                    }
-                }
-            }
-        }, info)
-    },
-    async deleteVote(parent, { id }, { prisma, request }, info) {
-        const userId = getUserId(request)
-        const voteExists = await prisma.exists.Vote({
-            id,
-            author: {
-                id: userId
-            }
-        })
-        if(!voteExists) {
-            throw new Error("Not possible to delete vote")
-        }
-        return prisma.mutation.deleteVote({
-            where: { id }
         }, info)
     }
 }

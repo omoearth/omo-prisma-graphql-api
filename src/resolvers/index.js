@@ -4,7 +4,6 @@ import Query from './Query'
 import Mutation from './Mutation'
 import Subscription from './Subscription'
 import City from './City'
-import Vote from './Vote'
 import User from './User'
 
 const resolvers = {
@@ -12,7 +11,6 @@ const resolvers = {
     Mutation,
     Subscription,
     City,
-    Vote,
     User
 }
 

@@ -1,28 +1,16 @@
 type User {
-  id: ID! @unique
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   name: String!
   email: String! @unique
   password: String!
-  cities: [City!]! @relation(name: "CityToUser", onDelete: SET_NULL)
-  votes: [Vote!]! @relation(name: "VoteToUser", onDelete: CASCADE)
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
 type City {
-  id: ID! @unique
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   name: String!
   available: Boolean!
-  author: User! @relation(name: "CityToUser", onDelete: SET_NULL)
-  votes: [Vote!] @relation(name: "VoteToCity", onDelete: CASCADE)
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type Vote {
-  id: ID! @unique
-  author: User! @relation(name: "VoteToUser", onDelete: SET_NULL)
-  city: City! @relation(name: "VoteToCity", onDelete: SET_NULL)
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }

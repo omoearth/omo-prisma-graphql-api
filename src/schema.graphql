@@ -3,12 +3,9 @@
 type Query {
     users(filter: String, first: Int, skip: Int, after: String, orderBy: UserOrderByInput): [User!]!
     cities(filter: String, first: Int, skip: Int, after: String, orderBy: CityOrderByInput): [City!]!
-    votes: [Vote!]!
     city(id: ID!): City!
     me: User!
-    myCities(filter: String): [City!]! 
 }
-
 type Mutation {
     createUser(data: CreateUserInput!): AuthPayload!
     loginUser(data: LoginUserInput!): AuthPayload!
@@ -17,20 +14,14 @@ type Mutation {
     createCity(data: CreateCityInput!): City!
     deleteCity(id: ID!): City!
     updateCity(id: ID!, data: UpdateCityInput!): City!
-    createVote(data: CreateVoteInput!): Vote!
-    deleteVote(id: ID!): Vote!
 }
-
 type Subscription {
-    vote(cityId: ID!): VoteSubscriptionPayload!
     city: CitySubscriptionPayload!
 }
-
 type AuthPayload {
     token: String!
     user: User!
 }
-
 input CreateUserInput {
     name: String!
     email: String!
@@ -45,61 +36,34 @@ input UpdateUserInput {
     email: String
     password: String
 }
-
 input CreateCityInput {
     name: String!
     available: Boolean!
 }
-
 input UpdateCityInput {
     name: String
     available: Boolean
 }
-
-input CreateVoteInput {
-    city: ID!
-}
-
 type User {
     id: ID!
     name: String!
     email: String
-    cities: [City!]!
-    votes: [Vote!]!
     createdAt: String!
     updatedAt: String!
 }
-
 type City {
     id: ID!
     name: String!
     available: Boolean!
-    author: User!
-    votes: [Vote!]!
     createdAt: String!
     updatedAt: String!
 }
-
-type Vote {
-    id: ID!
-    author: User!
-    city: City!
-    createdAt: String!
-    updatedAt: String!
-}
-
 enum MutationType {
     CREATED
     UPDATED
     DELETED
 }
-
 type CitySubscriptionPayload {
     mutation: MutationType!
     node: City
-}
-
-type VoteSubscriptionPayload {
-    mutation: MutationType!
-    node: Vote
 }

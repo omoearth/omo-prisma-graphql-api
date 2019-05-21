@@ -1,17 +1,4 @@
 const Subscription = {
-    vote: {
-        subscribe(parent, { cityId }, { prisma }, info){
-            return prisma.subscription.vote({
-                where: {
-                    node: {
-                        city: {
-                            id: cityId
-                        }
-                    }
-                }
-            }, info)
-        }
-    },
     city: {
         subscribe(parent, args , { prisma }, info) {
             return prisma.subscription.city({
