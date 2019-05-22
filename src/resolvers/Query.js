@@ -38,23 +38,6 @@ const Query = {
         return prisma.query.cities(args, info)
     },
 
-    myCities(parent, { filter }, { prisma, request }, info){
-        const userId = getUserId(request)
-        const args = {
-            where: {
-                author: {
-                    id: userId 
-                }
-            }
-        }
-        if(filter) {
-            args.where = {
-                name_contains: filter
-            }
-        }
-        return prisma.query.cities(args, info)
-    },
-
     me(parent, { id }, { prisma, request }, info) {
         const userId = getUserId(request)
         return prisma.query.user({
