@@ -2,9 +2,10 @@ type User {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  name: String!
+  name: String
   email: String! @unique
-  password: String!
+  password: String
+  hometown: City
 }
 
 type City {
@@ -13,4 +14,22 @@ type City {
   updatedAt: DateTime! @updatedAt
   name: String!
   available: Boolean!
+}
+
+type UserTransaction {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  to: User!
+  value: Int!
+  type: String
+}
+
+type CityTransaction {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  to: City!
+  value: Int!
+  type: String
 }
