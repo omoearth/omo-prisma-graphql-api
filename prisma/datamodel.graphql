@@ -5,14 +5,14 @@ type User {
   name: String
   email: String! @unique
   password: String
-  hometown: City
+  hometown: City @relation(name: "UserCityRelation")
 }
 
 type City {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  name: String!
+  name: String! @unique
   available: Boolean!
 }
 

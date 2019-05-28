@@ -1,69 +1,81 @@
 # import UserOrderByInput, CityOrderByInput from './generated/prisma.graphql'
 
 type Query {
-    users(filter: String, first: Int, skip: Int, after: String, orderBy: UserOrderByInput): [User!]!
-    cities(filter: String, first: Int, skip: Int, after: String, orderBy: CityOrderByInput): [City!]!
-    city(id: ID!): City!
-    me: User!
+  users(
+    filter: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: UserOrderByInput
+  ): [User!]!
+  cities(
+    filter: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: CityOrderByInput
+  ): [City!]!
+  city(id: ID!): City!
+  me: User!
 }
 type Mutation {
-    createUser(data: CreateUserInput!): AuthPayload!
-    loginUser(data: LoginUserInput!): AuthPayload!
-    deleteUser: User!
-    updateUser(data: UpdateUserInput!): User!
-    createCity(data: CreateCityInput!): City!
-    deleteCity(id: ID!): City!
-    updateCity(id: ID!, data: UpdateCityInput!): City!
+  createUser(data: CreateUserInput!): AuthPayload!
+  loginUser(data: LoginUserInput!): AuthPayload!
+  deleteUser: User!
+  updateUser(data: UpdateUserInput!): User!
+  createCity(data: CreateCityInput!): City!
+  deleteCity(id: ID!): City!
+  updateCity(id: ID!, data: UpdateCityInput!): City!
 }
 type Subscription {
-    city: CitySubscriptionPayload!
+  city: CitySubscriptionPayload!
 }
 type AuthPayload {
-    token: String!
-    user: User!
+  token: String!
+  user: User!
 }
 input CreateUserInput {
-    name: String!
-    email: String!
-    password: String!
+  name: String!
+  email: String!
+  password: String
 }
 input LoginUserInput {
-    email: String!
-    password: String!
+  email: String!
+  password: String!
 }
 input UpdateUserInput {
-    name: String
-    email: String
-    password: String
+  name: String
+  email: String
+  password: String
 }
 input CreateCityInput {
-    name: String!
-    available: Boolean!
+  name: String!
+  available: Boolean!
 }
 input UpdateCityInput {
-    name: String
-    available: Boolean
+  name: String
+  available: Boolean
 }
 type User {
-    id: ID!
-    name: String!
-    email: String
-    createdAt: String!
-    updatedAt: String!
+  id: ID!
+  name: String!
+  email: String
+  createdAt: String!
+  updatedAt: String!
 }
 type City {
-    id: ID!
-    name: String!
-    available: Boolean!
-    createdAt: String!
-    updatedAt: String!
+  id: ID!
+  name: String!
+  available: Boolean!
+  createdAt: String!
+  updatedAt: String!
 }
 enum MutationType {
-    CREATED
-    UPDATED
-    DELETED
+  CREATED
+  UPDATED
+  DELETED
 }
 type CitySubscriptionPayload {
-    mutation: MutationType!
-    node: City
+  mutation: MutationType!
+  node: City
 }

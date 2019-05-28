@@ -1,0 +1,34 @@
+mutation {
+  munich: createCity(data: { name: "Munich", available: true }) {
+    id
+  }
+  hamburg: createCity(data: { name: "Hamburg", available: true }) {
+    id
+  }
+  vienna: createCity(data: { name: "Vienna", available: true }) {
+    id
+  }
+  milano: createCity(data: { name: "Milano", available: true }) {
+    id
+  }
+
+  samu: createUser(
+    data: {
+      name: "samu"
+      email: "samu@omo.earth"
+      hometown: { connect: { name: "Munich" } }
+    }
+  ) {
+    id
+  }
+
+  chuck: createUser(
+    data: {
+      name: "chuck"
+      email: "chuck@omo.earth"
+      hometown: { connect: { name: "Milano" } }
+    }
+  ) {
+    id
+  }
+}
