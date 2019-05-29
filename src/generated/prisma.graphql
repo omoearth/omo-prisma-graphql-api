@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/philapp-73f3dd/omo-dev/dev
-# timestamp: Tue May 28 2019 06:42:13 GMT+0200 (CEST)
+# timestamp: Wed May 29 2019 09:36:08 GMT+0200 (CEST)
 
 type AggregateCity {
   count: Int!
@@ -28,6 +28,7 @@ type City implements Node {
   updatedAt: DateTime!
   name: String!
   available: Boolean!
+  votes: Int
 }
 
 """A connection to a list of items."""
@@ -44,6 +45,7 @@ input CityCreateInput {
   id: ID
   name: String!
   available: Boolean!
+  votes: Int
 }
 
 input CityCreateOneInput {
@@ -71,6 +73,8 @@ enum CityOrderByInput {
   name_DESC
   available_ASC
   available_DESC
+  votes_ASC
+  votes_DESC
 }
 
 type CityPreviousValues {
@@ -79,6 +83,7 @@ type CityPreviousValues {
   updatedAt: DateTime!
   name: String!
   available: Boolean!
+  votes: Int
 }
 
 type CitySubscriptionPayload {
@@ -387,16 +392,19 @@ input CityTransactionWhereUniqueInput {
 input CityUpdateDataInput {
   name: String
   available: Boolean
+  votes: Int
 }
 
 input CityUpdateInput {
   name: String
   available: Boolean
+  votes: Int
 }
 
 input CityUpdateManyMutationInput {
   name: String
   available: Boolean
+  votes: Int
 }
 
 input CityUpdateOneInput {
@@ -557,6 +565,28 @@ input CityWhereInput {
 
   """All values that are not equal to given value."""
   available_not: Boolean
+  votes: Int
+
+  """All values that are not equal to given value."""
+  votes_not: Int
+
+  """All values that are contained in given list."""
+  votes_in: [Int!]
+
+  """All values that are not contained in given list."""
+  votes_not_in: [Int!]
+
+  """All values less than the given value."""
+  votes_lt: Int
+
+  """All values less than or equal the given value."""
+  votes_lte: Int
+
+  """All values greater than the given value."""
+  votes_gt: Int
+
+  """All values greater than or equal the given value."""
+  votes_gte: Int
 }
 
 input CityWhereUniqueInput {

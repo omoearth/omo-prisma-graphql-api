@@ -1,14 +1,14 @@
 mutation {
-  munich: createCity(data: { name: "Munich", available: true }) {
+  munich: createCity(data: { name: "Munich", available: true, votes: 0 }) {
     id
   }
-  hamburg: createCity(data: { name: "Hamburg", available: true }) {
+  hamburg: createCity(data: { name: "Hamburg", available: true, votes: 0 }) {
     id
   }
-  vienna: createCity(data: { name: "Vienna", available: true }) {
+  vienna: createCity(data: { name: "Vienna", available: true, votes: 0 }) {
     id
   }
-  milano: createCity(data: { name: "Milano", available: true }) {
+  milano: createCity(data: { name: "Milano", available: true, votes: 0 }) {
     id
   }
 

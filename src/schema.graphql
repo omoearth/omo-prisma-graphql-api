@@ -29,7 +29,7 @@ type Mutation {
 }
 type Subscription {
   city: CitySubscriptionPayload!
-  votes: Votes!
+  cities: [City!]!
 }
 type AuthPayload {
   token: String!
@@ -70,6 +70,7 @@ type City {
   available: Boolean!
   createdAt: String!
   updatedAt: String!
+  votes: Int!
 }
 enum MutationType {
   CREATED
