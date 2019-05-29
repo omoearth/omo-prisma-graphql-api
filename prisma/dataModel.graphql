@@ -1,0 +1,43 @@
+type User {
+  id: ID! @id @unique
+  email: String! @unique
+  password: String
+}
+
+# type User {
+#   id: ID! @id
+#   createdAt: DateTime! @createdAt
+#   updatedAt: DateTime! @updatedAt
+
+#   # username: String
+#   email: String! @unique
+#   password: String
+#   # hometown: City @relation(name: "UserCityRelation")
+# }
+
+# type City {
+#   id: ID! @id
+#   createdAt: DateTime! @createdAt
+#   updatedAt: DateTime! @updatedAt
+#   name: String! @unique
+#   available: Boolean!
+#   votes: Int
+# }
+
+# type UserTransaction {
+#   id: ID! @id
+#   createdAt: DateTime! @createdAt
+#   updatedAt: DateTime! @updatedAt
+#   to: User!
+#   value: Int!
+#   type: String
+# }
+
+# type CityTransaction {
+#   id: ID! @id
+#   createdAt: DateTime! @createdAt
+#   updatedAt: DateTime! @updatedAt
+#   to: City!
+#   value: Int!
+#   type: String
+# }
