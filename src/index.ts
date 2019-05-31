@@ -1,5 +1,5 @@
-import { server } from './server';
-require('@babel/polyfill');
+require("@babel/polyfill");
+import { server } from "./server";
 
 const port = process.env.PORT || 4000;
 server.start({ port: port }, () => {
