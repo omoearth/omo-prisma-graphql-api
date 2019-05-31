@@ -1,40 +1,24 @@
 // import getUserId from '../utils/getUserId'
 // import generateToken from '../utils/generateToken'
 // import hashPassword from '../utils/hashPassword'
-import {
-  registerUser,
-  loginUser
-} from '../utils/Authentication';
+import { Prisma } from '../generated/prisma.ts';
 
+import { registerUser, loginUser } from '../utils/Authentication';
+import { Context } from '../utils/Utils';
 
-const Mutation = {
-  register: async (_parent, {
-    email,
-    password
-  }, {
-    prisma
-  }) => registerUser(prisma, email, password),
+export const Mutation = {
+  register: async (_parent: any, { email, password }: any, context: Context) => registerUser(context, email, password),
 
-  login: async (_parent, {
-    email,
-    password
-  }, {
-    prisma
-  }) => {
-    return loginUser(prisma, email, password);
-  }
+  login: async (_parent: any, loginData:LoginUser, context: Context) => {
+    return loginUser(context, loginData);
+  },
 };
-
-
-
-
-
 
 //     async loginUser(parent, { data }, { prisma }, info) {
 //         const user = await prisma.query.user({
 //             where: {
 //                 email: data.email
-//             }          
+//             }
 //         })
 //         if (!user) {
 //             throw new Error("Login failed")
@@ -113,8 +97,3 @@ const Mutation = {
 //         }, info)
 //     }
 // }
-
-export {
-  Mutation as
-  default
-}

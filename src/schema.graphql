@@ -1,18 +1,5 @@
-# type definitions
-# import Node from 'generated/prisma.graphql'
-# import User from 'generated/prisma.graphql'
-# import UserCreateInput from 'generated/prisma.graphql'
-# import UserWhereUniqueInput from 'generated/prisma.graphql'
-
-# mutations
-# import createUser from 'generated/prisma.graphql'
-
-# queries
-# import user from 'generated/prisma.graphql'
-
 type Query {
   currentUser: User!
-  node(id: ID!): Node
 }
 
 type Mutation {
@@ -23,6 +10,7 @@ type Mutation {
 type LoginResponse {
   token: String
   user: User
+  claims: [String]
 }
 
 # import UserOrderByInput, CityOrderByInput from './generated/prisma.graphql'
@@ -54,10 +42,10 @@ type LoginResponse {
 #   deleteCity(id: ID!): City!
 #   updateCity(id: ID!, data: UpdateCityInput!): City!
 # }
-# type Subscription {
-#   city: CitySubscriptionPayload!
-#   cities: [City!]!
-# }
+type Subscription {
+  city: CitySubscriptionPayload!
+  cities: [City!]!
+}
 # type AuthPayload {
 #   token: String!
 #   user: User!

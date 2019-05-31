@@ -1,43 +1,27 @@
+type Role {
+  id: ID! @id
+  name: String! @unique
+  claims: [Claim] @relation(name: "RoleClaims")
+}
+
+type Claim {
+  id: ID! @id
+  name: String! @unique
+  description: String
+}
+
 type User {
   id: ID! @id @unique
   email: String! @unique
   password: String
+  name: String
+  city: City @relation(name: "Hometown")
+  roles: [Role]
 }
 
-# type User {
-#   id: ID! @id
-#   createdAt: DateTime! @createdAt
-#   updatedAt: DateTime! @updatedAt
-
-#   # username: String
-#   email: String! @unique
-#   password: String
-#   # hometown: City @relation(name: "UserCityRelation")
-# }
-
-# type City {
-#   id: ID! @id
-#   createdAt: DateTime! @createdAt
-#   updatedAt: DateTime! @updatedAt
-#   name: String! @unique
-#   available: Boolean!
-#   votes: Int
-# }
-
-# type UserTransaction {
-#   id: ID! @id
-#   createdAt: DateTime! @createdAt
-#   updatedAt: DateTime! @updatedAt
-#   to: User!
-#   value: Int!
-#   type: String
-# }
-
-# type CityTransaction {
-#   id: ID! @id
-#   createdAt: DateTime! @createdAt
-#   updatedAt: DateTime! @updatedAt
-#   to: City!
-#   value: Int!
-#   type: String
-# }
+type City {
+  id: ID! @id
+  name: String! @unique
+  available: Boolean!
+  votes: Int
+}

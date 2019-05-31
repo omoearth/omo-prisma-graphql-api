@@ -3,8 +3,16 @@ datamodel: dataModel.graphql
 secret: ${env:PRISMA_SECRET}
 
 seed:
-  import: seed.graphql
+  run: yarn ts-node ./prisma/seed/seed.ts
 
 generate:
   - generator: graphql-schema
-    output: ./src/generated/prisma
+    output: ../src/generated/prisma.graphql
+  - generator: typescript-client
+    output: ../src/generated/prisma.ts
+  - generator: javascript-client
+    output: ../src/generated/prisma.js
+
+hooks:
+  post-deploy:
+    - prisma generate

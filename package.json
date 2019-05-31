@@ -6,23 +6,26 @@
   "scripts": {
     "start": "node dist/index.js",
     "heroku-postbuild": "babel src --out-dir dist --copy-files",
-    "dev": "env-cmd ./config/dev.env nodemon src/index.js --ext js,graphql --exec babel-node",
-    "deploy-prisma-dev": "prisma reset -e config/dev.env -f && prisma deploy -e config/dev.env && graphql get-schema -p prisma --dotenv config/dev.env && prisma seed -e config/dev.env && prisma generate -e config/dev.env",
+    "dev": "env-cmd ./config/dev.env nodemon -x ts-node src/index.ts --exec babel-node --extensions \".ts,.tsx\"",
+    "deploy-prisma-dev": "prisma deploy -e config/dev.env && graphql get-schema -p prisma --dotenv config/dev.env && prisma generate -e config/dev.env",
+    "deploy-prisma-dev:seed": "prisma reset -e config/dev.env -f && prisma deploy -e config/dev.env && graphql get-schema -p prisma --dotenv config/dev.env && prisma seed -e config/dev.env && prisma generate -e config/dev.env",
+
     "seed": "prisma seed --reset -e config/dev.env",
     "deploy-prisma-prod": "prisma reset -e config/prod.env -f && prisma deploy -e config/prod.env && graphql get-schema -p prisma --dotenv config/prod.env && prisma seed -e config/prod.env && prisma generate -e config/prod.env",
-    "test": "env-cmd ./config/test.env jest --watch"
+    "test": "env-cmd ./config/test.env jest --watch",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "yarn run type-check -- --watch",
+    "build": "yarn run build:types && yarn run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "env-cmd ./config/dev.env babel-node src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline"
   },
   "jest": {
     "globalSetup": "./tests/jest/globalSetup.js",
     "globalTeardown": "./tests/jest/globalTeardown.js"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.3",
+    "@types/ws": "^6.0.1",
     "apollo-boost": "^0.3.1",
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "cross-fetch": "^3.0.2",
     "dotenv": "^8.0.0",
@@ -37,7 +40,21 @@
     "require": "^2.4.20"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/aws-lambda": "^8.10.26",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.3.2",
     "jest": "^23.5.0",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "ts-node": "^8.2.0",
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.1"
   }
 }

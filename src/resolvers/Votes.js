@@ -1,8 +1,8 @@
-const Votes = {
-  voteStr: votes => `Current Votes ${votes.voteCount}`,
-}
+// const Votes = {
+//   voteStr: votes => `Current Votes ${votes.voteCount}`,
+// }
 
-export {
-  Votes as
-  default
-}
+// export {
+//   Votes as
+//   default
+// }
