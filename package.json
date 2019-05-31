@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node dist/index.js",
-    "heroku-postbuild": "rm -rf dist && rm-rf build && yarn build:types",
+    "heroku-postbuild": "yarn build:types",
     "dev": "env-cmd ./config/dev.env nodemon -x ts-node src/index.ts --exec babel-node --extensions \".ts,.tsx\"",
     "deploy-prisma-dev": "prisma deploy -e config/dev.env && graphql get-schema -p prisma --dotenv config/dev.env && prisma generate -e config/dev.env",
     "deploy-prisma-dev:seed": "prisma reset -e config/dev.env -f && prisma deploy -e config/dev.env && graphql get-schema -p prisma --dotenv config/dev.env && prisma seed -e config/dev.env && prisma generate -e config/dev.env",
