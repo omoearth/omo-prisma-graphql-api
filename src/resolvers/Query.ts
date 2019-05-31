@@ -9,8 +9,10 @@ export const Query = {
       id: context.user.id,
     });
   },
-  cities: (_parent: any, _args: any, context: Context) => {
-    return context.prisma.cities({});
+  cities: async (_parent: any, _args: any, context: Context) => {
+    let cities = await context.prisma.cities({});
+    console.log(cities);
+    return cities;
   },
 };
 

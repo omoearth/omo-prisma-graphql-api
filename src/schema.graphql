@@ -6,6 +6,11 @@ type Query {
 type Mutation {
   register(email: String!, password: String!): User!
   login(email: String!, password: String!): LoginResponse!
+  voteCity(cityId: String!, count: Int!): City
+}
+
+type Subscription {
+  city: City
 }
 
 type LoginResponse {
@@ -43,10 +48,10 @@ type LoginResponse {
 #   deleteCity(id: ID!): City!
 #   updateCity(id: ID!, data: UpdateCityInput!): City!
 # }
-type Subscription {
-  city: CitySubscriptionPayload!
-  cities: [City!]!
-}
+# type Subscription {
+#   city: CitySubscriptionPayload!
+#   cities: [City!]!
+# }
 # type AuthPayload {
 #   token: String!
 #   user: User!
