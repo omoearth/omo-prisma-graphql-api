@@ -25,3 +25,4 @@ type City {
   available: Boolean!
   votes: Int
 }
+

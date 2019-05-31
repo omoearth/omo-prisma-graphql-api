@@ -1,5 +1,6 @@
 type Query {
   currentUser: User!
+  cities: [City]
 }
 
 type Mutation {

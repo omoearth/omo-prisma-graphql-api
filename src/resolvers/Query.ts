@@ -9,6 +9,9 @@ export const Query = {
       id: context.user.id,
     });
   },
+  cities: (_parent: any, _args: any, context: Context) => {
+    return context.prisma.cities({});
+  },
 };
 
 // users(parent, { first, skip, after, orderBy, filter }, { prisma }, info) {
