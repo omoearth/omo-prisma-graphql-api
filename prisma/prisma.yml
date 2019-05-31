@@ -10,8 +10,6 @@ generate:
     output: ../src/generated/prisma.graphql
   - generator: typescript-client
     output: ../src/generated/prisma.ts
-  - generator: javascript-client
-    output: ../src/generated/prisma.js
 
 hooks:
   post-deploy:
