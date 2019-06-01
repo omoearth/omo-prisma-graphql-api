@@ -1,21 +1,22 @@
-import { registerUser, loginUser } from '../utils/Authentication';
-import { Context } from '../utils/Utils';
-import { VoteCity, LoginUser } from '../QueryArguments';
-import { CityChange, CityChangeEvent } from '../resolvers/ChangeEvents';
+import { registerUser, loginUser } from "../utils/Authentication";
+import { Context } from "../utils/Utils";
+import { VoteCity, LoginUser } from "../QueryArguments";
+import { CityChange, CityChangeEvent } from "../resolvers/ChangeEvents";
 
 export const PublicMutations: Array<String> = ['register', 'login'];
 
 export const Mutation = {
-  register: async (_parent: any, { email, password }: any, context: Context) => registerUser(context, email, password),
-
+  register: async (_parent: any, { email, password }: any, context: Context) =>
+    registerUser(context, email, password),
   login: async (_parent: any, loginData: LoginUser, context: Context) => {
     return loginUser(context, loginData);
   },
   voteCity: async (_parent: any, cityVote: VoteCity, context: Context) => {
-    let votes = (await context.prisma.city({ id: cityVote.cityId }).votes()) || 0;
+    let votes =
+      (await context.prisma.city({ id: cityVote.cityId }).votes()) || 0;
     const city = await context.prisma.updateCity({
       where: { id: cityVote.cityId },
-      data: { votes: votes + cityVote.count },
+      data: { votes: votes + cityVote.count }
     });
 
     if (city) {
@@ -23,7 +24,7 @@ export const Mutation = {
       return city;
     }
     return null;
-  },
+  }
 };
 
 //     async loginUser(parent, { data }, { prisma }, info) {

@@ -25,3 +25,33 @@ type City {
   available: Boolean!
   votes: Int
 }
+
+interface Thing {
+  id: ID! @id
+  name: String!
+  image: String
+  description: String
+}
+
+type Offer implements Thing {
+  id: ID! @id
+  name: String!
+  image: String!
+  description: String
+
+  availabilityStarts: String
+  businessFunction: String
+  price: Float
+  priceCurrency: String
+}
+
+type Service implements Thing {
+  id: ID! @id
+  name: String!
+  image: String
+  description: String
+
+  serviceType: String!
+  offers: [Offer!]
+  termsOfService: String
+}

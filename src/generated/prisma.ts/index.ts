@@ -18,7 +18,9 @@ export type Maybe<T> = T | undefined | null;
 export interface Exists {
   city: (where?: CityWhereInput) => Promise<boolean>;
   claim: (where?: ClaimWhereInput) => Promise<boolean>;
+  offer: (where?: OfferWhereInput) => Promise<boolean>;
   role: (where?: RoleWhereInput) => Promise<boolean>;
+  service: (where?: ServiceWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -79,6 +81,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ClaimConnectionPromise;
+  offer: (where: OfferWhereUniqueInput) => OfferNullablePromise;
+  offers: (args?: {
+    where?: OfferWhereInput;
+    orderBy?: OfferOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Offer>;
+  offersConnection: (args?: {
+    where?: OfferWhereInput;
+    orderBy?: OfferOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => OfferConnectionPromise;
   role: (where: RoleWhereUniqueInput) => RoleNullablePromise;
   roles: (args?: {
     where?: RoleWhereInput;
@@ -98,6 +119,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => RoleConnectionPromise;
+  service: (where: ServiceWhereUniqueInput) => ServiceNullablePromise;
+  services: (args?: {
+    where?: ServiceWhereInput;
+    orderBy?: ServiceOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Service>;
+  servicesConnection: (args?: {
+    where?: ServiceWhereInput;
+    orderBy?: ServiceOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ServiceConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -155,6 +195,22 @@ export interface Prisma {
   }) => ClaimPromise;
   deleteClaim: (where: ClaimWhereUniqueInput) => ClaimPromise;
   deleteManyClaims: (where?: ClaimWhereInput) => BatchPayloadPromise;
+  createOffer: (data: OfferCreateInput) => OfferPromise;
+  updateOffer: (args: {
+    data: OfferUpdateInput;
+    where: OfferWhereUniqueInput;
+  }) => OfferPromise;
+  updateManyOffers: (args: {
+    data: OfferUpdateManyMutationInput;
+    where?: OfferWhereInput;
+  }) => BatchPayloadPromise;
+  upsertOffer: (args: {
+    where: OfferWhereUniqueInput;
+    create: OfferCreateInput;
+    update: OfferUpdateInput;
+  }) => OfferPromise;
+  deleteOffer: (where: OfferWhereUniqueInput) => OfferPromise;
+  deleteManyOffers: (where?: OfferWhereInput) => BatchPayloadPromise;
   createRole: (data: RoleCreateInput) => RolePromise;
   updateRole: (args: {
     data: RoleUpdateInput;
@@ -171,6 +227,22 @@ export interface Prisma {
   }) => RolePromise;
   deleteRole: (where: RoleWhereUniqueInput) => RolePromise;
   deleteManyRoles: (where?: RoleWhereInput) => BatchPayloadPromise;
+  createService: (data: ServiceCreateInput) => ServicePromise;
+  updateService: (args: {
+    data: ServiceUpdateInput;
+    where: ServiceWhereUniqueInput;
+  }) => ServicePromise;
+  updateManyServices: (args: {
+    data: ServiceUpdateManyMutationInput;
+    where?: ServiceWhereInput;
+  }) => BatchPayloadPromise;
+  upsertService: (args: {
+    where: ServiceWhereUniqueInput;
+    create: ServiceCreateInput;
+    update: ServiceUpdateInput;
+  }) => ServicePromise;
+  deleteService: (where: ServiceWhereUniqueInput) => ServicePromise;
+  deleteManyServices: (where?: ServiceWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -202,9 +274,15 @@ export interface Subscription {
   claim: (
     where?: ClaimSubscriptionWhereInput
   ) => ClaimSubscriptionPayloadSubscription;
+  offer: (
+    where?: OfferSubscriptionWhereInput
+  ) => OfferSubscriptionPayloadSubscription;
   role: (
     where?: RoleSubscriptionWhereInput
   ) => RoleSubscriptionPayloadSubscription;
+  service: (
+    where?: ServiceSubscriptionWhereInput
+  ) => ServiceSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -218,6 +296,14 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type ClaimOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "description_ASC"
+  | "description_DESC";
+
 export type CityOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -228,15 +314,39 @@ export type CityOrderByInput =
   | "votes_ASC"
   | "votes_DESC";
 
-export type ClaimOrderByInput =
+export type OfferOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "name_ASC"
   | "name_DESC"
+  | "image_ASC"
+  | "image_DESC"
   | "description_ASC"
-  | "description_DESC";
+  | "description_DESC"
+  | "availabilityStarts_ASC"
+  | "availabilityStarts_DESC"
+  | "businessFunction_ASC"
+  | "businessFunction_DESC"
+  | "price_ASC"
+  | "price_DESC"
+  | "priceCurrency_ASC"
+  | "priceCurrency_DESC";
 
 export type RoleOrderByInput = "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC";
+
+export type ServiceOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "image_ASC"
+  | "image_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "serviceType_ASC"
+  | "serviceType_DESC"
+  | "termsOfService_ASC"
+  | "termsOfService_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -250,9 +360,14 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface ClaimUpdateInput {
+export interface OfferUpdateInput {
   name?: Maybe<String>;
+  image?: Maybe<String>;
   description?: Maybe<String>;
+  availabilityStarts?: Maybe<String>;
+  businessFunction?: Maybe<String>;
+  price?: Maybe<Float>;
+  priceCurrency?: Maybe<String>;
 }
 
 export type CityWhereUniqueInput = AtLeastOne<{
@@ -260,253 +375,27 @@ export type CityWhereUniqueInput = AtLeastOne<{
   name?: Maybe<String>;
 }>;
 
-export interface RoleUpdateInput {
-  name?: Maybe<String>;
-  claims?: Maybe<ClaimUpdateManyInput>;
-}
-
-export interface CityWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  available?: Maybe<Boolean>;
-  available_not?: Maybe<Boolean>;
-  votes?: Maybe<Int>;
-  votes_not?: Maybe<Int>;
-  votes_in?: Maybe<Int[] | Int>;
-  votes_not_in?: Maybe<Int[] | Int>;
-  votes_lt?: Maybe<Int>;
-  votes_lte?: Maybe<Int>;
-  votes_gt?: Maybe<Int>;
-  votes_gte?: Maybe<Int>;
-  AND?: Maybe<CityWhereInput[] | CityWhereInput>;
-  OR?: Maybe<CityWhereInput[] | CityWhereInput>;
-  NOT?: Maybe<CityWhereInput[] | CityWhereInput>;
-}
-
-export interface CityUpdateDataInput {
-  name?: Maybe<String>;
-  available?: Maybe<Boolean>;
-  votes?: Maybe<Int>;
-}
-
-export interface ClaimUpdateManyWithWhereNestedInput {
-  where: ClaimScalarWhereInput;
-  data: ClaimUpdateManyDataInput;
-}
-
-export interface CityUpdateOneInput {
-  create?: Maybe<CityCreateInput>;
-  update?: Maybe<CityUpdateDataInput>;
-  upsert?: Maybe<CityUpsertNestedInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<CityWhereUniqueInput>;
-}
-
-export interface ClaimUpdateManyInput {
-  create?: Maybe<ClaimCreateInput[] | ClaimCreateInput>;
-  update?: Maybe<
-    | ClaimUpdateWithWhereUniqueNestedInput[]
-    | ClaimUpdateWithWhereUniqueNestedInput
-  >;
-  upsert?: Maybe<
-    | ClaimUpsertWithWhereUniqueNestedInput[]
-    | ClaimUpsertWithWhereUniqueNestedInput
-  >;
-  delete?: Maybe<ClaimWhereUniqueInput[] | ClaimWhereUniqueInput>;
-  connect?: Maybe<ClaimWhereUniqueInput[] | ClaimWhereUniqueInput>;
-  set?: Maybe<ClaimWhereUniqueInput[] | ClaimWhereUniqueInput>;
-  disconnect?: Maybe<ClaimWhereUniqueInput[] | ClaimWhereUniqueInput>;
-  deleteMany?: Maybe<ClaimScalarWhereInput[] | ClaimScalarWhereInput>;
-  updateMany?: Maybe<
-    ClaimUpdateManyWithWhereNestedInput[] | ClaimUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface UserUpdateInput {
-  email?: Maybe<String>;
-  password?: Maybe<String>;
-  name?: Maybe<String>;
-  city?: Maybe<CityUpdateOneInput>;
-  roles?: Maybe<RoleUpdateManyInput>;
-}
-
-export type ClaimWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  name?: Maybe<String>;
-}>;
-
-export interface ClaimWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  description?: Maybe<String>;
-  description_not?: Maybe<String>;
-  description_in?: Maybe<String[] | String>;
-  description_not_in?: Maybe<String[] | String>;
-  description_lt?: Maybe<String>;
-  description_lte?: Maybe<String>;
-  description_gt?: Maybe<String>;
-  description_gte?: Maybe<String>;
-  description_contains?: Maybe<String>;
-  description_not_contains?: Maybe<String>;
-  description_starts_with?: Maybe<String>;
-  description_not_starts_with?: Maybe<String>;
-  description_ends_with?: Maybe<String>;
-  description_not_ends_with?: Maybe<String>;
-  AND?: Maybe<ClaimWhereInput[] | ClaimWhereInput>;
-  OR?: Maybe<ClaimWhereInput[] | ClaimWhereInput>;
-  NOT?: Maybe<ClaimWhereInput[] | ClaimWhereInput>;
-}
-
-export interface CitySubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<CityWhereInput>;
-  AND?: Maybe<CitySubscriptionWhereInput[] | CitySubscriptionWhereInput>;
-  OR?: Maybe<CitySubscriptionWhereInput[] | CitySubscriptionWhereInput>;
-  NOT?: Maybe<CitySubscriptionWhereInput[] | CitySubscriptionWhereInput>;
-}
-
-export interface CityCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  available: Boolean;
-  votes?: Maybe<Int>;
-}
-
-export interface RoleUpdateManyDataInput {
-  name?: Maybe<String>;
-}
-
-export interface CityUpdateInput {
-  name?: Maybe<String>;
-  available?: Maybe<Boolean>;
-  votes?: Maybe<Int>;
-}
-
-export interface RoleUpdateManyWithWhereNestedInput {
-  where: RoleScalarWhereInput;
-  data: RoleUpdateManyDataInput;
-}
-
-export interface CityUpdateManyMutationInput {
-  name?: Maybe<String>;
-  available?: Maybe<Boolean>;
-  votes?: Maybe<Int>;
-}
-
-export interface RoleScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  AND?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
-  OR?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
-  NOT?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
-}
-
-export interface RoleCreateManyInput {
-  create?: Maybe<RoleCreateInput[] | RoleCreateInput>;
-  connect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
-}
-
-export interface RoleUpdateDataInput {
-  name?: Maybe<String>;
-  claims?: Maybe<ClaimUpdateManyInput>;
-}
-
-export interface CityCreateOneInput {
-  create?: Maybe<CityCreateInput>;
-  connect?: Maybe<CityWhereUniqueInput>;
-}
-
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
 }>;
 
-export interface ClaimCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
+export interface OfferCreateManyInput {
+  create?: Maybe<OfferCreateInput[] | OfferCreateInput>;
+  connect?: Maybe<OfferWhereUniqueInput[] | OfferWhereUniqueInput>;
+}
+
+export interface ServiceUpdateManyMutationInput {
+  name?: Maybe<String>;
+  image?: Maybe<String>;
   description?: Maybe<String>;
+  serviceType?: Maybe<String>;
+  termsOfService?: Maybe<String>;
+}
+
+export interface RoleUpdateInput {
+  name?: Maybe<String>;
+  claims?: Maybe<ClaimUpdateManyInput>;
 }
 
 export interface UserWhereInput {
@@ -575,6 +464,510 @@ export interface UserWhereInput {
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
+export type ClaimWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  name?: Maybe<String>;
+}>;
+
+export interface OfferUpdateManyDataInput {
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  description?: Maybe<String>;
+  availabilityStarts?: Maybe<String>;
+  businessFunction?: Maybe<String>;
+  price?: Maybe<Float>;
+  priceCurrency?: Maybe<String>;
+}
+
+export interface ClaimWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  AND?: Maybe<ClaimWhereInput[] | ClaimWhereInput>;
+  OR?: Maybe<ClaimWhereInput[] | ClaimWhereInput>;
+  NOT?: Maybe<ClaimWhereInput[] | ClaimWhereInput>;
+}
+
+export interface OfferUpdateManyWithWhereNestedInput {
+  where: OfferScalarWhereInput;
+  data: OfferUpdateManyDataInput;
+}
+
+export interface OfferSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<OfferWhereInput>;
+  AND?: Maybe<OfferSubscriptionWhereInput[] | OfferSubscriptionWhereInput>;
+  OR?: Maybe<OfferSubscriptionWhereInput[] | OfferSubscriptionWhereInput>;
+  NOT?: Maybe<OfferSubscriptionWhereInput[] | OfferSubscriptionWhereInput>;
+}
+
+export interface OfferScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  image?: Maybe<String>;
+  image_not?: Maybe<String>;
+  image_in?: Maybe<String[] | String>;
+  image_not_in?: Maybe<String[] | String>;
+  image_lt?: Maybe<String>;
+  image_lte?: Maybe<String>;
+  image_gt?: Maybe<String>;
+  image_gte?: Maybe<String>;
+  image_contains?: Maybe<String>;
+  image_not_contains?: Maybe<String>;
+  image_starts_with?: Maybe<String>;
+  image_not_starts_with?: Maybe<String>;
+  image_ends_with?: Maybe<String>;
+  image_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  availabilityStarts?: Maybe<String>;
+  availabilityStarts_not?: Maybe<String>;
+  availabilityStarts_in?: Maybe<String[] | String>;
+  availabilityStarts_not_in?: Maybe<String[] | String>;
+  availabilityStarts_lt?: Maybe<String>;
+  availabilityStarts_lte?: Maybe<String>;
+  availabilityStarts_gt?: Maybe<String>;
+  availabilityStarts_gte?: Maybe<String>;
+  availabilityStarts_contains?: Maybe<String>;
+  availabilityStarts_not_contains?: Maybe<String>;
+  availabilityStarts_starts_with?: Maybe<String>;
+  availabilityStarts_not_starts_with?: Maybe<String>;
+  availabilityStarts_ends_with?: Maybe<String>;
+  availabilityStarts_not_ends_with?: Maybe<String>;
+  businessFunction?: Maybe<String>;
+  businessFunction_not?: Maybe<String>;
+  businessFunction_in?: Maybe<String[] | String>;
+  businessFunction_not_in?: Maybe<String[] | String>;
+  businessFunction_lt?: Maybe<String>;
+  businessFunction_lte?: Maybe<String>;
+  businessFunction_gt?: Maybe<String>;
+  businessFunction_gte?: Maybe<String>;
+  businessFunction_contains?: Maybe<String>;
+  businessFunction_not_contains?: Maybe<String>;
+  businessFunction_starts_with?: Maybe<String>;
+  businessFunction_not_starts_with?: Maybe<String>;
+  businessFunction_ends_with?: Maybe<String>;
+  businessFunction_not_ends_with?: Maybe<String>;
+  price?: Maybe<Float>;
+  price_not?: Maybe<Float>;
+  price_in?: Maybe<Float[] | Float>;
+  price_not_in?: Maybe<Float[] | Float>;
+  price_lt?: Maybe<Float>;
+  price_lte?: Maybe<Float>;
+  price_gt?: Maybe<Float>;
+  price_gte?: Maybe<Float>;
+  priceCurrency?: Maybe<String>;
+  priceCurrency_not?: Maybe<String>;
+  priceCurrency_in?: Maybe<String[] | String>;
+  priceCurrency_not_in?: Maybe<String[] | String>;
+  priceCurrency_lt?: Maybe<String>;
+  priceCurrency_lte?: Maybe<String>;
+  priceCurrency_gt?: Maybe<String>;
+  priceCurrency_gte?: Maybe<String>;
+  priceCurrency_contains?: Maybe<String>;
+  priceCurrency_not_contains?: Maybe<String>;
+  priceCurrency_starts_with?: Maybe<String>;
+  priceCurrency_not_starts_with?: Maybe<String>;
+  priceCurrency_ends_with?: Maybe<String>;
+  priceCurrency_not_ends_with?: Maybe<String>;
+  AND?: Maybe<OfferScalarWhereInput[] | OfferScalarWhereInput>;
+  OR?: Maybe<OfferScalarWhereInput[] | OfferScalarWhereInput>;
+  NOT?: Maybe<OfferScalarWhereInput[] | OfferScalarWhereInput>;
+}
+
+export interface CitySubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<CityWhereInput>;
+  AND?: Maybe<CitySubscriptionWhereInput[] | CitySubscriptionWhereInput>;
+  OR?: Maybe<CitySubscriptionWhereInput[] | CitySubscriptionWhereInput>;
+  NOT?: Maybe<CitySubscriptionWhereInput[] | CitySubscriptionWhereInput>;
+}
+
+export interface OfferUpsertWithWhereUniqueNestedInput {
+  where: OfferWhereUniqueInput;
+  update: OfferUpdateDataInput;
+  create: OfferCreateInput;
+}
+
+export interface UserUpdateManyMutationInput {
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  name?: Maybe<String>;
+}
+
+export interface OfferWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  image?: Maybe<String>;
+  image_not?: Maybe<String>;
+  image_in?: Maybe<String[] | String>;
+  image_not_in?: Maybe<String[] | String>;
+  image_lt?: Maybe<String>;
+  image_lte?: Maybe<String>;
+  image_gt?: Maybe<String>;
+  image_gte?: Maybe<String>;
+  image_contains?: Maybe<String>;
+  image_not_contains?: Maybe<String>;
+  image_starts_with?: Maybe<String>;
+  image_not_starts_with?: Maybe<String>;
+  image_ends_with?: Maybe<String>;
+  image_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  availabilityStarts?: Maybe<String>;
+  availabilityStarts_not?: Maybe<String>;
+  availabilityStarts_in?: Maybe<String[] | String>;
+  availabilityStarts_not_in?: Maybe<String[] | String>;
+  availabilityStarts_lt?: Maybe<String>;
+  availabilityStarts_lte?: Maybe<String>;
+  availabilityStarts_gt?: Maybe<String>;
+  availabilityStarts_gte?: Maybe<String>;
+  availabilityStarts_contains?: Maybe<String>;
+  availabilityStarts_not_contains?: Maybe<String>;
+  availabilityStarts_starts_with?: Maybe<String>;
+  availabilityStarts_not_starts_with?: Maybe<String>;
+  availabilityStarts_ends_with?: Maybe<String>;
+  availabilityStarts_not_ends_with?: Maybe<String>;
+  businessFunction?: Maybe<String>;
+  businessFunction_not?: Maybe<String>;
+  businessFunction_in?: Maybe<String[] | String>;
+  businessFunction_not_in?: Maybe<String[] | String>;
+  businessFunction_lt?: Maybe<String>;
+  businessFunction_lte?: Maybe<String>;
+  businessFunction_gt?: Maybe<String>;
+  businessFunction_gte?: Maybe<String>;
+  businessFunction_contains?: Maybe<String>;
+  businessFunction_not_contains?: Maybe<String>;
+  businessFunction_starts_with?: Maybe<String>;
+  businessFunction_not_starts_with?: Maybe<String>;
+  businessFunction_ends_with?: Maybe<String>;
+  businessFunction_not_ends_with?: Maybe<String>;
+  price?: Maybe<Float>;
+  price_not?: Maybe<Float>;
+  price_in?: Maybe<Float[] | Float>;
+  price_not_in?: Maybe<Float[] | Float>;
+  price_lt?: Maybe<Float>;
+  price_lte?: Maybe<Float>;
+  price_gt?: Maybe<Float>;
+  price_gte?: Maybe<Float>;
+  priceCurrency?: Maybe<String>;
+  priceCurrency_not?: Maybe<String>;
+  priceCurrency_in?: Maybe<String[] | String>;
+  priceCurrency_not_in?: Maybe<String[] | String>;
+  priceCurrency_lt?: Maybe<String>;
+  priceCurrency_lte?: Maybe<String>;
+  priceCurrency_gt?: Maybe<String>;
+  priceCurrency_gte?: Maybe<String>;
+  priceCurrency_contains?: Maybe<String>;
+  priceCurrency_not_contains?: Maybe<String>;
+  priceCurrency_starts_with?: Maybe<String>;
+  priceCurrency_not_starts_with?: Maybe<String>;
+  priceCurrency_ends_with?: Maybe<String>;
+  priceCurrency_not_ends_with?: Maybe<String>;
+  AND?: Maybe<OfferWhereInput[] | OfferWhereInput>;
+  OR?: Maybe<OfferWhereInput[] | OfferWhereInput>;
+  NOT?: Maybe<OfferWhereInput[] | OfferWhereInput>;
+}
+
+export interface RoleUpdateManyWithWhereNestedInput {
+  where: RoleScalarWhereInput;
+  data: RoleUpdateManyDataInput;
+}
+
+export interface CityCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  available: Boolean;
+  votes?: Maybe<Int>;
+}
+
+export interface RoleUpsertWithWhereUniqueNestedInput {
+  where: RoleWhereUniqueInput;
+  update: RoleUpdateDataInput;
+  create: RoleCreateInput;
+}
+
+export interface CityUpdateInput {
+  name?: Maybe<String>;
+  available?: Maybe<Boolean>;
+  votes?: Maybe<Int>;
+}
+
+export interface RoleUpdateDataInput {
+  name?: Maybe<String>;
+  claims?: Maybe<ClaimUpdateManyInput>;
+}
+
+export interface CityUpdateManyMutationInput {
+  name?: Maybe<String>;
+  available?: Maybe<Boolean>;
+  votes?: Maybe<Int>;
+}
+
+export interface RoleUpdateWithWhereUniqueNestedInput {
+  where: RoleWhereUniqueInput;
+  data: RoleUpdateDataInput;
+}
+
+export interface OfferUpdateDataInput {
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  description?: Maybe<String>;
+  availabilityStarts?: Maybe<String>;
+  businessFunction?: Maybe<String>;
+  price?: Maybe<Float>;
+  priceCurrency?: Maybe<String>;
+}
+
+export interface CityUpsertNestedInput {
+  update: CityUpdateDataInput;
+  create: CityCreateInput;
+}
+
+export interface OfferUpdateWithWhereUniqueNestedInput {
+  where: OfferWhereUniqueInput;
+  data: OfferUpdateDataInput;
+}
+
+export type ServiceWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ClaimCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  description?: Maybe<String>;
+}
+
+export interface ServiceWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  image?: Maybe<String>;
+  image_not?: Maybe<String>;
+  image_in?: Maybe<String[] | String>;
+  image_not_in?: Maybe<String[] | String>;
+  image_lt?: Maybe<String>;
+  image_lte?: Maybe<String>;
+  image_gt?: Maybe<String>;
+  image_gte?: Maybe<String>;
+  image_contains?: Maybe<String>;
+  image_not_contains?: Maybe<String>;
+  image_starts_with?: Maybe<String>;
+  image_not_starts_with?: Maybe<String>;
+  image_ends_with?: Maybe<String>;
+  image_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  serviceType?: Maybe<String>;
+  serviceType_not?: Maybe<String>;
+  serviceType_in?: Maybe<String[] | String>;
+  serviceType_not_in?: Maybe<String[] | String>;
+  serviceType_lt?: Maybe<String>;
+  serviceType_lte?: Maybe<String>;
+  serviceType_gt?: Maybe<String>;
+  serviceType_gte?: Maybe<String>;
+  serviceType_contains?: Maybe<String>;
+  serviceType_not_contains?: Maybe<String>;
+  serviceType_starts_with?: Maybe<String>;
+  serviceType_not_starts_with?: Maybe<String>;
+  serviceType_ends_with?: Maybe<String>;
+  serviceType_not_ends_with?: Maybe<String>;
+  offers_every?: Maybe<OfferWhereInput>;
+  offers_some?: Maybe<OfferWhereInput>;
+  offers_none?: Maybe<OfferWhereInput>;
+  termsOfService?: Maybe<String>;
+  termsOfService_not?: Maybe<String>;
+  termsOfService_in?: Maybe<String[] | String>;
+  termsOfService_not_in?: Maybe<String[] | String>;
+  termsOfService_lt?: Maybe<String>;
+  termsOfService_lte?: Maybe<String>;
+  termsOfService_gt?: Maybe<String>;
+  termsOfService_gte?: Maybe<String>;
+  termsOfService_contains?: Maybe<String>;
+  termsOfService_not_contains?: Maybe<String>;
+  termsOfService_starts_with?: Maybe<String>;
+  termsOfService_not_starts_with?: Maybe<String>;
+  termsOfService_ends_with?: Maybe<String>;
+  termsOfService_not_ends_with?: Maybe<String>;
+  AND?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
+  OR?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
+  NOT?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
+}
+
+export interface ClaimUpdateInput {
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+}
+
+export interface RoleCreateManyInput {
+  create?: Maybe<RoleCreateInput[] | RoleCreateInput>;
+  connect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
+}
+
+export interface ClaimUpdateManyMutationInput {
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+}
+
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
   email: String;
@@ -584,20 +977,46 @@ export interface UserCreateInput {
   roles?: Maybe<RoleCreateManyInput>;
 }
 
-export interface UserSubscriptionWhereInput {
+export interface OfferCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  image: String;
+  description?: Maybe<String>;
+  availabilityStarts?: Maybe<String>;
+  businessFunction?: Maybe<String>;
+  price?: Maybe<Float>;
+  priceCurrency?: Maybe<String>;
+}
+
+export interface ServiceSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<UserWhereInput>;
-  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  node?: Maybe<ServiceWhereInput>;
+  AND?: Maybe<ServiceSubscriptionWhereInput[] | ServiceSubscriptionWhereInput>;
+  OR?: Maybe<ServiceSubscriptionWhereInput[] | ServiceSubscriptionWhereInput>;
+  NOT?: Maybe<ServiceSubscriptionWhereInput[] | ServiceSubscriptionWhereInput>;
 }
 
-export interface ClaimUpdateManyMutationInput {
-  name?: Maybe<String>;
-  description?: Maybe<String>;
+export interface OfferUpdateManyInput {
+  create?: Maybe<OfferCreateInput[] | OfferCreateInput>;
+  update?: Maybe<
+    | OfferUpdateWithWhereUniqueNestedInput[]
+    | OfferUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | OfferUpsertWithWhereUniqueNestedInput[]
+    | OfferUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<OfferWhereUniqueInput[] | OfferWhereUniqueInput>;
+  connect?: Maybe<OfferWhereUniqueInput[] | OfferWhereUniqueInput>;
+  set?: Maybe<OfferWhereUniqueInput[] | OfferWhereUniqueInput>;
+  disconnect?: Maybe<OfferWhereUniqueInput[] | OfferWhereUniqueInput>;
+  deleteMany?: Maybe<OfferScalarWhereInput[] | OfferScalarWhereInput>;
+  updateMany?: Maybe<
+    OfferUpdateManyWithWhereNestedInput[] | OfferUpdateManyWithWhereNestedInput
+  >;
 }
 
 export interface ClaimSubscriptionWhereInput {
@@ -611,67 +1030,180 @@ export interface ClaimSubscriptionWhereInput {
   NOT?: Maybe<ClaimSubscriptionWhereInput[] | ClaimSubscriptionWhereInput>;
 }
 
+export interface OfferUpdateManyMutationInput {
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  description?: Maybe<String>;
+  availabilityStarts?: Maybe<String>;
+  businessFunction?: Maybe<String>;
+  price?: Maybe<Float>;
+  priceCurrency?: Maybe<String>;
+}
+
+export interface RoleUpdateManyDataInput {
+  name?: Maybe<String>;
+}
+
 export interface RoleCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
   claims?: Maybe<ClaimCreateManyInput>;
 }
 
-export type RoleWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
+export interface RoleScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
   name?: Maybe<String>;
-}>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
+  OR?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
+  NOT?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
+}
 
 export interface ClaimCreateManyInput {
   create?: Maybe<ClaimCreateInput[] | ClaimCreateInput>;
   connect?: Maybe<ClaimWhereUniqueInput[] | ClaimWhereUniqueInput>;
 }
 
-export interface RoleUpsertWithWhereUniqueNestedInput {
-  where: RoleWhereUniqueInput;
-  update: RoleUpdateDataInput;
-  create: RoleCreateInput;
-}
-
-export interface RoleUpdateManyMutationInput {
+export interface RoleWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
   name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  claims_every?: Maybe<ClaimWhereInput>;
+  claims_some?: Maybe<ClaimWhereInput>;
+  claims_none?: Maybe<ClaimWhereInput>;
+  AND?: Maybe<RoleWhereInput[] | RoleWhereInput>;
+  OR?: Maybe<RoleWhereInput[] | RoleWhereInput>;
+  NOT?: Maybe<RoleWhereInput[] | RoleWhereInput>;
 }
 
-export interface RoleUpdateManyInput {
-  create?: Maybe<RoleCreateInput[] | RoleCreateInput>;
+export interface ServiceUpdateInput {
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  description?: Maybe<String>;
+  serviceType?: Maybe<String>;
+  offers?: Maybe<OfferUpdateManyInput>;
+  termsOfService?: Maybe<String>;
+}
+
+export interface CityUpdateDataInput {
+  name?: Maybe<String>;
+  available?: Maybe<Boolean>;
+  votes?: Maybe<Int>;
+}
+
+export interface ClaimUpdateManyInput {
+  create?: Maybe<ClaimCreateInput[] | ClaimCreateInput>;
   update?: Maybe<
-    | RoleUpdateWithWhereUniqueNestedInput[]
-    | RoleUpdateWithWhereUniqueNestedInput
+    | ClaimUpdateWithWhereUniqueNestedInput[]
+    | ClaimUpdateWithWhereUniqueNestedInput
   >;
   upsert?: Maybe<
-    | RoleUpsertWithWhereUniqueNestedInput[]
-    | RoleUpsertWithWhereUniqueNestedInput
+    | ClaimUpsertWithWhereUniqueNestedInput[]
+    | ClaimUpsertWithWhereUniqueNestedInput
   >;
-  delete?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
-  connect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
-  set?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
-  disconnect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
-  deleteMany?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
+  delete?: Maybe<ClaimWhereUniqueInput[] | ClaimWhereUniqueInput>;
+  connect?: Maybe<ClaimWhereUniqueInput[] | ClaimWhereUniqueInput>;
+  set?: Maybe<ClaimWhereUniqueInput[] | ClaimWhereUniqueInput>;
+  disconnect?: Maybe<ClaimWhereUniqueInput[] | ClaimWhereUniqueInput>;
+  deleteMany?: Maybe<ClaimScalarWhereInput[] | ClaimScalarWhereInput>;
   updateMany?: Maybe<
-    RoleUpdateManyWithWhereNestedInput[] | RoleUpdateManyWithWhereNestedInput
+    ClaimUpdateManyWithWhereNestedInput[] | ClaimUpdateManyWithWhereNestedInput
   >;
 }
 
-export interface ClaimUpdateManyDataInput {
+export interface UserUpdateInput {
+  email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
-  description?: Maybe<String>;
+  city?: Maybe<CityUpdateOneInput>;
+  roles?: Maybe<RoleUpdateManyInput>;
 }
 
-export interface RoleSubscriptionWhereInput {
+export interface ClaimUpdateWithWhereUniqueNestedInput {
+  where: ClaimWhereUniqueInput;
+  data: ClaimUpdateDataInput;
+}
+
+export interface UserSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<RoleWhereInput>;
-  AND?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
-  OR?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
-  NOT?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
+  node?: Maybe<UserWhereInput>;
+  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
 }
+
+export interface ClaimUpdateDataInput {
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+}
+
+export type OfferWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ClaimUpsertWithWhereUniqueNestedInput {
+  where: ClaimWhereUniqueInput;
+  update: ClaimUpdateDataInput;
+  create: ClaimCreateInput;
+}
+
+export type RoleWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  name?: Maybe<String>;
+}>;
 
 export interface ClaimScalarWhereInput {
   id?: Maybe<ID_Input>;
@@ -721,39 +1253,65 @@ export interface ClaimScalarWhereInput {
   NOT?: Maybe<ClaimScalarWhereInput[] | ClaimScalarWhereInput>;
 }
 
-export interface ClaimUpsertWithWhereUniqueNestedInput {
-  where: ClaimWhereUniqueInput;
-  update: ClaimUpdateDataInput;
-  create: ClaimCreateInput;
+export interface CityUpdateOneInput {
+  create?: Maybe<CityCreateInput>;
+  update?: Maybe<CityUpdateDataInput>;
+  upsert?: Maybe<CityUpsertNestedInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<CityWhereUniqueInput>;
 }
 
-export interface ClaimUpdateDataInput {
+export interface ServiceCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  image?: Maybe<String>;
+  description?: Maybe<String>;
+  serviceType: String;
+  offers?: Maybe<OfferCreateManyInput>;
+  termsOfService?: Maybe<String>;
+}
+
+export interface RoleUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface ClaimUpdateManyDataInput {
   name?: Maybe<String>;
   description?: Maybe<String>;
 }
 
-export interface ClaimUpdateWithWhereUniqueNestedInput {
-  where: ClaimWhereUniqueInput;
-  data: ClaimUpdateDataInput;
+export interface ClaimUpdateManyWithWhereNestedInput {
+  where: ClaimScalarWhereInput;
+  data: ClaimUpdateManyDataInput;
 }
 
-export interface UserUpdateManyMutationInput {
-  email?: Maybe<String>;
-  password?: Maybe<String>;
-  name?: Maybe<String>;
+export interface CityCreateOneInput {
+  create?: Maybe<CityCreateInput>;
+  connect?: Maybe<CityWhereUniqueInput>;
 }
 
-export interface CityUpsertNestedInput {
-  update: CityUpdateDataInput;
-  create: CityCreateInput;
+export interface RoleUpdateManyInput {
+  create?: Maybe<RoleCreateInput[] | RoleCreateInput>;
+  update?: Maybe<
+    | RoleUpdateWithWhereUniqueNestedInput[]
+    | RoleUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | RoleUpsertWithWhereUniqueNestedInput[]
+    | RoleUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
+  connect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
+  set?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
+  disconnect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
+  deleteMany?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
+  updateMany?: Maybe<
+    RoleUpdateManyWithWhereNestedInput[] | RoleUpdateManyWithWhereNestedInput
+  >;
 }
 
-export interface RoleUpdateWithWhereUniqueNestedInput {
-  where: RoleWhereUniqueInput;
-  data: RoleUpdateDataInput;
-}
-
-export interface RoleWhereInput {
+export interface CityWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -782,12 +1340,30 @@ export interface RoleWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  claims_every?: Maybe<ClaimWhereInput>;
-  claims_some?: Maybe<ClaimWhereInput>;
-  claims_none?: Maybe<ClaimWhereInput>;
-  AND?: Maybe<RoleWhereInput[] | RoleWhereInput>;
-  OR?: Maybe<RoleWhereInput[] | RoleWhereInput>;
-  NOT?: Maybe<RoleWhereInput[] | RoleWhereInput>;
+  available?: Maybe<Boolean>;
+  available_not?: Maybe<Boolean>;
+  votes?: Maybe<Int>;
+  votes_not?: Maybe<Int>;
+  votes_in?: Maybe<Int[] | Int>;
+  votes_not_in?: Maybe<Int[] | Int>;
+  votes_lt?: Maybe<Int>;
+  votes_lte?: Maybe<Int>;
+  votes_gt?: Maybe<Int>;
+  votes_gte?: Maybe<Int>;
+  AND?: Maybe<CityWhereInput[] | CityWhereInput>;
+  OR?: Maybe<CityWhereInput[] | CityWhereInput>;
+  NOT?: Maybe<CityWhereInput[] | CityWhereInput>;
+}
+
+export interface RoleSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<RoleWhereInput>;
+  AND?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
+  OR?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
+  NOT?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
 }
 
 export interface NodeNode {
@@ -819,20 +1395,25 @@ export interface UserPreviousValuesSubscription
   name: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateClaim {
-  count: Int;
+export interface OfferConnection {
+  pageInfo: PageInfo;
+  edges: OfferEdge[];
 }
 
-export interface AggregateClaimPromise
-  extends Promise<AggregateClaim>,
+export interface OfferConnectionPromise
+  extends Promise<OfferConnection>,
     Fragmentable {
-  count: () => Promise<Int>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<OfferEdge>>() => T;
+  aggregate: <T = AggregateOfferPromise>() => T;
 }
 
-export interface AggregateClaimSubscription
-  extends Promise<AsyncIterator<AggregateClaim>>,
+export interface OfferConnectionSubscription
+  extends Promise<AsyncIterator<OfferConnection>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<OfferEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateOfferSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -858,21 +1439,80 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ClaimEdge {
-  node: Claim;
+export interface OfferEdge {
+  node: Offer;
   cursor: String;
 }
 
-export interface ClaimEdgePromise extends Promise<ClaimEdge>, Fragmentable {
-  node: <T = ClaimPromise>() => T;
+export interface OfferEdgePromise extends Promise<OfferEdge>, Fragmentable {
+  node: <T = OfferPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface ClaimEdgeSubscription
-  extends Promise<AsyncIterator<ClaimEdge>>,
+export interface OfferEdgeSubscription
+  extends Promise<AsyncIterator<OfferEdge>>,
     Fragmentable {
-  node: <T = ClaimSubscription>() => T;
+  node: <T = OfferSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface Claim {
+  id: ID_Output;
+  name: String;
+  description?: String;
+}
+
+export interface ClaimPromise extends Promise<Claim>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+}
+
+export interface ClaimSubscription
+  extends Promise<AsyncIterator<Claim>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ClaimNullablePromise
+  extends Promise<Claim | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+}
+
+export interface ServicePreviousValues {
+  id: ID_Output;
+  name: String;
+  image?: String;
+  description?: String;
+  serviceType: String;
+  termsOfService?: String;
+}
+
+export interface ServicePreviousValuesPromise
+  extends Promise<ServicePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  image: () => Promise<String>;
+  description: () => Promise<String>;
+  serviceType: () => Promise<String>;
+  termsOfService: () => Promise<String>;
+}
+
+export interface ServicePreviousValuesSubscription
+  extends Promise<AsyncIterator<ServicePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  serviceType: () => Promise<AsyncIterator<String>>;
+  termsOfService: () => Promise<AsyncIterator<String>>;
 }
 
 export interface CityEdge {
@@ -890,6 +1530,448 @@ export interface CityEdgeSubscription
     Fragmentable {
   node: <T = CitySubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface Offer {
+  id: ID_Output;
+  name: String;
+  image: String;
+  description?: String;
+  availabilityStarts?: String;
+  businessFunction?: String;
+  price?: Float;
+  priceCurrency?: String;
+}
+
+export interface OfferPromise extends Promise<Offer>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  image: () => Promise<String>;
+  description: () => Promise<String>;
+  availabilityStarts: () => Promise<String>;
+  businessFunction: () => Promise<String>;
+  price: () => Promise<Float>;
+  priceCurrency: () => Promise<String>;
+}
+
+export interface OfferSubscription
+  extends Promise<AsyncIterator<Offer>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  availabilityStarts: () => Promise<AsyncIterator<String>>;
+  businessFunction: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<Float>>;
+  priceCurrency: () => Promise<AsyncIterator<String>>;
+}
+
+export interface OfferNullablePromise
+  extends Promise<Offer | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  image: () => Promise<String>;
+  description: () => Promise<String>;
+  availabilityStarts: () => Promise<String>;
+  businessFunction: () => Promise<String>;
+  price: () => Promise<Float>;
+  priceCurrency: () => Promise<String>;
+}
+
+export interface City {
+  id: ID_Output;
+  name: String;
+  available: Boolean;
+  votes?: Int;
+}
+
+export interface CityPromise extends Promise<City>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  available: () => Promise<Boolean>;
+  votes: () => Promise<Int>;
+}
+
+export interface CitySubscription
+  extends Promise<AsyncIterator<City>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  available: () => Promise<AsyncIterator<Boolean>>;
+  votes: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface CityNullablePromise
+  extends Promise<City | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  available: () => Promise<Boolean>;
+  votes: () => Promise<Int>;
+}
+
+export interface AggregateClaim {
+  count: Int;
+}
+
+export interface AggregateClaimPromise
+  extends Promise<AggregateClaim>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateClaimSubscription
+  extends Promise<AsyncIterator<AggregateClaim>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface AggregateService {
+  count: Int;
+}
+
+export interface AggregateServicePromise
+  extends Promise<AggregateService>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateServiceSubscription
+  extends Promise<AsyncIterator<AggregateService>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ServiceSubscriptionPayload {
+  mutation: MutationType;
+  node: Service;
+  updatedFields: String[];
+  previousValues: ServicePreviousValues;
+}
+
+export interface ServiceSubscriptionPayloadPromise
+  extends Promise<ServiceSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ServicePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ServicePreviousValuesPromise>() => T;
+}
+
+export interface ServiceSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ServiceSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ServiceSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ServicePreviousValuesSubscription>() => T;
+}
+
+export interface ServiceConnection {
+  pageInfo: PageInfo;
+  edges: ServiceEdge[];
+}
+
+export interface ServiceConnectionPromise
+  extends Promise<ServiceConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ServiceEdge>>() => T;
+  aggregate: <T = AggregateServicePromise>() => T;
+}
+
+export interface ServiceConnectionSubscription
+  extends Promise<AsyncIterator<ServiceConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ServiceEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateServiceSubscription>() => T;
+}
+
+export interface CitySubscriptionPayload {
+  mutation: MutationType;
+  node: City;
+  updatedFields: String[];
+  previousValues: CityPreviousValues;
+}
+
+export interface CitySubscriptionPayloadPromise
+  extends Promise<CitySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CityPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CityPreviousValuesPromise>() => T;
+}
+
+export interface CitySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CitySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CitySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CityPreviousValuesSubscription>() => T;
+}
+
+export interface Service {
+  id: ID_Output;
+  name: String;
+  image?: String;
+  description?: String;
+  serviceType: String;
+  termsOfService?: String;
+}
+
+export interface ServicePromise extends Promise<Service>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  image: () => Promise<String>;
+  description: () => Promise<String>;
+  serviceType: () => Promise<String>;
+  offers: <T = FragmentableArray<Offer>>(args?: {
+    where?: OfferWhereInput;
+    orderBy?: OfferOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  termsOfService: () => Promise<String>;
+}
+
+export interface ServiceSubscription
+  extends Promise<AsyncIterator<Service>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  serviceType: () => Promise<AsyncIterator<String>>;
+  offers: <T = Promise<AsyncIterator<OfferSubscription>>>(args?: {
+    where?: OfferWhereInput;
+    orderBy?: OfferOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  termsOfService: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ServiceNullablePromise
+  extends Promise<Service | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  image: () => Promise<String>;
+  description: () => Promise<String>;
+  serviceType: () => Promise<String>;
+  offers: <T = FragmentableArray<Offer>>(args?: {
+    where?: OfferWhereInput;
+    orderBy?: OfferOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  termsOfService: () => Promise<String>;
+}
+
+export interface CityPreviousValues {
+  id: ID_Output;
+  name: String;
+  available: Boolean;
+  votes?: Int;
+}
+
+export interface CityPreviousValuesPromise
+  extends Promise<CityPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  available: () => Promise<Boolean>;
+  votes: () => Promise<Int>;
+}
+
+export interface CityPreviousValuesSubscription
+  extends Promise<AsyncIterator<CityPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  available: () => Promise<AsyncIterator<Boolean>>;
+  votes: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface RoleEdge {
+  node: Role;
+  cursor: String;
+}
+
+export interface RoleEdgePromise extends Promise<RoleEdge>, Fragmentable {
+  node: <T = RolePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface RoleEdgeSubscription
+  extends Promise<AsyncIterator<RoleEdge>>,
+    Fragmentable {
+  node: <T = RoleSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ClaimEdge {
+  node: Claim;
+  cursor: String;
+}
+
+export interface ClaimEdgePromise extends Promise<ClaimEdge>, Fragmentable {
+  node: <T = ClaimPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ClaimEdgeSubscription
+  extends Promise<AsyncIterator<ClaimEdge>>,
+    Fragmentable {
+  node: <T = ClaimSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateCity {
+  count: Int;
+}
+
+export interface AggregateCityPromise
+  extends Promise<AggregateCity>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateCitySubscription
+  extends Promise<AsyncIterator<AggregateCity>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ClaimSubscriptionPayload {
+  mutation: MutationType;
+  node: Claim;
+  updatedFields: String[];
+  previousValues: ClaimPreviousValues;
+}
+
+export interface ClaimSubscriptionPayloadPromise
+  extends Promise<ClaimSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ClaimPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ClaimPreviousValuesPromise>() => T;
+}
+
+export interface ClaimSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ClaimSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ClaimSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ClaimPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateOffer {
+  count: Int;
+}
+
+export interface AggregateOfferPromise
+  extends Promise<AggregateOffer>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateOfferSubscription
+  extends Promise<AsyncIterator<AggregateOffer>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ClaimPreviousValues {
+  id: ID_Output;
+  name: String;
+  description?: String;
+}
+
+export interface ClaimPreviousValuesPromise
+  extends Promise<ClaimPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+}
+
+export interface ClaimPreviousValuesSubscription
+  extends Promise<AsyncIterator<ClaimPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
 export interface ClaimConnection {
@@ -913,36 +1995,132 @@ export interface ClaimConnectionSubscription
   aggregate: <T = AggregateClaimSubscription>() => T;
 }
 
-export interface BatchPayload {
-  count: Long;
+export interface ServiceEdge {
+  node: Service;
+  cursor: String;
 }
 
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
+export interface ServiceEdgePromise extends Promise<ServiceEdge>, Fragmentable {
+  node: <T = ServicePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ServiceEdgeSubscription
+  extends Promise<AsyncIterator<ServiceEdge>>,
     Fragmentable {
-  count: () => Promise<Long>;
+  node: <T = ServiceSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
+export interface OfferSubscriptionPayload {
+  mutation: MutationType;
+  node: Offer;
+  updatedFields: String[];
+  previousValues: OfferPreviousValues;
+}
+
+export interface OfferSubscriptionPayloadPromise
+  extends Promise<OfferSubscriptionPayload>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
+  mutation: () => Promise<MutationType>;
+  node: <T = OfferPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = OfferPreviousValuesPromise>() => T;
 }
 
-export interface AggregateCity {
+export interface OfferSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<OfferSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = OfferSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = OfferPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateRole {
   count: Int;
 }
 
-export interface AggregateCityPromise
-  extends Promise<AggregateCity>,
+export interface AggregateRolePromise
+  extends Promise<AggregateRole>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateCitySubscription
-  extends Promise<AsyncIterator<AggregateCity>>,
+export interface AggregateRoleSubscription
+  extends Promise<AsyncIterator<AggregateRole>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Role {
+  id: ID_Output;
+  name: String;
+}
+
+export interface RolePromise extends Promise<Role>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  claims: <T = FragmentableArray<Claim>>(args?: {
+    where?: ClaimWhereInput;
+    orderBy?: ClaimOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface RoleSubscription
+  extends Promise<AsyncIterator<Role>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  claims: <T = Promise<AsyncIterator<ClaimSubscription>>>(args?: {
+    where?: ClaimWhereInput;
+    orderBy?: ClaimOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface RoleNullablePromise
+  extends Promise<Role | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  claims: <T = FragmentableArray<Claim>>(args?: {
+    where?: ClaimWhereInput;
+    orderBy?: ClaimOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface RolePreviousValues {
+  id: ID_Output;
+  name: String;
+}
+
+export interface RolePreviousValuesPromise
+  extends Promise<RolePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface RolePreviousValuesSubscription
+  extends Promise<AsyncIterator<RolePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
 }
 
 export interface RoleSubscriptionPayload {
@@ -970,6 +2148,64 @@ export interface RoleSubscriptionPayloadSubscription
   previousValues: <T = RolePreviousValuesSubscription>() => T;
 }
 
+export interface CityConnection {
+  pageInfo: PageInfo;
+  edges: CityEdge[];
+}
+
+export interface CityConnectionPromise
+  extends Promise<CityConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<CityEdge>>() => T;
+  aggregate: <T = AggregateCityPromise>() => T;
+}
+
+export interface CityConnectionSubscription
+  extends Promise<AsyncIterator<CityConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CityEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCitySubscription>() => T;
+}
+
+export interface OfferPreviousValues {
+  id: ID_Output;
+  name: String;
+  image: String;
+  description?: String;
+  availabilityStarts?: String;
+  businessFunction?: String;
+  price?: Float;
+  priceCurrency?: String;
+}
+
+export interface OfferPreviousValuesPromise
+  extends Promise<OfferPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  image: () => Promise<String>;
+  description: () => Promise<String>;
+  availabilityStarts: () => Promise<String>;
+  businessFunction: () => Promise<String>;
+  price: () => Promise<Float>;
+  priceCurrency: () => Promise<String>;
+}
+
+export interface OfferPreviousValuesSubscription
+  extends Promise<AsyncIterator<OfferPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  availabilityStarts: () => Promise<AsyncIterator<String>>;
+  businessFunction: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<Float>>;
+  priceCurrency: () => Promise<AsyncIterator<String>>;
+}
+
 export interface AggregateUser {
   count: Int;
 }
@@ -986,42 +2222,50 @@ export interface AggregateUserSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserConnection {
+export interface RoleConnection {
   pageInfo: PageInfo;
-  edges: UserEdge[];
+  edges: RoleEdge[];
 }
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface RoleConnectionPromise
+  extends Promise<RoleConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
+  edges: <T = FragmentableArray<RoleEdge>>() => T;
+  aggregate: <T = AggregateRolePromise>() => T;
 }
 
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
+export interface RoleConnectionSubscription
+  extends Promise<AsyncIterator<RoleConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<RoleEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateRoleSubscription>() => T;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
 export interface User {
@@ -1086,337 +2330,22 @@ export interface UserNullablePromise
   }) => T;
 }
 
-export interface CitySubscriptionPayload {
-  mutation: MutationType;
-  node: City;
-  updatedFields: String[];
-  previousValues: CityPreviousValues;
-}
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point). 
+*/
+export type Float = number;
 
-export interface CitySubscriptionPayloadPromise
-  extends Promise<CitySubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = CityPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = CityPreviousValuesPromise>() => T;
-}
-
-export interface CitySubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<CitySubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = CitySubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = CityPreviousValuesSubscription>() => T;
-}
-
-export interface RoleEdge {
-  node: Role;
-  cursor: String;
-}
-
-export interface RoleEdgePromise extends Promise<RoleEdge>, Fragmentable {
-  node: <T = RolePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface RoleEdgeSubscription
-  extends Promise<AsyncIterator<RoleEdge>>,
-    Fragmentable {
-  node: <T = RoleSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface CityPreviousValues {
-  id: ID_Output;
-  name: String;
-  available: Boolean;
-  votes?: Int;
-}
-
-export interface CityPreviousValuesPromise
-  extends Promise<CityPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  available: () => Promise<Boolean>;
-  votes: () => Promise<Int>;
-}
-
-export interface CityPreviousValuesSubscription
-  extends Promise<AsyncIterator<CityPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  available: () => Promise<AsyncIterator<Boolean>>;
-  votes: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface CityConnection {
-  pageInfo: PageInfo;
-  edges: CityEdge[];
-}
-
-export interface CityConnectionPromise
-  extends Promise<CityConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<CityEdge>>() => T;
-  aggregate: <T = AggregateCityPromise>() => T;
-}
-
-export interface CityConnectionSubscription
-  extends Promise<AsyncIterator<CityConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<CityEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateCitySubscription>() => T;
-}
-
-export interface Claim {
-  id: ID_Output;
-  name: String;
-  description?: String;
-}
-
-export interface ClaimPromise extends Promise<Claim>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-}
-
-export interface ClaimSubscription
-  extends Promise<AsyncIterator<Claim>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ClaimNullablePromise
-  extends Promise<Claim | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-}
-
-export interface ClaimPreviousValues {
-  id: ID_Output;
-  name: String;
-  description?: String;
-}
-
-export interface ClaimPreviousValuesPromise
-  extends Promise<ClaimPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-}
-
-export interface ClaimPreviousValuesSubscription
-  extends Promise<AsyncIterator<ClaimPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ClaimSubscriptionPayload {
-  mutation: MutationType;
-  node: Claim;
-  updatedFields: String[];
-  previousValues: ClaimPreviousValues;
-}
-
-export interface ClaimSubscriptionPayloadPromise
-  extends Promise<ClaimSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ClaimPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ClaimPreviousValuesPromise>() => T;
-}
-
-export interface ClaimSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ClaimSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ClaimSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ClaimPreviousValuesSubscription>() => T;
-}
-
-export interface RolePreviousValues {
-  id: ID_Output;
-  name: String;
-}
-
-export interface RolePreviousValuesPromise
-  extends Promise<RolePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-}
-
-export interface RolePreviousValuesSubscription
-  extends Promise<AsyncIterator<RolePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-}
-
-export interface City {
-  id: ID_Output;
-  name: String;
-  available: Boolean;
-  votes?: Int;
-}
-
-export interface CityPromise extends Promise<City>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  available: () => Promise<Boolean>;
-  votes: () => Promise<Int>;
-}
-
-export interface CitySubscription
-  extends Promise<AsyncIterator<City>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  available: () => Promise<AsyncIterator<Boolean>>;
-  votes: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface CityNullablePromise
-  extends Promise<City | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  available: () => Promise<Boolean>;
-  votes: () => Promise<Int>;
-}
-
-export interface Role {
-  id: ID_Output;
-  name: String;
-}
-
-export interface RolePromise extends Promise<Role>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  claims: <T = FragmentableArray<Claim>>(args?: {
-    where?: ClaimWhereInput;
-    orderBy?: ClaimOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface RoleSubscription
-  extends Promise<AsyncIterator<Role>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  claims: <T = Promise<AsyncIterator<ClaimSubscription>>>(args?: {
-    where?: ClaimWhereInput;
-    orderBy?: ClaimOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface RoleNullablePromise
-  extends Promise<Role | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  claims: <T = FragmentableArray<Claim>>(args?: {
-    where?: ClaimWhereInput;
-    orderBy?: ClaimOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface RoleConnection {
-  pageInfo: PageInfo;
-  edges: RoleEdge[];
-}
-
-export interface RoleConnectionPromise
-  extends Promise<RoleConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<RoleEdge>>() => T;
-  aggregate: <T = AggregateRolePromise>() => T;
-}
-
-export interface RoleConnectionSubscription
-  extends Promise<AsyncIterator<RoleConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<RoleEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateRoleSubscription>() => T;
-}
-
-export interface AggregateRole {
-  count: Int;
-}
-
-export interface AggregateRolePromise
-  extends Promise<AggregateRole>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateRoleSubscription
-  extends Promise<AsyncIterator<AggregateRole>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
+export type Long = string;
 
 /*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+The `Boolean` scalar type represents `true` or `false`.
 */
-export type String = string;
+export type Boolean = boolean;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -1425,16 +2354,9 @@ export type ID_Input = string | number;
 export type ID_Output = string;
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
-export type Boolean = boolean;
-
-export type Long = string;
-
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number;
+export type String = string;
 
 /**
  * Model Metadata
@@ -1455,6 +2377,14 @@ export const models: Model[] = [
   },
   {
     name: "City",
+    embedded: false
+  },
+  {
+    name: "Offer",
+    embedded: false
+  },
+  {
+    name: "Service",
     embedded: false
   }
 ];
