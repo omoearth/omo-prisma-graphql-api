@@ -43,6 +43,8 @@ type Offer implements Thing {
   businessFunction: String
   price: Float
   priceCurrency: String
+
+  count: Int
 }
 
 type Service implements Thing {

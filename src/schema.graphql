@@ -8,10 +8,12 @@ type Mutation {
   register(email: String!, password: String!): User!
   login(email: String!, password: String!): LoginResponse!
   voteCity(cityId: String!, count: Int!): City
+  buyOffer(offerId: String!): Offer
 }
 
 type Subscription {
   city: City
+  offer: Offer
 }
 
 type LoginResponse {
