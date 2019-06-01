@@ -1,5 +1,7 @@
 import { Context } from '../utils/Utils';
 
+export const PublicQueries: Array<String> = ['cities'];
+
 export const Query = {
   currentUser: (_parent: any, _args: any, context: Context) => {
     if (!context.user) {

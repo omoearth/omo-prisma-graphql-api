@@ -4,6 +4,7 @@ import { PubSub } from 'graphql-subscriptions';
 import { GraphQLServer } from 'graphql-yoga';
 import { prisma } from './generated/prisma.ts';
 import { resolvers, fragmentReplacements } from './resolvers/index';
+import { autheticate } from './auth/Authentication';
 export const pubsub = new PubSub();
 
 function getUser(request: any) {
@@ -30,6 +31,7 @@ export const server = new GraphQLServer({
     fragmentReplacements,
     request,
   }),
+  middlewares: [autheticate],
   resolverValidationOptions: {
     requireResolversForResolveType: false,
   },

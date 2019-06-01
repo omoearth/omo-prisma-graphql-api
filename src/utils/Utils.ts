@@ -7,4 +7,5 @@ export interface Context {
   pubsub: PubSub;
   prisma: Prisma;
   fragmentReplacements: FragmentReplacement[];
+  request: any;
 }
