@@ -35,11 +35,11 @@ export const Mutation = {
     }
     return null;
   },
-  buyOffer: async (_parent: any, offerId: string, context: Context) => {
+  buyOffer: async (_parent: any, { offerId }: any, context: Context) => {
     let counter = (await context.prisma.offer({ id: offerId }).count()) || 0;
     const offer = await context.prisma.updateOffer({
       where: { id: offerId },
-      data: { count: counter++ }
+      data: { count: counter + 1 }
     });
 
     if (offer) {
