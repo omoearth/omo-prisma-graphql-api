@@ -3,6 +3,8 @@ import { Context } from "../utils/Utils";
 import { VoteCity, LoginUser } from "../QueryArguments";
 import { CityChange, CityChangeEvent } from "../resolvers/ChangeEvents";
 
+export const PublicMutations: Array<String> = ['register', 'login'];
+
 export const Mutation = {
   register: async (_parent: any, { email, password }: any, context: Context) =>
     registerUser(context, email, password),

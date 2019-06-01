@@ -1,10 +1,9 @@
 import { Context } from '../utils/Utils';
 
+export const PublicQueries: Array<String> = ['currentUser', 'cities'];
+
 export const Query = {
   currentUser: (_parent: any, _args: any, context: Context) => {
-    if (!context.user) {
-      throw new Error('Not Authenticated');
-    }
     return context.prisma.user({
       id: context.user.id,
     });
