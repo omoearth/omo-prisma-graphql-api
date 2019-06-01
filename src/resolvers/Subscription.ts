@@ -1,7 +1,7 @@
 import { Context } from "../utils/Utils";
 import { CityChange, OfferChange } from "../resolvers/ChangeEvents";
 
-export const PublicSubcriptions: Array<String> = ["city"];
+export const PublicSubcriptions: Array<String> = ["city", "offer"];
 
 export const Subscription = {
   city: {

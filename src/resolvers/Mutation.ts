@@ -8,7 +8,12 @@ import {
   OfferChangeEvent
 } from "../resolvers/ChangeEvents";
 
-export const PublicMutations: Array<String> = ["register", "login"];
+export const PublicMutations: Array<String> = [
+  "register",
+  "login",
+  "buyOffer",
+  "voteCity"
+];
 
 export const Mutation = {
   register: async (_parent: any, { email, password }: any, context: Context) =>
