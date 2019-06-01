@@ -26,3 +26,15 @@ type City {
   votes: Int
 }
 
+interface Thing {
+  id: ID! @id
+  name: String!
+  image: String
+}
+
+type Product implements Thing {
+  id: ID! @id
+  name: String!
+  image: String
+  category: String
+}
