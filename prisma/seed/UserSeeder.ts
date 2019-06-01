@@ -1,4 +1,5 @@
 import { prisma } from '../../src/generated/prisma.ts';
+import { Role } from '../../src/auth/Roles';
 
 export class UserSeeder {
   async seed() {
@@ -7,7 +8,7 @@ export class UserSeeder {
       email: 'admin@omo.earth',
       password: '$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G',
       city: { connect: { name: 'Munich' } },
-      roles: { connect: [{ name: 'Admin.Authorization' }, { name: 'Admin.bar' }] },
+      roles: { connect: [{ name: Role.USER }, { name: Role.ADMIN_AUTH }] },
     });
 
     await prisma.createUser({
@@ -15,7 +16,7 @@ export class UserSeeder {
       email: 'foo@omo.earth',
       password: '$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G',
       city: { connect: { name: 'Hamburg' } },
-      roles: { connect: [{ name: 'Admin.foo' }] },
+      roles: { connect: [{ name: Role.ADMIN_FOO }] },
     });
 
     await prisma.createUser({
@@ -23,7 +24,7 @@ export class UserSeeder {
       email: 'bar@omo.earth',
       password: '$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G',
       city: { connect: { name: 'Hamburg' } },
-      roles: { connect: [{ name: 'Admin.bar' }] },
+      roles: { connect: [{ name: Role.ADMIN_BAR }] },
     });
   }
 }

@@ -7,8 +7,10 @@ import { PublicQueries } from '../resolvers/Query';
 import { PublicSubcriptions } from '../resolvers/Subscription';
 
 export const autheticate = async (resolve: any, root: any, args: any, context: Context, info: any) => {
+  let token: any;
   try {
-    jwt.verify(context.request.get('Authorization'), process.env.OMO_SECRET || '');
+    token = jwt.verify(context.request.get('Authorization'), process.env.OMO_SECRET || '');
+    context.claims = token.claims;
   } catch (e) {
     let endpoint = info.fieldName;
     let operation = info.operation.operation;

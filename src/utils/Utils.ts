@@ -8,4 +8,5 @@ export interface Context {
   prisma: Prisma;
   fragmentReplacements: FragmentReplacement[];
   request: any;
+  claims?: string;
 }

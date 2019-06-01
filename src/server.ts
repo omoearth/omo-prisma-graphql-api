@@ -5,6 +5,7 @@ import { GraphQLServer } from 'graphql-yoga';
 import { prisma } from './generated/prisma.ts';
 import { resolvers, fragmentReplacements } from './resolvers/index';
 import { autheticate } from './auth/Authentication';
+import { authorize } from './auth/Authorization';
 export const pubsub = new PubSub();
 
 function getUser(request: any) {
@@ -20,18 +21,17 @@ function getUser(request: any) {
   }
 }
 
-const user = null;
 export const server = new GraphQLServer({
   typeDefs: 'src/schema.graphql',
   resolvers,
   context: request => ({
-    user,
+    user: getUser(request),
     pubsub,
     prisma,
     fragmentReplacements,
     request,
   }),
-  middlewares: [autheticate],
+  middlewares: [autheticate, authorize],
   resolverValidationOptions: {
     requireResolversForResolveType: false,
   },
