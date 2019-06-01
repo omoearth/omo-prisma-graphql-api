@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { Context } from './Utils';
+import { LoginUser } from '../QueryArguments';
 
 async function userClaims(email: String, context: Context) {
   let data = await context.prisma.$graphql(
