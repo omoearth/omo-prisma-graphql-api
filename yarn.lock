@@ -782,7 +782,6 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-<<<<<<< HEAD
 "@nuxtjs/auth@^4.6.3":
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/@nuxtjs/auth/-/auth-4.6.3.tgz#e00ad74418209d268e7021d61557f873bece4ffb"
@@ -796,8 +795,6 @@
     lodash "^4.17.11"
     nanoid "^2.0.1"
 
-=======
->>>>>>> a0fc3f6787169e62dea09efa2107005cb23c1dcb
 "@nuxtjs/axios@^5.5.3":
   version "5.5.3"
   resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.5.3.tgz#1893609fc4a3e845516a45c1aaf428104cb3d524"
@@ -977,9 +974,9 @@
   integrity sha512-FwI9gX75FgVBJ7ywgnq/P7tw+/o1GUbtP0KzbtusLigAOgIgNISRK0ZPl4qertvXSIE8YbsVJueQ90cDt9YYyw==
 
 "@types/mongodb@^3.1.14":
-  version "3.1.27"
-  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.1.27.tgz#989a9815f33f2be601a08b982479a36e139539b6"
-  integrity sha512-DZMG/4iEh771XHw84PWFOb2JuMCKN+czroK3wFz95sGetOQPs8zqa6wjL0hswqH5XYMt0X/ekV6t2sAmSsaafg==
+  version "3.1.28"
+  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.1.28.tgz#c049cdff343788d77f5cc8c5f2e4af72ba7d047b"
+  integrity sha512-tG+QqJ/hir2p0069ee28t2O9tlGRJKDq1WFZC2QYMlU47LGdldLL8tepfTq6aFLvP58OpwSoxaJ/qjW93ob1NQ==
   dependencies:
     "@types/bson" "*"
     "@types/node" "*"
@@ -991,20 +988,15 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@^12.0.2":
-  version "12.0.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.2.tgz#3452a24edf9fea138b48fad4a0a028a683da1e40"
-  integrity sha512-5tabW/i+9mhrfEOUcLDu2xBPsHJ+X5Orqy9FKpale3SjDA17j5AEpYq5vfy3oAeAHGcvANRCO3NV3d2D6q3NiA==
+"@types/node@*", "@types/node@>=6":
+  version "12.0.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.4.tgz#46832183115c904410c275e34cf9403992999c32"
+  integrity sha512-j8YL2C0fXq7IONwl/Ud5Kt0PeXw22zGERt+HSSnwbKOJVsAGkEz3sFCYwaF9IOuoG1HOtE0vKCj6sXF7Q0+Vaw==
 
-"@types/node@^10.1.0":
+"@types/node@^10.1.0", "@types/node@^10.12.0":
   version "10.14.8"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.8.tgz#fe444203ecef1162348cd6deb76c62477b2cc6e9"
   integrity sha512-I4+DbJEhLEg4/vIy/2gkWDvXBOOtPKV9EnLhYjMoqxcRW+TTZtUftkHktz/a8suoD5mUL7m6ReLrkPvSsCQQmw==
-
-"@types/node@^10.12.0":
-  version "10.14.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.7.tgz#1854f0a9aa8d2cd6818d607b3d091346c6730362"
-  integrity sha512-on4MmIDgHXiuJDELPk1NFaKVUxxCFr37tm8E9yN6rAiF5Pzp/9bBfBHkoexqRiY+hk/Z04EJU9kKEb59YqJ82A==
 
 "@types/prettier@^1.13.2":
   version "1.16.4"
@@ -1053,11 +1045,11 @@
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
 "@wry/context@^0.4.0":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@wry/context/-/context-0.4.1.tgz#b3e23ca036035cbad0bd9711269352dd03a6fe3c"
-  integrity sha512-ZpIrDGek+IU9wkID/TYSgcYeLXsSM2VkbfAxO4NjWBGeM/OrA9KyNmy8msYlAEKPmKxi3mIbXg3jcb3f6pqnaQ==
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@wry/context/-/context-0.4.2.tgz#eb7fef6ffd0dbcd48f130e88c6a12f43a4cbb62a"
+  integrity sha512-P3IsTHNeQLVjy3Bi9eiyqUwSu4Hai9vpzgueJai8wfibr6JPjyM9KVi2b7uixk1py7aGyOU15cBNvD/l1eZ2eg==
   dependencies:
-    "@types/node" "^12.0.2"
+    "@types/node" ">=6"
     tslib "^1.9.3"
 
 abab@^2.0.0:
@@ -1745,9 +1737,9 @@ aws-lambda@^0.1.2:
     dotenv "^0.4.0"
 
 aws-sdk@^*:
-  version "2.463.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.463.0.tgz#57562a95aa9b071ee16bb9e18ddd5c6c27c6eda6"
-  integrity sha512-bl0S6mxA2o8Hpy9LsMcPC9kVnrL4+B4qayiMlNMrp+8gcEMzJSMzfrUDX4SCWsqGYT25sZn8TDqTGJp7XIh3yw==
+  version "2.466.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.466.0.tgz#02d819c5af058e15fd1942296ed3b1def9f4b14d"
+  integrity sha512-dWFpz774ONjP1Cb19VkLOfQSVTu5p5/uncZGovAe71NOfPGDSvrQKXOsKcuI1/k4oJyKW9z/GATF8ht8DkDWGg==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -3045,9 +3037,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.137:
-  version "1.3.140"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.140.tgz#8b554dd0fdccdf1d8eb5a67426e610fef42fdd7f"
-  integrity sha512-gznkq18tTzRWd/nHdmt9CQ/AC9Xv/TWstqKb6bhuVWE+koLg9NFlnXMwvQAUYKxIjPI2lS5TsuqqlRsCVuVdTg==
+  version "1.3.142"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.142.tgz#d3db509ac0f0f5a212af234ff3b500d8cc4ea812"
+  integrity sha512-GLOB/wAA2g9l5Hwg1XrPqd6br2WNOPIY8xl/q+g5zZdv3b5fB69oFOooxKxc0DfDfDS1RqaF6hKjwt6v4fuFUw==
 
 encodeurl@~1.0.2:
   version "1.0.2"
@@ -3957,9 +3949,9 @@ graphql-config@2.2.1, graphql-config@^2.0.1:
     minimatch "^3.0.4"
 
 graphql-deduplicator@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/graphql-deduplicator/-/graphql-deduplicator-2.0.2.tgz#d8608161cf6be97725e178df0c41f6a1f9f778f3"
-  integrity sha512-0CGmTmQh4UvJfsaTPppJAcHwHln8Ayat7yXXxdnuWT+Mb1dBzkbErabCWzjXyKh/RefqlGTTA7EQOZHofMaKJA==
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/graphql-deduplicator/-/graphql-deduplicator-2.0.3.tgz#25fff57ebe1611a256dff0533b34bc68ecf8ead8"
+  integrity sha512-ldfdY0o4TxhcM2qzJO48TrJHwKCb/wetJxUAzD9e73GI1fZiKLD3I/tIpMwTBqYUNfTqaoOWayUFtA/1KbIvlQ==
 
 graphql-extensions@0.7.1:
   version "0.7.1"
@@ -4129,7 +4121,7 @@ graphql-yoga@^1.17.4:
     graphql-tools "^4.0.0"
     subscriptions-transport-ws "^0.9.8"
 
-"graphql@^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0", graphql@^14.0.0, graphql@^14.0.2, graphql@^14.2.1:
+"graphql@^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0", graphql@^14.0.0, graphql@^14.0.2, graphql@^14.2.1, graphql@^14.3.0:
   version "14.3.1"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.3.1.tgz#b3aa50e61a841ada3c1f9ccda101c483f8e8c807"
   integrity sha512-FZm7kAa3FqKdXy8YSSpAoTtyDFMIYSpCDOr+3EqlI1bxmtHu+Vv/I2vrSeT1sBOEnEniX3uo4wFhFdS/8XN6gA==
@@ -5970,7 +5962,7 @@ minimist@~0.0.1:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
   integrity sha1-3j+YVD2/lggr5IrRoMfNqDYwHc8=
 
-minipass@^2.2.1, minipass@^2.3.4:
+minipass@^2.2.1, minipass@^2.3.5:
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-2.3.5.tgz#cacebe492022497f656b0f0f51e2682a9ed2d848"
   integrity sha512-Gi1W4k059gyRbyVUZQ4mEqLm0YIUiGYfvxhF6SIlk3ui1WVxMTGfGdQ2SInh3PDrRTVvPKgULkpJtT4RH10+VA==
@@ -5978,7 +5970,7 @@ minipass@^2.2.1, minipass@^2.3.4:
     safe-buffer "^5.1.2"
     yallist "^3.0.0"
 
-minizlib@^1.1.1:
+minizlib@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/minizlib/-/minizlib-1.2.1.tgz#dd27ea6136243c7c880684e8672bb3a45fd9b614"
   integrity sha512-7+4oTUOWKg7AuL3vloEWekXY2/D20cevzsrNT2kGWm+39J9hGTCBv8VI5Pm5lXZ/o3/mdR4f8rflAPhnQb8mPA==
@@ -6943,10 +6935,10 @@ prisma-binding@^2.3.10:
     subscriptions-transport-ws "0.9.16"
     yargs "12.0.5"
 
-prisma-cli-core@1.33.0:
-  version "1.33.0"
-  resolved "https://registry.yarnpkg.com/prisma-cli-core/-/prisma-cli-core-1.33.0.tgz#0e3a96f9a7740718e76b362e89e09a5d2b352cd3"
-  integrity sha512-MTIiD5ie9w9UAYRoHpQBQKeRuTIRulk4eGNCH/lEJh+gp+9ukURaabuvMuQ1QbVMKbExdzYQAQK+8+mL1nW65A==
+prisma-cli-core@1.34.0:
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/prisma-cli-core/-/prisma-cli-core-1.34.0.tgz#5a74bdfb92827db8687c81ab5916028768161e4f"
+  integrity sha512-m32cpyRrVfAZap4NwF2mAKaZw/9sR4UsxZcV/PInfgtCIwdQoCB2Kr8rf9WNZXjD/leJHucPKo3od7WNyckPJw==
   dependencies:
     "@types/express" "^4.16.1"
     adm-zip "^0.4.7"
@@ -6960,7 +6952,7 @@ prisma-cli-core@1.33.0:
     figures "^2.0.0"
     fs-extra "^7.0.0"
     globby "^8.0.1"
-    graphql "^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0"
+    graphql "^14.3.0"
     graphql-config "2.2.1"
     graphql-config-extension-prisma "0.2.5"
     graphql-playground-middleware-express "^1.6.2"
@@ -6974,21 +6966,21 @@ prisma-cli-core@1.33.0:
     node-forge "^0.7.1"
     npm-run "4.1.2"
     opn "^5.1.0"
-    prisma-client-lib "1.33.0"
-    prisma-datamodel "1.33.0"
-    prisma-db-introspection "1.33.0"
-    prisma-generate-schema "1.33.0"
-    prisma-yml "1.33.0"
+    prisma-client-lib "1.34.0"
+    prisma-datamodel "1.34.0"
+    prisma-db-introspection "1.34.0"
+    prisma-generate-schema "1.34.0"
+    prisma-yml "1.34.0"
     scuid "^1.0.2"
     semver "^5.6.0"
     sillyname "^0.1.0"
     source-map-support "^0.4.18"
     table "^4.0.1"
 
-prisma-cli-engine@1.33.0:
-  version "1.33.0"
-  resolved "https://registry.yarnpkg.com/prisma-cli-engine/-/prisma-cli-engine-1.33.0.tgz#eb2ccc881c37a5eacec54122a7bfb034e70b9977"
-  integrity sha512-YzV9SJKpIs1WDK4QBBBk/i76yX5EI7TGdy0AX2pJRASbh5zg+SAgIczbDHcVaQdAg5KyZgoMZz7gpK0U43b2zQ==
+prisma-cli-engine@1.34.0:
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/prisma-cli-engine/-/prisma-cli-engine-1.34.0.tgz#d4d4f05b5c58e5c17a8f42f0c32ae87a6f7fcff3"
+  integrity sha512-xqpqDp3iMMscTGcxAFS+X3nA3zx7G0Kz41rZNZ7qr72cuNHxQ3Uxn2xgfzdtLDyM7RNWaevsXOjxgAV8Z4zxvw==
   dependencies:
     "@heroku/linewrap" "^1.0.0"
     ansi-escapes "^3.0.0"
@@ -7001,7 +6993,7 @@ prisma-cli-engine@1.33.0:
     figures "^2.0.0"
     find-up "^3.0.0"
     fs-extra "^7.0.0"
-    graphql "^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0"
+    graphql "^14.3.0"
     graphql-request "^1.5.0"
     inquirer "^6.2.0"
     isomorphic-fetch "^2.2.1"
@@ -7024,7 +7016,7 @@ prisma-cli-engine@1.33.0:
     mkdirp "^0.5.1"
     opn "^5.1.0"
     prisma-json-schema "0.1.3"
-    prisma-yml "1.33.0"
+    prisma-yml "1.34.0"
     raven "2.6.4"
     rwlockfile "^1.4.8"
     scuid "^1.0.2"
@@ -7036,10 +7028,10 @@ prisma-cli-engine@1.33.0:
     treeify "^1.0.1"
     update-notifier "^2.3.0"
 
-prisma-client-lib@1.33.0:
-  version "1.33.0"
-  resolved "https://registry.yarnpkg.com/prisma-client-lib/-/prisma-client-lib-1.33.0.tgz#e446c85ffd926283230ba98d0ee8dd6ba3988782"
-  integrity sha512-jM2CrcgNH7WgwGBDyJebTcbG2JUQgHhuOw27Pn30KwGTJw8rqanIBhuVfhlWHPvOSSO30u/KV4hMPspiH4vyww==
+prisma-client-lib@1.34.0:
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/prisma-client-lib/-/prisma-client-lib-1.34.0.tgz#e58dc67132c423d20f3c7ee7552a956b5b821ac9"
+  integrity sha512-r7+LJ7ZCCYpcCZgjDGbFz3u3GGTMBTn9Bd7u8GDRtU0inbW0+RiMXA3CsVwLe4AJivfUmrEkkFQ5ShZgc8FiUQ==
   dependencies:
     "@types/node" "^10.12.0"
     "@types/prettier" "^1.13.2"
@@ -7050,26 +7042,26 @@ prisma-client-lib@1.33.0:
     jsonwebtoken "^8.3.0"
     lodash.flatten "^4.4.0"
     prettier "1.16.4"
-    prisma-datamodel "1.33.0"
-    prisma-generate-schema "1.33.0"
+    prisma-datamodel "1.34.0"
+    prisma-generate-schema "1.34.0"
     subscriptions-transport-ws "^0.9.15"
     uppercamelcase "^3.0.0"
     ws "^6.1.0"
     zen-observable "^0.8.10"
 
-prisma-datamodel@1.33.0:
-  version "1.33.0"
-  resolved "https://registry.yarnpkg.com/prisma-datamodel/-/prisma-datamodel-1.33.0.tgz#64d8b4cc78ada8c60cc31d7fda51d060b202886f"
-  integrity sha512-RjdxjSYAikEATQo1Oxtw7n1ySdXv1wnyI8BVTH+ffasdQ/iVHsW5qia6+3nLznc7pgTLpwBEmZVtmPPWNI/z1A==
+prisma-datamodel@1.34.0:
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/prisma-datamodel/-/prisma-datamodel-1.34.0.tgz#2a3d153845619e376efa48960a421d7c56f10b62"
+  integrity sha512-e5s4cBXJpmOREM6odIqQZEuVrqPFPO2inVERgebyzVNi6aOGcv2w4bB+FLqyDvsHZ+0hpSOQvhvw5JjF0+/nBQ==
   dependencies:
-    graphql "^14.0.2"
+    graphql "^14.3.0"
     pluralize "^7.0.0"
     popsicle "10"
 
-prisma-db-introspection@1.33.0:
-  version "1.33.0"
-  resolved "https://registry.yarnpkg.com/prisma-db-introspection/-/prisma-db-introspection-1.33.0.tgz#6edb0bbce2de8a87c0342c1f18172f300b6e92ab"
-  integrity sha512-Cyn1t5rFw7Exm4nAdrfdy9v5V1ZxOzLw3hn3BtTiSkSr7hmASTG5dn6dQzPa/BMR5Fj10BQsumpYyEmcNoLlvg==
+prisma-db-introspection@1.34.0:
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/prisma-db-introspection/-/prisma-db-introspection-1.34.0.tgz#8db54bd6ba69338b71f869c3483f1cfdc5d1132e"
+  integrity sha512-QeQY3Xc1vbrdzKeL3Nw65repUecltFY2adaXePCd77Av7eTLDHZdLnctb/9Fno4u7LI1ma0jOOBThFaSwui/Rg==
   dependencies:
     "@types/mongodb" "^3.1.14"
     "@types/mysql" "^2.15.5"
@@ -7079,19 +7071,19 @@ prisma-db-introspection@1.33.0:
     mysql "^2.16.0"
     pg "^7.4.1"
     pluralize "^7.0.0"
-    prisma-datamodel "1.33.0"
-    prisma-yml "1.33.0"
+    prisma-datamodel "1.34.0"
+    prisma-yml "1.34.0"
     scuid "^1.0.2"
 
-prisma-generate-schema@1.33.0:
-  version "1.33.0"
-  resolved "https://registry.yarnpkg.com/prisma-generate-schema/-/prisma-generate-schema-1.33.0.tgz#d966240de5e0c925d7e4ae7f64cb0f476115e51e"
-  integrity sha512-ZGuFpzDOM2MHB3U33x7pckt3xsvR15C9ndP0SNsCxckRY7XDu3BRncTPXpbWKUR91RCpSH2ipyaPutd+0Bttvg==
+prisma-generate-schema@1.34.0:
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/prisma-generate-schema/-/prisma-generate-schema-1.34.0.tgz#b2635257da61d6e931df936c007d563fb5fedc23"
+  integrity sha512-DwjR0+kaVhwGIUyfGbFwqEqKfBMBVgfY5XK+aBQQ1pYVsqBftkugy8THodxxnKWa/4GlGchzx0vqCExxi/aVHQ==
   dependencies:
-    graphql "^14.0.2"
+    graphql "^14.3.0"
     pluralize "^7.0.0"
     popsicle "10"
-    prisma-datamodel "1.33.0"
+    prisma-datamodel "1.34.0"
 
 prisma-json-schema@0.1.3:
   version "0.1.3"
@@ -7146,10 +7138,10 @@ prisma-yml@1.26.6:
     scuid "^1.0.2"
     yaml-ast-parser "^0.0.40"
 
-prisma-yml@1.33.0:
-  version "1.33.0"
-  resolved "https://registry.yarnpkg.com/prisma-yml/-/prisma-yml-1.33.0.tgz#58fd38968f40a3f6a9692b2705ae1e4787ee5705"
-  integrity sha512-qfz6gCApPMXPeFUtGfpYW52RpSJQT7qQOw9jt579+j6ysWkY4gwVlVPhEcwAfwj0dm0X0a14GyD5o5EEt411pQ==
+prisma-yml@1.34.0:
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/prisma-yml/-/prisma-yml-1.34.0.tgz#223792ad418cbce1ab3a46b77d6053255b3b6231"
+  integrity sha512-H00uhV5801upiJPPEN4Bo4goP59/N7Ya70kx8Yn4DWxAtuFW/8nrlu2Pok/DRZBKJTsT8wPbQi8z4M2924GJDw==
   dependencies:
     ajv "5"
     bluebird "^3.5.1"
@@ -7171,13 +7163,13 @@ prisma-yml@1.33.0:
     yaml-ast-parser "^0.0.40"
 
 prisma@^1.32.0:
-  version "1.33.0"
-  resolved "https://registry.yarnpkg.com/prisma/-/prisma-1.33.0.tgz#15d55116f1ac101426bf7f72b98cb9126bd81a4c"
-  integrity sha512-sge6ozagrh3iMc+QIxU7Vu0fnjB7Gamwf/rwayctYk3EqkBsqLETXL7Gn328ZBhkPNeF2n70KLozvf89T12NaQ==
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-1.34.0.tgz#a96da887b2dc192f58c50432b6d4062e001c190e"
+  integrity sha512-SWoQcuRd9yxaQeXD5UFSZvLsdNYxOG8g1Dtbk5c+xUhIm3nALBSxztBWn+p//5DU5dj6xkQdnWxSOZYCJ9zyqw==
   dependencies:
     fs-extra "^7.0.0"
-    prisma-cli-core "1.33.0"
-    prisma-cli-engine "1.33.0"
+    prisma-cli-core "1.34.0"
+    prisma-cli-engine "1.34.0"
     semver "^5.4.1"
     source-map-support "^0.4.18"
 
@@ -7252,9 +7244,9 @@ psl@^1.1.24, psl@^1.1.28:
   integrity sha512-MHACAkHpihU/REGGPLj4sEfc/XKW2bheigvHO1dUqjaKigMp1C8+WLQYRGgeKFMsw5PMfegZcaN8IDXK/cD0+g==
 
 pstree.remy@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/pstree.remy/-/pstree.remy-1.1.6.tgz#73a55aad9e2d95814927131fbf4dc1b62d259f47"
-  integrity sha512-NdF35+QsqD7EgNEI5mkI/X+UwaxVEbQaz9f4IooEmMUv6ZPmlTQYGjBPJGgrlzNdjSvIy4MWMg6Q6vCgBO2K+w==
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/pstree.remy/-/pstree.remy-1.1.7.tgz#c76963a28047ed61542dc361aa26ee55a7fa15f3"
+  integrity sha512-xsMgrUwRpuGskEzBFkH8NmTimbZ5PcPup0LA8JJkHIm2IMUbQcpo3yeLNWVrufEYjh8YwtSVh0xz6UeWc5Oh5A==
 
 pump@^3.0.0:
   version "3.0.0"
@@ -8332,17 +8324,17 @@ tar-stream@^1.5.0:
     xtend "^4.0.0"
 
 tar@^4, tar@^4.4.7:
-  version "4.4.8"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.8.tgz#b19eec3fde2a96e64666df9fdb40c5ca1bc3747d"
-  integrity sha512-LzHF64s5chPQQS0IYBn9IN5h3i98c12bo4NCO7e0sGM2llXQ3p2FGC5sdENN4cTW48O915Sh+x+EXx7XW96xYQ==
+  version "4.4.9"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.9.tgz#058fbb152f6fc45733e84585a40c39e59302e1b3"
+  integrity sha512-xisFa7Q2i3HOgfn+nmnWLGHD6Tm23hxjkx6wwGmgxkJFr6wxwXnJOdJYcZjL453PSdF0+bemO03+flAzkIdLBQ==
   dependencies:
     chownr "^1.1.1"
     fs-minipass "^1.2.5"
-    minipass "^2.3.4"
-    minizlib "^1.1.1"
+    minipass "^2.3.5"
+    minizlib "^1.2.1"
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
-    yallist "^3.0.2"
+    yallist "^3.0.3"
 
 term-size@^1.2.0:
   version "1.2.0"
@@ -8639,9 +8631,9 @@ uglify-js@2.3.0:
     source-map "~0.1.7"
 
 uglify-js@^3.1.4:
-  version "3.5.15"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.5.15.tgz#fe2b5378fd0b09e116864041437bff889105ce24"
-  integrity sha512-fe7aYFotptIddkwcm6YuA0HmknBZ52ZzOsUxZEdhhkSsz7RfjHDX2QDxwKTiv4JQ5t5NhfmpgAK+J7LiDhKSqg==
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.6.0.tgz#704681345c53a8b2079fb6cec294b05ead242ff5"
+  integrity sha512-W+jrUHJr3DXKhrsS7NUVxn3zqMOFn0hL/Ei6v0anCIMoKC93TjcflTagwIHLW7SfMFfiQuktQyFVCFHGUE0+yg==
   dependencies:
     commander "~2.20.0"
     source-map "~0.6.1"
@@ -9046,7 +9038,7 @@ yallist@^2.1.2:
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
   integrity sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI=
 
-yallist@^3.0.0, yallist@^3.0.2:
+yallist@^3.0.0, yallist@^3.0.2, yallist@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-3.0.3.tgz#b4b049e314be545e3ce802236d6cd22cd91c3de9"
   integrity sha512-S+Zk8DEWE6oKpV+vI3qWkaK+jSbIK86pCwe2IF/xwIpQ8jEuxpw9NyaGjmp9+BoJv5FV2piqCDcoCtStppiq2A==
