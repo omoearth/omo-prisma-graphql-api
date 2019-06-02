@@ -56,8 +56,7 @@ async function loginUser(context: Context, loginData: LoginUser) {
   if (!passwordMatch) {
     throw new Error('Invalid Login');
   }
-  let claims = userClaims(user.email, context);
-
+  let claims = await userClaims(user.email, context);
   const token = jwt.sign(
     {
       id: user.id,
