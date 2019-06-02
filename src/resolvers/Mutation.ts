@@ -1,9 +1,19 @@
 import { registerUser, loginUser } from "../utils/Authentication";
 import { Context } from "../utils/Utils";
 import { VoteCity, LoginUser } from "../QueryArguments";
-import { CityChange, CityChangeEvent } from "../resolvers/ChangeEvents";
+import {
+  CityChange,
+  CityChangeEvent,
+  OfferChange,
+  OfferChangeEvent
+} from "../resolvers/ChangeEvents";
 
-export const PublicMutations: Array<String> = ['register', 'login'];
+export const PublicMutations: Array<String> = [
+  "register",
+  "login",
+  "buyOffer",
+  "voteCity"
+];
 
 export const Mutation = {
   register: async (_parent: any, { email, password }: any, context: Context) =>
@@ -24,6 +34,19 @@ export const Mutation = {
       return city;
     }
     return null;
+  },
+  buyOffer: async (_parent: any, { offerId }: any, context: Context) => {
+    let counter = (await context.prisma.offer({ id: offerId }).count()) || 0;
+    const offer = await context.prisma.updateOffer({
+      where: { id: offerId },
+      data: { count: counter + 1 }
+    });
+
+    if (offer) {
+      OfferChange.publish(offer, OfferChangeEvent.BUY);
+      return offer;
+    }
+    return offer;
   }
 };
 

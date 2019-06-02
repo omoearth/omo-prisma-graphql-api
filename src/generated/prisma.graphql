@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/philapp-73f3dd/omo-dev/dev
-# timestamp: Sun Jun 02 2019 14:11:49 GMT+0200 (CEST)
+# timestamp: Sun Jun 02 2019 15:44:53 GMT+0200 (CEST)
 
 type AggregateCity {
   count: Int!
@@ -746,6 +746,7 @@ type Offer implements Node {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 """A connection to a list of items."""
@@ -767,6 +768,7 @@ input OfferCreateInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferCreateManyInput {
@@ -800,6 +802,8 @@ enum OfferOrderByInput {
   price_DESC
   priceCurrency_ASC
   priceCurrency_DESC
+  count_ASC
+  count_DESC
 }
 
 type OfferPreviousValues {
@@ -811,6 +815,7 @@ type OfferPreviousValues {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferScalarWhereInput {
@@ -1124,6 +1129,28 @@ input OfferScalarWhereInput {
 
   """All values not ending with the given string."""
   priceCurrency_not_ends_with: String
+  count: Int
+
+  """All values that are not equal to given value."""
+  count_not: Int
+
+  """All values that are contained in given list."""
+  count_in: [Int!]
+
+  """All values that are not contained in given list."""
+  count_not_in: [Int!]
+
+  """All values less than the given value."""
+  count_lt: Int
+
+  """All values less than or equal the given value."""
+  count_lte: Int
+
+  """All values greater than the given value."""
+  count_gt: Int
+
+  """All values greater than or equal the given value."""
+  count_gte: Int
 }
 
 type OfferSubscriptionPayload {
@@ -1171,6 +1198,7 @@ input OfferUpdateDataInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferUpdateInput {
@@ -1181,6 +1209,7 @@ input OfferUpdateInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferUpdateManyDataInput {
@@ -1191,6 +1220,7 @@ input OfferUpdateManyDataInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferUpdateManyInput {
@@ -1213,6 +1243,7 @@ input OfferUpdateManyMutationInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferUpdateManyWithWhereNestedInput {
@@ -1542,6 +1573,28 @@ input OfferWhereInput {
 
   """All values not ending with the given string."""
   priceCurrency_not_ends_with: String
+  count: Int
+
+  """All values that are not equal to given value."""
+  count_not: Int
+
+  """All values that are contained in given list."""
+  count_in: [Int!]
+
+  """All values that are not contained in given list."""
+  count_not_in: [Int!]
+
+  """All values less than the given value."""
+  count_lt: Int
+
+  """All values less than or equal the given value."""
+  count_lte: Int
+
+  """All values greater than the given value."""
+  count_gt: Int
+
+  """All values greater than or equal the given value."""
+  count_gte: Int
 }
 
 input OfferWhereUniqueInput {

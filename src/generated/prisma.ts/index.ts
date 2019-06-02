@@ -330,7 +330,9 @@ export type OfferOrderByInput =
   | "price_ASC"
   | "price_DESC"
   | "priceCurrency_ASC"
-  | "priceCurrency_DESC";
+  | "priceCurrency_DESC"
+  | "count_ASC"
+  | "count_DESC";
 
 export type RoleOrderByInput = "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC";
 
@@ -368,6 +370,7 @@ export interface OfferUpdateInput {
   businessFunction?: Maybe<String>;
   price?: Maybe<Float>;
   priceCurrency?: Maybe<String>;
+  count?: Maybe<Int>;
 }
 
 export type CityWhereUniqueInput = AtLeastOne<{
@@ -477,6 +480,7 @@ export interface OfferUpdateManyDataInput {
   businessFunction?: Maybe<String>;
   price?: Maybe<Float>;
   priceCurrency?: Maybe<String>;
+  count?: Maybe<Int>;
 }
 
 export interface ClaimWhereInput {
@@ -650,6 +654,14 @@ export interface OfferScalarWhereInput {
   priceCurrency_not_starts_with?: Maybe<String>;
   priceCurrency_ends_with?: Maybe<String>;
   priceCurrency_not_ends_with?: Maybe<String>;
+  count?: Maybe<Int>;
+  count_not?: Maybe<Int>;
+  count_in?: Maybe<Int[] | Int>;
+  count_not_in?: Maybe<Int[] | Int>;
+  count_lt?: Maybe<Int>;
+  count_lte?: Maybe<Int>;
+  count_gt?: Maybe<Int>;
+  count_gte?: Maybe<Int>;
   AND?: Maybe<OfferScalarWhereInput[] | OfferScalarWhereInput>;
   OR?: Maybe<OfferScalarWhereInput[] | OfferScalarWhereInput>;
   NOT?: Maybe<OfferScalarWhereInput[] | OfferScalarWhereInput>;
@@ -785,6 +797,14 @@ export interface OfferWhereInput {
   priceCurrency_not_starts_with?: Maybe<String>;
   priceCurrency_ends_with?: Maybe<String>;
   priceCurrency_not_ends_with?: Maybe<String>;
+  count?: Maybe<Int>;
+  count_not?: Maybe<Int>;
+  count_in?: Maybe<Int[] | Int>;
+  count_not_in?: Maybe<Int[] | Int>;
+  count_lt?: Maybe<Int>;
+  count_lte?: Maybe<Int>;
+  count_gt?: Maybe<Int>;
+  count_gte?: Maybe<Int>;
   AND?: Maybe<OfferWhereInput[] | OfferWhereInput>;
   OR?: Maybe<OfferWhereInput[] | OfferWhereInput>;
   NOT?: Maybe<OfferWhereInput[] | OfferWhereInput>;
@@ -838,6 +858,7 @@ export interface OfferUpdateDataInput {
   businessFunction?: Maybe<String>;
   price?: Maybe<Float>;
   priceCurrency?: Maybe<String>;
+  count?: Maybe<Int>;
 }
 
 export interface CityUpsertNestedInput {
@@ -986,6 +1007,7 @@ export interface OfferCreateInput {
   businessFunction?: Maybe<String>;
   price?: Maybe<Float>;
   priceCurrency?: Maybe<String>;
+  count?: Maybe<Int>;
 }
 
 export interface ServiceSubscriptionWhereInput {
@@ -1038,6 +1060,7 @@ export interface OfferUpdateManyMutationInput {
   businessFunction?: Maybe<String>;
   price?: Maybe<Float>;
   priceCurrency?: Maybe<String>;
+  count?: Maybe<Int>;
 }
 
 export interface RoleUpdateManyDataInput {
@@ -1574,6 +1597,7 @@ export interface Offer {
   businessFunction?: String;
   price?: Float;
   priceCurrency?: String;
+  count?: Int;
 }
 
 export interface OfferPromise extends Promise<Offer>, Fragmentable {
@@ -1585,6 +1609,7 @@ export interface OfferPromise extends Promise<Offer>, Fragmentable {
   businessFunction: () => Promise<String>;
   price: () => Promise<Float>;
   priceCurrency: () => Promise<String>;
+  count: () => Promise<Int>;
 }
 
 export interface OfferSubscription
@@ -1598,6 +1623,7 @@ export interface OfferSubscription
   businessFunction: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
   priceCurrency: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface OfferNullablePromise
@@ -1611,6 +1637,7 @@ export interface OfferNullablePromise
   businessFunction: () => Promise<String>;
   price: () => Promise<Float>;
   priceCurrency: () => Promise<String>;
+  count: () => Promise<Int>;
 }
 
 export interface City {
@@ -2178,6 +2205,7 @@ export interface OfferPreviousValues {
   businessFunction?: String;
   price?: Float;
   priceCurrency?: String;
+  count?: Int;
 }
 
 export interface OfferPreviousValuesPromise
@@ -2191,6 +2219,7 @@ export interface OfferPreviousValuesPromise
   businessFunction: () => Promise<String>;
   price: () => Promise<Float>;
   priceCurrency: () => Promise<String>;
+  count: () => Promise<Int>;
 }
 
 export interface OfferPreviousValuesSubscription
@@ -2204,6 +2233,7 @@ export interface OfferPreviousValuesSubscription
   businessFunction: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
   priceCurrency: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface AggregateUser {

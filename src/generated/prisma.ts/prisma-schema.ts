@@ -447,6 +447,7 @@ type Offer {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 type OfferConnection {
@@ -464,6 +465,7 @@ input OfferCreateInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferCreateManyInput {
@@ -493,6 +495,8 @@ enum OfferOrderByInput {
   price_DESC
   priceCurrency_ASC
   priceCurrency_DESC
+  count_ASC
+  count_DESC
 }
 
 type OfferPreviousValues {
@@ -504,6 +508,7 @@ type OfferPreviousValues {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferScalarWhereInput {
@@ -613,6 +618,14 @@ input OfferScalarWhereInput {
   priceCurrency_not_starts_with: String
   priceCurrency_ends_with: String
   priceCurrency_not_ends_with: String
+  count: Int
+  count_not: Int
+  count_in: [Int!]
+  count_not_in: [Int!]
+  count_lt: Int
+  count_lte: Int
+  count_gt: Int
+  count_gte: Int
   AND: [OfferScalarWhereInput!]
   OR: [OfferScalarWhereInput!]
   NOT: [OfferScalarWhereInput!]
@@ -644,6 +657,7 @@ input OfferUpdateDataInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferUpdateInput {
@@ -654,6 +668,7 @@ input OfferUpdateInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferUpdateManyDataInput {
@@ -664,6 +679,7 @@ input OfferUpdateManyDataInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferUpdateManyInput {
@@ -686,6 +702,7 @@ input OfferUpdateManyMutationInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  count: Int
 }
 
 input OfferUpdateManyWithWhereNestedInput {
@@ -811,6 +828,14 @@ input OfferWhereInput {
   priceCurrency_not_starts_with: String
   priceCurrency_ends_with: String
   priceCurrency_not_ends_with: String
+  count: Int
+  count_not: Int
+  count_in: [Int!]
+  count_not_in: [Int!]
+  count_lt: Int
+  count_lte: Int
+  count_gt: Int
+  count_gte: Int
   AND: [OfferWhereInput!]
   OR: [OfferWhereInput!]
   NOT: [OfferWhereInput!]
