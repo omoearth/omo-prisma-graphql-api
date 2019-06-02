@@ -1,5 +1,5 @@
-# source: https://eu1.prisma.sh/omo/omo-prisma/dev
-# timestamp: Sat Jun 01 2019 14:19:29 GMT+0200 (GMT+02:00)
+# source: https://omo-prisma-80770d11a7.herokuapp.com/omo-prisma/prod
+# timestamp: Sat Jun 01 2019 14:24:58 GMT+0200 (GMT+02:00)
 
 type AggregateCity {
   count: Int!
