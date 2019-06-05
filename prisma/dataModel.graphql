@@ -43,17 +43,7 @@ type Offer implements Thing {
   businessFunction: String
   price: Float
   priceCurrency: String
+  category: String
 
   count: Int
-}
-
-type Service implements Thing {
-  id: ID! @id
-  name: String!
-  image: String
-  description: String
-
-  serviceType: String!
-  offers: [Offer!]
-  termsOfService: String
 }

@@ -1,7 +1,7 @@
 type Query {
   currentUser: User!
   cities: [City]
-  offers: [Offer]
+  offers(category: String!): [Offer]
 }
 
 type Mutation {

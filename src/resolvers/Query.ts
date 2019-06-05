@@ -1,12 +1,12 @@
-import { Context } from '../utils/Utils';
+import { Context } from "../utils/Utils";
 
-export const PublicQueries: Array<String> = ['currentUser', 'cities', 'offers'];
+export const PublicQueries: Array<String> = ["currentUser", "cities", "offers"];
 
 export const Query = {
   currentUser: (_parent: any, _args: any, context: Context) => {
     console.log(context);
     return context.prisma.user({
-      id: context.userid,
+      id: context.userid
     });
   },
   cities: async (_parent: any, _args: any, context: Context) => {
@@ -14,9 +14,17 @@ export const Query = {
     return cities;
   },
   offers: async (_parent: any, _args: any, context: Context) => {
-    let offers = await context.prisma.offers({});
+    let offers = await context.prisma.offers({
+      where: {
+        OR: [
+          {
+            category: _args.category
+          }
+        ]
+      }
+    });
     return offers;
-  },
+  }
 };
 
 // users(parent, { first, skip, after, orderBy, filter }, { prisma }, info) {

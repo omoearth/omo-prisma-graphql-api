@@ -1,5 +1,5 @@
 # source: https://omo-prisma-80770d11a7.herokuapp.com/omo-prisma/prod
-# timestamp: Sun Jun 02 2019 16:52:58 GMT+0200 (GMT+02:00)
+# timestamp: Wed Jun 05 2019 19:29:16 GMT+0200 (GMT+02:00)
 
 type AggregateCity {
   count: Int!
@@ -14,10 +14,6 @@ type AggregateOffer {
 }
 
 type AggregateRole {
-  count: Int!
-}
-
-type AggregateService {
   count: Int!
 }
 
@@ -688,40 +684,34 @@ scalar Long
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
-  createService(data: ServiceCreateInput!): Service!
+  createOffer(data: OfferCreateInput!): Offer!
   createRole(data: RoleCreateInput!): Role!
   createClaim(data: ClaimCreateInput!): Claim!
-  createOffer(data: OfferCreateInput!): Offer!
   createCity(data: CityCreateInput!): City!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateService(data: ServiceUpdateInput!, where: ServiceWhereUniqueInput!): Service
+  updateOffer(data: OfferUpdateInput!, where: OfferWhereUniqueInput!): Offer
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
   updateClaim(data: ClaimUpdateInput!, where: ClaimWhereUniqueInput!): Claim
-  updateOffer(data: OfferUpdateInput!, where: OfferWhereUniqueInput!): Offer
   updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): City
   deleteUser(where: UserWhereUniqueInput!): User
-  deleteService(where: ServiceWhereUniqueInput!): Service
+  deleteOffer(where: OfferWhereUniqueInput!): Offer
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteClaim(where: ClaimWhereUniqueInput!): Claim
-  deleteOffer(where: OfferWhereUniqueInput!): Offer
   deleteCity(where: CityWhereUniqueInput!): City
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertService(where: ServiceWhereUniqueInput!, create: ServiceCreateInput!, update: ServiceUpdateInput!): Service!
+  upsertOffer(where: OfferWhereUniqueInput!, create: OfferCreateInput!, update: OfferUpdateInput!): Offer!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   upsertClaim(where: ClaimWhereUniqueInput!, create: ClaimCreateInput!, update: ClaimUpdateInput!): Claim!
-  upsertOffer(where: OfferWhereUniqueInput!, create: OfferCreateInput!, update: OfferUpdateInput!): Offer!
   upsertCity(where: CityWhereUniqueInput!, create: CityCreateInput!, update: CityUpdateInput!): City!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  updateManyServices(data: ServiceUpdateManyMutationInput!, where: ServiceWhereInput): BatchPayload!
+  updateManyOffers(data: OfferUpdateManyMutationInput!, where: OfferWhereInput): BatchPayload!
   updateManyRoles(data: RoleUpdateManyMutationInput!, where: RoleWhereInput): BatchPayload!
   updateManyClaims(data: ClaimUpdateManyMutationInput!, where: ClaimWhereInput): BatchPayload!
-  updateManyOffers(data: OfferUpdateManyMutationInput!, where: OfferWhereInput): BatchPayload!
   updateManyCities(data: CityUpdateManyMutationInput!, where: CityWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyServices(where: ServiceWhereInput): BatchPayload!
+  deleteManyOffers(where: OfferWhereInput): BatchPayload!
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
   deleteManyClaims(where: ClaimWhereInput): BatchPayload!
-  deleteManyOffers(where: OfferWhereInput): BatchPayload!
   deleteManyCities(where: CityWhereInput): BatchPayload!
 }
 
@@ -746,6 +736,7 @@ type Offer implements Node {
   businessFunction: String
   price: Float
   priceCurrency: String
+  category: String
   count: Int
 }
 
@@ -768,12 +759,8 @@ input OfferCreateInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  category: String
   count: Int
-}
-
-input OfferCreateManyInput {
-  create: [OfferCreateInput!]
-  connect: [OfferWhereUniqueInput!]
 }
 
 """An edge in a connection."""
@@ -802,6 +789,8 @@ enum OfferOrderByInput {
   price_DESC
   priceCurrency_ASC
   priceCurrency_DESC
+  category_ASC
+  category_DESC
   count_ASC
   count_DESC
 }
@@ -815,342 +804,8 @@ type OfferPreviousValues {
   businessFunction: String
   price: Float
   priceCurrency: String
+  category: String
   count: Int
-}
-
-input OfferScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [OfferScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [OfferScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [OfferScalarWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-  image: String
-
-  """All values that are not equal to given value."""
-  image_not: String
-
-  """All values that are contained in given list."""
-  image_in: [String!]
-
-  """All values that are not contained in given list."""
-  image_not_in: [String!]
-
-  """All values less than the given value."""
-  image_lt: String
-
-  """All values less than or equal the given value."""
-  image_lte: String
-
-  """All values greater than the given value."""
-  image_gt: String
-
-  """All values greater than or equal the given value."""
-  image_gte: String
-
-  """All values containing the given string."""
-  image_contains: String
-
-  """All values not containing the given string."""
-  image_not_contains: String
-
-  """All values starting with the given string."""
-  image_starts_with: String
-
-  """All values not starting with the given string."""
-  image_not_starts_with: String
-
-  """All values ending with the given string."""
-  image_ends_with: String
-
-  """All values not ending with the given string."""
-  image_not_ends_with: String
-  description: String
-
-  """All values that are not equal to given value."""
-  description_not: String
-
-  """All values that are contained in given list."""
-  description_in: [String!]
-
-  """All values that are not contained in given list."""
-  description_not_in: [String!]
-
-  """All values less than the given value."""
-  description_lt: String
-
-  """All values less than or equal the given value."""
-  description_lte: String
-
-  """All values greater than the given value."""
-  description_gt: String
-
-  """All values greater than or equal the given value."""
-  description_gte: String
-
-  """All values containing the given string."""
-  description_contains: String
-
-  """All values not containing the given string."""
-  description_not_contains: String
-
-  """All values starting with the given string."""
-  description_starts_with: String
-
-  """All values not starting with the given string."""
-  description_not_starts_with: String
-
-  """All values ending with the given string."""
-  description_ends_with: String
-
-  """All values not ending with the given string."""
-  description_not_ends_with: String
-  availabilityStarts: String
-
-  """All values that are not equal to given value."""
-  availabilityStarts_not: String
-
-  """All values that are contained in given list."""
-  availabilityStarts_in: [String!]
-
-  """All values that are not contained in given list."""
-  availabilityStarts_not_in: [String!]
-
-  """All values less than the given value."""
-  availabilityStarts_lt: String
-
-  """All values less than or equal the given value."""
-  availabilityStarts_lte: String
-
-  """All values greater than the given value."""
-  availabilityStarts_gt: String
-
-  """All values greater than or equal the given value."""
-  availabilityStarts_gte: String
-
-  """All values containing the given string."""
-  availabilityStarts_contains: String
-
-  """All values not containing the given string."""
-  availabilityStarts_not_contains: String
-
-  """All values starting with the given string."""
-  availabilityStarts_starts_with: String
-
-  """All values not starting with the given string."""
-  availabilityStarts_not_starts_with: String
-
-  """All values ending with the given string."""
-  availabilityStarts_ends_with: String
-
-  """All values not ending with the given string."""
-  availabilityStarts_not_ends_with: String
-  businessFunction: String
-
-  """All values that are not equal to given value."""
-  businessFunction_not: String
-
-  """All values that are contained in given list."""
-  businessFunction_in: [String!]
-
-  """All values that are not contained in given list."""
-  businessFunction_not_in: [String!]
-
-  """All values less than the given value."""
-  businessFunction_lt: String
-
-  """All values less than or equal the given value."""
-  businessFunction_lte: String
-
-  """All values greater than the given value."""
-  businessFunction_gt: String
-
-  """All values greater than or equal the given value."""
-  businessFunction_gte: String
-
-  """All values containing the given string."""
-  businessFunction_contains: String
-
-  """All values not containing the given string."""
-  businessFunction_not_contains: String
-
-  """All values starting with the given string."""
-  businessFunction_starts_with: String
-
-  """All values not starting with the given string."""
-  businessFunction_not_starts_with: String
-
-  """All values ending with the given string."""
-  businessFunction_ends_with: String
-
-  """All values not ending with the given string."""
-  businessFunction_not_ends_with: String
-  price: Float
-
-  """All values that are not equal to given value."""
-  price_not: Float
-
-  """All values that are contained in given list."""
-  price_in: [Float!]
-
-  """All values that are not contained in given list."""
-  price_not_in: [Float!]
-
-  """All values less than the given value."""
-  price_lt: Float
-
-  """All values less than or equal the given value."""
-  price_lte: Float
-
-  """All values greater than the given value."""
-  price_gt: Float
-
-  """All values greater than or equal the given value."""
-  price_gte: Float
-  priceCurrency: String
-
-  """All values that are not equal to given value."""
-  priceCurrency_not: String
-
-  """All values that are contained in given list."""
-  priceCurrency_in: [String!]
-
-  """All values that are not contained in given list."""
-  priceCurrency_not_in: [String!]
-
-  """All values less than the given value."""
-  priceCurrency_lt: String
-
-  """All values less than or equal the given value."""
-  priceCurrency_lte: String
-
-  """All values greater than the given value."""
-  priceCurrency_gt: String
-
-  """All values greater than or equal the given value."""
-  priceCurrency_gte: String
-
-  """All values containing the given string."""
-  priceCurrency_contains: String
-
-  """All values not containing the given string."""
-  priceCurrency_not_contains: String
-
-  """All values starting with the given string."""
-  priceCurrency_starts_with: String
-
-  """All values not starting with the given string."""
-  priceCurrency_not_starts_with: String
-
-  """All values ending with the given string."""
-  priceCurrency_ends_with: String
-
-  """All values not ending with the given string."""
-  priceCurrency_not_ends_with: String
-  count: Int
-
-  """All values that are not equal to given value."""
-  count_not: Int
-
-  """All values that are contained in given list."""
-  count_in: [Int!]
-
-  """All values that are not contained in given list."""
-  count_not_in: [Int!]
-
-  """All values less than the given value."""
-  count_lt: Int
-
-  """All values less than or equal the given value."""
-  count_lte: Int
-
-  """All values greater than the given value."""
-  count_gt: Int
-
-  """All values greater than or equal the given value."""
-  count_gte: Int
 }
 
 type OfferSubscriptionPayload {
@@ -1190,17 +845,6 @@ input OfferSubscriptionWhereInput {
   node: OfferWhereInput
 }
 
-input OfferUpdateDataInput {
-  name: String
-  image: String
-  description: String
-  availabilityStarts: String
-  businessFunction: String
-  price: Float
-  priceCurrency: String
-  count: Int
-}
-
 input OfferUpdateInput {
   name: String
   image: String
@@ -1209,30 +853,8 @@ input OfferUpdateInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  category: String
   count: Int
-}
-
-input OfferUpdateManyDataInput {
-  name: String
-  image: String
-  description: String
-  availabilityStarts: String
-  businessFunction: String
-  price: Float
-  priceCurrency: String
-  count: Int
-}
-
-input OfferUpdateManyInput {
-  create: [OfferCreateInput!]
-  connect: [OfferWhereUniqueInput!]
-  set: [OfferWhereUniqueInput!]
-  disconnect: [OfferWhereUniqueInput!]
-  delete: [OfferWhereUniqueInput!]
-  update: [OfferUpdateWithWhereUniqueNestedInput!]
-  updateMany: [OfferUpdateManyWithWhereNestedInput!]
-  deleteMany: [OfferScalarWhereInput!]
-  upsert: [OfferUpsertWithWhereUniqueNestedInput!]
 }
 
 input OfferUpdateManyMutationInput {
@@ -1243,23 +865,8 @@ input OfferUpdateManyMutationInput {
   businessFunction: String
   price: Float
   priceCurrency: String
+  category: String
   count: Int
-}
-
-input OfferUpdateManyWithWhereNestedInput {
-  where: OfferScalarWhereInput!
-  data: OfferUpdateManyDataInput!
-}
-
-input OfferUpdateWithWhereUniqueNestedInput {
-  where: OfferWhereUniqueInput!
-  data: OfferUpdateDataInput!
-}
-
-input OfferUpsertWithWhereUniqueNestedInput {
-  where: OfferWhereUniqueInput!
-  update: OfferUpdateDataInput!
-  create: OfferCreateInput!
 }
 
 input OfferWhereInput {
@@ -1573,6 +1180,46 @@ input OfferWhereInput {
 
   """All values not ending with the given string."""
   priceCurrency_not_ends_with: String
+  category: String
+
+  """All values that are not equal to given value."""
+  category_not: String
+
+  """All values that are contained in given list."""
+  category_in: [String!]
+
+  """All values that are not contained in given list."""
+  category_not_in: [String!]
+
+  """All values less than the given value."""
+  category_lt: String
+
+  """All values less than or equal the given value."""
+  category_lte: String
+
+  """All values greater than the given value."""
+  category_gt: String
+
+  """All values greater than or equal the given value."""
+  category_gte: String
+
+  """All values containing the given string."""
+  category_contains: String
+
+  """All values not containing the given string."""
+  category_not_contains: String
+
+  """All values starting with the given string."""
+  category_starts_with: String
+
+  """All values not starting with the given string."""
+  category_not_starts_with: String
+
+  """All values ending with the given string."""
+  category_ends_with: String
+
+  """All values not ending with the given string."""
+  category_not_ends_with: String
   count: Int
 
   """All values that are not equal to given value."""
@@ -1618,22 +1265,19 @@ type PageInfo {
 
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  services(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Service]!
+  offers(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Offer]!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
   claims(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Claim]!
-  offers(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Offer]!
   cities(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [City]!
   user(where: UserWhereUniqueInput!): User
-  service(where: ServiceWhereUniqueInput!): Service
+  offer(where: OfferWhereUniqueInput!): Offer
   role(where: RoleWhereUniqueInput!): Role
   claim(where: ClaimWhereUniqueInput!): Claim
-  offer(where: OfferWhereUniqueInput!): Offer
   city(where: CityWhereUniqueInput!): City
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  servicesConnection(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ServiceConnection!
+  offersConnection(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OfferConnection!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
   claimsConnection(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClaimConnection!
-  offersConnection(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OfferConnection!
   citiesConnection(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CityConnection!
 
   """Fetches an object given its ID"""
@@ -1964,387 +1608,11 @@ input RoleWhereUniqueInput {
   name: String
 }
 
-type Service implements Node {
-  id: ID!
-  name: String!
-  image: String
-  description: String
-  serviceType: String!
-  offers(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Offer!]
-  termsOfService: String
-}
-
-"""A connection to a list of items."""
-type ServiceConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [ServiceEdge]!
-  aggregate: AggregateService!
-}
-
-input ServiceCreateInput {
-  id: ID
-  name: String!
-  image: String
-  description: String
-  serviceType: String!
-  termsOfService: String
-  offers: OfferCreateManyInput
-}
-
-"""An edge in a connection."""
-type ServiceEdge {
-  """The item at the end of the edge."""
-  node: Service!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum ServiceOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  image_ASC
-  image_DESC
-  description_ASC
-  description_DESC
-  serviceType_ASC
-  serviceType_DESC
-  termsOfService_ASC
-  termsOfService_DESC
-}
-
-type ServicePreviousValues {
-  id: ID!
-  name: String!
-  image: String
-  description: String
-  serviceType: String!
-  termsOfService: String
-}
-
-type ServiceSubscriptionPayload {
-  mutation: MutationType!
-  node: Service
-  updatedFields: [String!]
-  previousValues: ServicePreviousValues
-}
-
-input ServiceSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ServiceSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ServiceSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ServiceSubscriptionWhereInput!]
-
-  """The subscription event gets dispatched when it's listed in mutation_in"""
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: ServiceWhereInput
-}
-
-input ServiceUpdateInput {
-  name: String
-  image: String
-  description: String
-  serviceType: String
-  termsOfService: String
-  offers: OfferUpdateManyInput
-}
-
-input ServiceUpdateManyMutationInput {
-  name: String
-  image: String
-  description: String
-  serviceType: String
-  termsOfService: String
-}
-
-input ServiceWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ServiceWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ServiceWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ServiceWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-  image: String
-
-  """All values that are not equal to given value."""
-  image_not: String
-
-  """All values that are contained in given list."""
-  image_in: [String!]
-
-  """All values that are not contained in given list."""
-  image_not_in: [String!]
-
-  """All values less than the given value."""
-  image_lt: String
-
-  """All values less than or equal the given value."""
-  image_lte: String
-
-  """All values greater than the given value."""
-  image_gt: String
-
-  """All values greater than or equal the given value."""
-  image_gte: String
-
-  """All values containing the given string."""
-  image_contains: String
-
-  """All values not containing the given string."""
-  image_not_contains: String
-
-  """All values starting with the given string."""
-  image_starts_with: String
-
-  """All values not starting with the given string."""
-  image_not_starts_with: String
-
-  """All values ending with the given string."""
-  image_ends_with: String
-
-  """All values not ending with the given string."""
-  image_not_ends_with: String
-  description: String
-
-  """All values that are not equal to given value."""
-  description_not: String
-
-  """All values that are contained in given list."""
-  description_in: [String!]
-
-  """All values that are not contained in given list."""
-  description_not_in: [String!]
-
-  """All values less than the given value."""
-  description_lt: String
-
-  """All values less than or equal the given value."""
-  description_lte: String
-
-  """All values greater than the given value."""
-  description_gt: String
-
-  """All values greater than or equal the given value."""
-  description_gte: String
-
-  """All values containing the given string."""
-  description_contains: String
-
-  """All values not containing the given string."""
-  description_not_contains: String
-
-  """All values starting with the given string."""
-  description_starts_with: String
-
-  """All values not starting with the given string."""
-  description_not_starts_with: String
-
-  """All values ending with the given string."""
-  description_ends_with: String
-
-  """All values not ending with the given string."""
-  description_not_ends_with: String
-  serviceType: String
-
-  """All values that are not equal to given value."""
-  serviceType_not: String
-
-  """All values that are contained in given list."""
-  serviceType_in: [String!]
-
-  """All values that are not contained in given list."""
-  serviceType_not_in: [String!]
-
-  """All values less than the given value."""
-  serviceType_lt: String
-
-  """All values less than or equal the given value."""
-  serviceType_lte: String
-
-  """All values greater than the given value."""
-  serviceType_gt: String
-
-  """All values greater than or equal the given value."""
-  serviceType_gte: String
-
-  """All values containing the given string."""
-  serviceType_contains: String
-
-  """All values not containing the given string."""
-  serviceType_not_contains: String
-
-  """All values starting with the given string."""
-  serviceType_starts_with: String
-
-  """All values not starting with the given string."""
-  serviceType_not_starts_with: String
-
-  """All values ending with the given string."""
-  serviceType_ends_with: String
-
-  """All values not ending with the given string."""
-  serviceType_not_ends_with: String
-  termsOfService: String
-
-  """All values that are not equal to given value."""
-  termsOfService_not: String
-
-  """All values that are contained in given list."""
-  termsOfService_in: [String!]
-
-  """All values that are not contained in given list."""
-  termsOfService_not_in: [String!]
-
-  """All values less than the given value."""
-  termsOfService_lt: String
-
-  """All values less than or equal the given value."""
-  termsOfService_lte: String
-
-  """All values greater than the given value."""
-  termsOfService_gt: String
-
-  """All values greater than or equal the given value."""
-  termsOfService_gte: String
-
-  """All values containing the given string."""
-  termsOfService_contains: String
-
-  """All values not containing the given string."""
-  termsOfService_not_contains: String
-
-  """All values starting with the given string."""
-  termsOfService_starts_with: String
-
-  """All values not starting with the given string."""
-  termsOfService_not_starts_with: String
-
-  """All values ending with the given string."""
-  termsOfService_ends_with: String
-
-  """All values not ending with the given string."""
-  termsOfService_not_ends_with: String
-  offers_every: OfferWhereInput
-  offers_some: OfferWhereInput
-  offers_none: OfferWhereInput
-}
-
-input ServiceWhereUniqueInput {
-  id: ID
-}
-
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  service(where: ServiceSubscriptionWhereInput): ServiceSubscriptionPayload
+  offer(where: OfferSubscriptionWhereInput): OfferSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   claim(where: ClaimSubscriptionWhereInput): ClaimSubscriptionPayload
-  offer(where: OfferSubscriptionWhereInput): OfferSubscriptionPayload
   city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
 }
 
