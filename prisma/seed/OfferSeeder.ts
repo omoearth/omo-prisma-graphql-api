@@ -4,7 +4,7 @@ export class OfferSeeder {
   async seed() {
     await prisma.createOffer({
       name: "eFlat S",
-      image: "miniscooter",
+      image: "pedelec",
       description: "100km / month",
       price: 33,
       priceCurrency: "€",
@@ -14,7 +14,7 @@ export class OfferSeeder {
     }),
       await prisma.createOffer({
         name: "eFlat M",
-        image: "pedelec",
+        image: "scooter",
         description: "200km / month",
         price: 66,
         priceCurrency: "€",
@@ -24,39 +24,19 @@ export class OfferSeeder {
       }),
       await prisma.createOffer({
         name: "eFlat L",
-        image: "scooter",
+        image: "minicar",
         description: "300km / month",
         price: 99,
         priceCurrency: "€",
         businessFunction: "RENT",
-        availabilityStarts: "est. launch 2020 Q1",
+        availabilityStarts: "est. launch 2020 Q3",
         category: "mobility"
       }),
       await prisma.createOffer({
         name: "eFlat XL",
-        image: "minicar",
+        image: "car",
         description: "500km / month",
         price: 199,
-        priceCurrency: "€",
-        businessFunction: "RENT",
-        availabilityStarts: "est. launch 2020 Q2",
-        category: "mobility"
-      }),
-      await prisma.createOffer({
-        name: "eFlat City",
-        image: "city",
-        description: "750km / month",
-        price: 222,
-        priceCurrency: "€",
-        businessFunction: "RENT",
-        availabilityStarts: "est. launch 2021 Q1",
-        category: "mobility"
-      }),
-      await prisma.createOffer({
-        name: "eFlat InterCity",
-        image: "intercity",
-        description: "2500km / month",
-        price: 555,
         priceCurrency: "€",
         businessFunction: "RENT",
         availabilityStarts: "est. launch 2021 Q1",
