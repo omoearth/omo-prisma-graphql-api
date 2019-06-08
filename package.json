@@ -42,6 +42,7 @@
     "graphql-yoga": "^1.17.4",
     "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.2.1",
     "prisma": "^1.32.0",
     "prisma-binding": "^2.3.10",
     "require": "^2.4.20"

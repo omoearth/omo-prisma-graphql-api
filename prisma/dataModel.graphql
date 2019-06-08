@@ -47,3 +47,27 @@ type Offer implements Thing {
 
   count: Int
 }
+
+enum InvitationType {
+  EMAIL
+}
+
+type Invitation {
+  id: ID! @id
+  type: InvitationType!
+  user: User! @relation(name: "Inviter")
+  email: String
+  name: String
+  city: City
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type EmailTemplate {
+  id: ID! @id
+  name: String! @unique
+  from: String!
+  subject: String!
+  text: String
+  html: String
+}

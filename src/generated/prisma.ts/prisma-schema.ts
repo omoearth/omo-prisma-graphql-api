@@ -10,6 +10,14 @@ type AggregateClaim {
   count: Int!
 }
 
+type AggregateEmailTemplate {
+  count: Int!
+}
+
+type AggregateInvitation {
+  count: Int!
+}
+
 type AggregateOffer {
   count: Int!
 }
@@ -383,6 +391,355 @@ input ClaimWhereUniqueInput {
   name: String
 }
 
+scalar DateTime
+
+type EmailTemplate {
+  id: ID!
+  name: String!
+  from: String!
+  subject: String!
+  text: String
+  html: String
+}
+
+type EmailTemplateConnection {
+  pageInfo: PageInfo!
+  edges: [EmailTemplateEdge]!
+  aggregate: AggregateEmailTemplate!
+}
+
+input EmailTemplateCreateInput {
+  id: ID
+  name: String!
+  from: String!
+  subject: String!
+  text: String
+  html: String
+}
+
+type EmailTemplateEdge {
+  node: EmailTemplate!
+  cursor: String!
+}
+
+enum EmailTemplateOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  from_ASC
+  from_DESC
+  subject_ASC
+  subject_DESC
+  text_ASC
+  text_DESC
+  html_ASC
+  html_DESC
+}
+
+type EmailTemplatePreviousValues {
+  id: ID!
+  name: String!
+  from: String!
+  subject: String!
+  text: String
+  html: String
+}
+
+type EmailTemplateSubscriptionPayload {
+  mutation: MutationType!
+  node: EmailTemplate
+  updatedFields: [String!]
+  previousValues: EmailTemplatePreviousValues
+}
+
+input EmailTemplateSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: EmailTemplateWhereInput
+  AND: [EmailTemplateSubscriptionWhereInput!]
+  OR: [EmailTemplateSubscriptionWhereInput!]
+  NOT: [EmailTemplateSubscriptionWhereInput!]
+}
+
+input EmailTemplateUpdateInput {
+  name: String
+  from: String
+  subject: String
+  text: String
+  html: String
+}
+
+input EmailTemplateUpdateManyMutationInput {
+  name: String
+  from: String
+  subject: String
+  text: String
+  html: String
+}
+
+input EmailTemplateWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  from: String
+  from_not: String
+  from_in: [String!]
+  from_not_in: [String!]
+  from_lt: String
+  from_lte: String
+  from_gt: String
+  from_gte: String
+  from_contains: String
+  from_not_contains: String
+  from_starts_with: String
+  from_not_starts_with: String
+  from_ends_with: String
+  from_not_ends_with: String
+  subject: String
+  subject_not: String
+  subject_in: [String!]
+  subject_not_in: [String!]
+  subject_lt: String
+  subject_lte: String
+  subject_gt: String
+  subject_gte: String
+  subject_contains: String
+  subject_not_contains: String
+  subject_starts_with: String
+  subject_not_starts_with: String
+  subject_ends_with: String
+  subject_not_ends_with: String
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  html: String
+  html_not: String
+  html_in: [String!]
+  html_not_in: [String!]
+  html_lt: String
+  html_lte: String
+  html_gt: String
+  html_gte: String
+  html_contains: String
+  html_not_contains: String
+  html_starts_with: String
+  html_not_starts_with: String
+  html_ends_with: String
+  html_not_ends_with: String
+  AND: [EmailTemplateWhereInput!]
+  OR: [EmailTemplateWhereInput!]
+  NOT: [EmailTemplateWhereInput!]
+}
+
+input EmailTemplateWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+type Invitation {
+  id: ID!
+  type: InvitationType!
+  user: User!
+  email: String
+  name: String
+  city: City
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type InvitationConnection {
+  pageInfo: PageInfo!
+  edges: [InvitationEdge]!
+  aggregate: AggregateInvitation!
+}
+
+input InvitationCreateInput {
+  id: ID
+  type: InvitationType!
+  user: UserCreateOneInput!
+  email: String
+  name: String
+  city: CityCreateOneInput
+}
+
+type InvitationEdge {
+  node: Invitation!
+  cursor: String!
+}
+
+enum InvitationOrderByInput {
+  id_ASC
+  id_DESC
+  type_ASC
+  type_DESC
+  email_ASC
+  email_DESC
+  name_ASC
+  name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type InvitationPreviousValues {
+  id: ID!
+  type: InvitationType!
+  email: String
+  name: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type InvitationSubscriptionPayload {
+  mutation: MutationType!
+  node: Invitation
+  updatedFields: [String!]
+  previousValues: InvitationPreviousValues
+}
+
+input InvitationSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: InvitationWhereInput
+  AND: [InvitationSubscriptionWhereInput!]
+  OR: [InvitationSubscriptionWhereInput!]
+  NOT: [InvitationSubscriptionWhereInput!]
+}
+
+enum InvitationType {
+  EMAIL
+}
+
+input InvitationUpdateInput {
+  type: InvitationType
+  user: UserUpdateOneRequiredInput
+  email: String
+  name: String
+  city: CityUpdateOneInput
+}
+
+input InvitationUpdateManyMutationInput {
+  type: InvitationType
+  email: String
+  name: String
+}
+
+input InvitationWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  type: InvitationType
+  type_not: InvitationType
+  type_in: [InvitationType!]
+  type_not_in: [InvitationType!]
+  user: UserWhereInput
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  city: CityWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [InvitationWhereInput!]
+  OR: [InvitationWhereInput!]
+  NOT: [InvitationWhereInput!]
+}
+
+input InvitationWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
@@ -398,6 +755,18 @@ type Mutation {
   upsertClaim(where: ClaimWhereUniqueInput!, create: ClaimCreateInput!, update: ClaimUpdateInput!): Claim!
   deleteClaim(where: ClaimWhereUniqueInput!): Claim
   deleteManyClaims(where: ClaimWhereInput): BatchPayload!
+  createEmailTemplate(data: EmailTemplateCreateInput!): EmailTemplate!
+  updateEmailTemplate(data: EmailTemplateUpdateInput!, where: EmailTemplateWhereUniqueInput!): EmailTemplate
+  updateManyEmailTemplates(data: EmailTemplateUpdateManyMutationInput!, where: EmailTemplateWhereInput): BatchPayload!
+  upsertEmailTemplate(where: EmailTemplateWhereUniqueInput!, create: EmailTemplateCreateInput!, update: EmailTemplateUpdateInput!): EmailTemplate!
+  deleteEmailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
+  deleteManyEmailTemplates(where: EmailTemplateWhereInput): BatchPayload!
+  createInvitation(data: InvitationCreateInput!): Invitation!
+  updateInvitation(data: InvitationUpdateInput!, where: InvitationWhereUniqueInput!): Invitation
+  updateManyInvitations(data: InvitationUpdateManyMutationInput!, where: InvitationWhereInput): BatchPayload!
+  upsertInvitation(where: InvitationWhereUniqueInput!, create: InvitationCreateInput!, update: InvitationUpdateInput!): Invitation!
+  deleteInvitation(where: InvitationWhereUniqueInput!): Invitation
+  deleteManyInvitations(where: InvitationWhereInput): BatchPayload!
   createOffer(data: OfferCreateInput!): Offer!
   updateOffer(data: OfferUpdateInput!, where: OfferWhereUniqueInput!): Offer
   updateManyOffers(data: OfferUpdateManyMutationInput!, where: OfferWhereInput): BatchPayload!
@@ -695,6 +1064,12 @@ type Query {
   claim(where: ClaimWhereUniqueInput!): Claim
   claims(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Claim]!
   claimsConnection(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClaimConnection!
+  emailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
+  emailTemplates(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EmailTemplate]!
+  emailTemplatesConnection(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmailTemplateConnection!
+  invitation(where: InvitationWhereUniqueInput!): Invitation
+  invitations(where: InvitationWhereInput, orderBy: InvitationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Invitation]!
+  invitationsConnection(where: InvitationWhereInput, orderBy: InvitationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InvitationConnection!
   offer(where: OfferWhereUniqueInput!): Offer
   offers(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Offer]!
   offersConnection(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OfferConnection!
@@ -890,6 +1265,8 @@ input RoleWhereUniqueInput {
 type Subscription {
   city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
   claim(where: ClaimSubscriptionWhereInput): ClaimSubscriptionPayload
+  emailTemplate(where: EmailTemplateSubscriptionWhereInput): EmailTemplateSubscriptionPayload
+  invitation(where: InvitationSubscriptionWhereInput): InvitationSubscriptionPayload
   offer(where: OfferSubscriptionWhereInput): OfferSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -917,6 +1294,11 @@ input UserCreateInput {
   name: String
   city: CityCreateOneInput
   roles: RoleCreateManyInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 type UserEdge {
@@ -960,6 +1342,14 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+input UserUpdateDataInput {
+  email: String
+  password: String
+  name: String
+  city: CityUpdateOneInput
+  roles: RoleUpdateManyInput
+}
+
 input UserUpdateInput {
   email: String
   password: String
@@ -972,6 +1362,18 @@ input UserUpdateManyMutationInput {
   email: String
   password: String
   name: String
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {

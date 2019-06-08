@@ -1,11 +1,19 @@
 # source: https://eu1.prisma.sh/omo/omo-prisma/dev
-# timestamp: Sat Jun 08 2019 13:23:29 GMT+0200 (GMT+02:00)
+# timestamp: Sat Jun 08 2019 16:10:31 GMT+0200 (GMT+02:00)
 
 type AggregateCity {
   count: Int!
 }
 
 type AggregateClaim {
+  count: Int!
+}
+
+type AggregateEmailTemplate {
+  count: Int!
+}
+
+type AggregateInvitation {
   count: Int!
 }
 
@@ -676,6 +684,687 @@ input ClaimWhereUniqueInput {
   name: String
 }
 
+scalar DateTime
+
+type EmailTemplate implements Node {
+  id: ID!
+  name: String!
+  from: String!
+  subject: String!
+  text: String
+  html: String
+}
+
+"""A connection to a list of items."""
+type EmailTemplateConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [EmailTemplateEdge]!
+  aggregate: AggregateEmailTemplate!
+}
+
+input EmailTemplateCreateInput {
+  id: ID
+  name: String!
+  from: String!
+  subject: String!
+  text: String
+  html: String
+}
+
+"""An edge in a connection."""
+type EmailTemplateEdge {
+  """The item at the end of the edge."""
+  node: EmailTemplate!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum EmailTemplateOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  from_ASC
+  from_DESC
+  subject_ASC
+  subject_DESC
+  text_ASC
+  text_DESC
+  html_ASC
+  html_DESC
+}
+
+type EmailTemplatePreviousValues {
+  id: ID!
+  name: String!
+  from: String!
+  subject: String!
+  text: String
+  html: String
+}
+
+type EmailTemplateSubscriptionPayload {
+  mutation: MutationType!
+  node: EmailTemplate
+  updatedFields: [String!]
+  previousValues: EmailTemplatePreviousValues
+}
+
+input EmailTemplateSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EmailTemplateSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EmailTemplateSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EmailTemplateSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: EmailTemplateWhereInput
+}
+
+input EmailTemplateUpdateInput {
+  name: String
+  from: String
+  subject: String
+  text: String
+  html: String
+}
+
+input EmailTemplateUpdateManyMutationInput {
+  name: String
+  from: String
+  subject: String
+  text: String
+  html: String
+}
+
+input EmailTemplateWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EmailTemplateWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EmailTemplateWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EmailTemplateWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  from: String
+
+  """All values that are not equal to given value."""
+  from_not: String
+
+  """All values that are contained in given list."""
+  from_in: [String!]
+
+  """All values that are not contained in given list."""
+  from_not_in: [String!]
+
+  """All values less than the given value."""
+  from_lt: String
+
+  """All values less than or equal the given value."""
+  from_lte: String
+
+  """All values greater than the given value."""
+  from_gt: String
+
+  """All values greater than or equal the given value."""
+  from_gte: String
+
+  """All values containing the given string."""
+  from_contains: String
+
+  """All values not containing the given string."""
+  from_not_contains: String
+
+  """All values starting with the given string."""
+  from_starts_with: String
+
+  """All values not starting with the given string."""
+  from_not_starts_with: String
+
+  """All values ending with the given string."""
+  from_ends_with: String
+
+  """All values not ending with the given string."""
+  from_not_ends_with: String
+  subject: String
+
+  """All values that are not equal to given value."""
+  subject_not: String
+
+  """All values that are contained in given list."""
+  subject_in: [String!]
+
+  """All values that are not contained in given list."""
+  subject_not_in: [String!]
+
+  """All values less than the given value."""
+  subject_lt: String
+
+  """All values less than or equal the given value."""
+  subject_lte: String
+
+  """All values greater than the given value."""
+  subject_gt: String
+
+  """All values greater than or equal the given value."""
+  subject_gte: String
+
+  """All values containing the given string."""
+  subject_contains: String
+
+  """All values not containing the given string."""
+  subject_not_contains: String
+
+  """All values starting with the given string."""
+  subject_starts_with: String
+
+  """All values not starting with the given string."""
+  subject_not_starts_with: String
+
+  """All values ending with the given string."""
+  subject_ends_with: String
+
+  """All values not ending with the given string."""
+  subject_not_ends_with: String
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
+  html: String
+
+  """All values that are not equal to given value."""
+  html_not: String
+
+  """All values that are contained in given list."""
+  html_in: [String!]
+
+  """All values that are not contained in given list."""
+  html_not_in: [String!]
+
+  """All values less than the given value."""
+  html_lt: String
+
+  """All values less than or equal the given value."""
+  html_lte: String
+
+  """All values greater than the given value."""
+  html_gt: String
+
+  """All values greater than or equal the given value."""
+  html_gte: String
+
+  """All values containing the given string."""
+  html_contains: String
+
+  """All values not containing the given string."""
+  html_not_contains: String
+
+  """All values starting with the given string."""
+  html_starts_with: String
+
+  """All values not starting with the given string."""
+  html_not_starts_with: String
+
+  """All values ending with the given string."""
+  html_ends_with: String
+
+  """All values not ending with the given string."""
+  html_not_ends_with: String
+}
+
+input EmailTemplateWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+type Invitation implements Node {
+  id: ID!
+  type: InvitationType!
+  user: User!
+  email: String
+  name: String
+  city: City
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type InvitationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [InvitationEdge]!
+  aggregate: AggregateInvitation!
+}
+
+input InvitationCreateInput {
+  id: ID
+  type: InvitationType!
+  email: String
+  name: String
+  user: UserCreateOneInput!
+  city: CityCreateOneInput
+}
+
+"""An edge in a connection."""
+type InvitationEdge {
+  """The item at the end of the edge."""
+  node: Invitation!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum InvitationOrderByInput {
+  id_ASC
+  id_DESC
+  type_ASC
+  type_DESC
+  email_ASC
+  email_DESC
+  name_ASC
+  name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type InvitationPreviousValues {
+  id: ID!
+  type: InvitationType!
+  email: String
+  name: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type InvitationSubscriptionPayload {
+  mutation: MutationType!
+  node: Invitation
+  updatedFields: [String!]
+  previousValues: InvitationPreviousValues
+}
+
+input InvitationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InvitationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InvitationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InvitationSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: InvitationWhereInput
+}
+
+enum InvitationType {
+  EMAIL
+}
+
+input InvitationUpdateInput {
+  type: InvitationType
+  email: String
+  name: String
+  user: UserUpdateOneRequiredInput
+  city: CityUpdateOneInput
+}
+
+input InvitationUpdateManyMutationInput {
+  type: InvitationType
+  email: String
+  name: String
+}
+
+input InvitationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InvitationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InvitationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InvitationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  type: InvitationType
+
+  """All values that are not equal to given value."""
+  type_not: InvitationType
+
+  """All values that are contained in given list."""
+  type_in: [InvitationType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [InvitationType!]
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  user: UserWhereInput
+  city: CityWhereInput
+}
+
+input InvitationWhereUniqueInput {
+  id: ID
+}
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -683,36 +1372,48 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
   createOffer(data: OfferCreateInput!): Offer!
+  createInvitation(data: InvitationCreateInput!): Invitation!
+  createEmailTemplate(data: EmailTemplateCreateInput!): EmailTemplate!
   createRole(data: RoleCreateInput!): Role!
-  createClaim(data: ClaimCreateInput!): Claim!
   createCity(data: CityCreateInput!): City!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  createClaim(data: ClaimCreateInput!): Claim!
+  createUser(data: UserCreateInput!): User!
   updateOffer(data: OfferUpdateInput!, where: OfferWhereUniqueInput!): Offer
+  updateInvitation(data: InvitationUpdateInput!, where: InvitationWhereUniqueInput!): Invitation
+  updateEmailTemplate(data: EmailTemplateUpdateInput!, where: EmailTemplateWhereUniqueInput!): EmailTemplate
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
-  updateClaim(data: ClaimUpdateInput!, where: ClaimWhereUniqueInput!): Claim
   updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): City
-  deleteUser(where: UserWhereUniqueInput!): User
+  updateClaim(data: ClaimUpdateInput!, where: ClaimWhereUniqueInput!): Claim
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteOffer(where: OfferWhereUniqueInput!): Offer
+  deleteInvitation(where: InvitationWhereUniqueInput!): Invitation
+  deleteEmailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
   deleteRole(where: RoleWhereUniqueInput!): Role
-  deleteClaim(where: ClaimWhereUniqueInput!): Claim
   deleteCity(where: CityWhereUniqueInput!): City
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteClaim(where: ClaimWhereUniqueInput!): Claim
+  deleteUser(where: UserWhereUniqueInput!): User
   upsertOffer(where: OfferWhereUniqueInput!, create: OfferCreateInput!, update: OfferUpdateInput!): Offer!
+  upsertInvitation(where: InvitationWhereUniqueInput!, create: InvitationCreateInput!, update: InvitationUpdateInput!): Invitation!
+  upsertEmailTemplate(where: EmailTemplateWhereUniqueInput!, create: EmailTemplateCreateInput!, update: EmailTemplateUpdateInput!): EmailTemplate!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
-  upsertClaim(where: ClaimWhereUniqueInput!, create: ClaimCreateInput!, update: ClaimUpdateInput!): Claim!
   upsertCity(where: CityWhereUniqueInput!, create: CityCreateInput!, update: CityUpdateInput!): City!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertClaim(where: ClaimWhereUniqueInput!, create: ClaimCreateInput!, update: ClaimUpdateInput!): Claim!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyOffers(data: OfferUpdateManyMutationInput!, where: OfferWhereInput): BatchPayload!
+  updateManyInvitations(data: InvitationUpdateManyMutationInput!, where: InvitationWhereInput): BatchPayload!
+  updateManyEmailTemplates(data: EmailTemplateUpdateManyMutationInput!, where: EmailTemplateWhereInput): BatchPayload!
   updateManyRoles(data: RoleUpdateManyMutationInput!, where: RoleWhereInput): BatchPayload!
-  updateManyClaims(data: ClaimUpdateManyMutationInput!, where: ClaimWhereInput): BatchPayload!
   updateManyCities(data: CityUpdateManyMutationInput!, where: CityWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  updateManyClaims(data: ClaimUpdateManyMutationInput!, where: ClaimWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   deleteManyOffers(where: OfferWhereInput): BatchPayload!
+  deleteManyInvitations(where: InvitationWhereInput): BatchPayload!
+  deleteManyEmailTemplates(where: EmailTemplateWhereInput): BatchPayload!
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
-  deleteManyClaims(where: ClaimWhereInput): BatchPayload!
   deleteManyCities(where: CityWhereInput): BatchPayload!
+  deleteManyClaims(where: ClaimWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1264,21 +1965,27 @@ type PageInfo {
 }
 
 type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   offers(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Offer]!
+  invitations(where: InvitationWhereInput, orderBy: InvitationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Invitation]!
+  emailTemplates(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EmailTemplate]!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
-  claims(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Claim]!
   cities(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [City]!
-  user(where: UserWhereUniqueInput!): User
+  claims(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Claim]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   offer(where: OfferWhereUniqueInput!): Offer
+  invitation(where: InvitationWhereUniqueInput!): Invitation
+  emailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
   role(where: RoleWhereUniqueInput!): Role
-  claim(where: ClaimWhereUniqueInput!): Claim
   city(where: CityWhereUniqueInput!): City
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  claim(where: ClaimWhereUniqueInput!): Claim
+  user(where: UserWhereUniqueInput!): User
   offersConnection(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OfferConnection!
+  invitationsConnection(where: InvitationWhereInput, orderBy: InvitationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InvitationConnection!
+  emailTemplatesConnection(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmailTemplateConnection!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
-  claimsConnection(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClaimConnection!
   citiesConnection(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CityConnection!
+  claimsConnection(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClaimConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1609,11 +2316,13 @@ input RoleWhereUniqueInput {
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   offer(where: OfferSubscriptionWhereInput): OfferSubscriptionPayload
+  invitation(where: InvitationSubscriptionWhereInput): InvitationSubscriptionPayload
+  emailTemplate(where: EmailTemplateSubscriptionWhereInput): EmailTemplateSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
-  claim(where: ClaimSubscriptionWhereInput): ClaimSubscriptionPayload
   city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
+  claim(where: ClaimSubscriptionWhereInput): ClaimSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User implements Node {
@@ -1642,6 +2351,11 @@ input UserCreateInput {
   name: String
   city: CityCreateOneInput
   roles: RoleCreateManyInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -1708,6 +2422,14 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  email: String
+  password: String
+  name: String
+  city: CityUpdateOneInput
+  roles: RoleUpdateManyInput
+}
+
 input UserUpdateInput {
   email: String
   password: String
@@ -1720,6 +2442,18 @@ input UserUpdateManyMutationInput {
   email: String
   password: String
   name: String
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {
