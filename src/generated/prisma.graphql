@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/philapp-73f3dd/omo-dev/dev
-# timestamp: Sat Jun 08 2019 14:38:38 GMT+0200 (CEST)
+# timestamp: Sat Jun 08 2019 17:57:49 GMT+0200 (CEST)
 
 type AggregateCity {
   count: Int!
@@ -1056,6 +1056,11 @@ input EmailTemplateWhereUniqueInput {
   name: String
 }
 
+enum IdentificationType {
+  LOGIN
+  SOCIAL
+}
+
 type Invitation implements Node {
   id: ID!
   type: InvitationType!
@@ -1158,6 +1163,8 @@ input InvitationSubscriptionWhereInput {
 
 enum InvitationType {
   EMAIL
+  PERSONALLINK
+  GLOBALLINK
 }
 
 input InvitationUpdateInput {
@@ -2327,7 +2334,8 @@ type Subscription {
 
 type User implements Node {
   id: ID!
-  email: String!
+  identifier: String!
+  identificationType: IdentificationType!
   password: String
   name: String
   city: City
@@ -2346,7 +2354,8 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
-  email: String!
+  identifier: String!
+  identificationType: IdentificationType!
   password: String
   name: String
   city: CityCreateOneInput
@@ -2370,8 +2379,10 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
-  email_ASC
-  email_DESC
+  identifier_ASC
+  identifier_DESC
+  identificationType_ASC
+  identificationType_DESC
   password_ASC
   password_DESC
   name_ASC
@@ -2380,7 +2391,8 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
-  email: String!
+  identifier: String!
+  identificationType: IdentificationType!
   password: String
   name: String
 }
@@ -2423,7 +2435,8 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateDataInput {
-  email: String
+  identifier: String
+  identificationType: IdentificationType
   password: String
   name: String
   city: CityUpdateOneInput
@@ -2431,7 +2444,8 @@ input UserUpdateDataInput {
 }
 
 input UserUpdateInput {
-  email: String
+  identifier: String
+  identificationType: IdentificationType
   password: String
   name: String
   city: CityUpdateOneInput
@@ -2439,7 +2453,8 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyMutationInput {
-  email: String
+  identifier: String
+  identificationType: IdentificationType
   password: String
   name: String
 }
@@ -2505,46 +2520,56 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  email: String
+  identifier: String
 
   """All values that are not equal to given value."""
-  email_not: String
+  identifier_not: String
 
   """All values that are contained in given list."""
-  email_in: [String!]
+  identifier_in: [String!]
 
   """All values that are not contained in given list."""
-  email_not_in: [String!]
+  identifier_not_in: [String!]
 
   """All values less than the given value."""
-  email_lt: String
+  identifier_lt: String
 
   """All values less than or equal the given value."""
-  email_lte: String
+  identifier_lte: String
 
   """All values greater than the given value."""
-  email_gt: String
+  identifier_gt: String
 
   """All values greater than or equal the given value."""
-  email_gte: String
+  identifier_gte: String
 
   """All values containing the given string."""
-  email_contains: String
+  identifier_contains: String
 
   """All values not containing the given string."""
-  email_not_contains: String
+  identifier_not_contains: String
 
   """All values starting with the given string."""
-  email_starts_with: String
+  identifier_starts_with: String
 
   """All values not starting with the given string."""
-  email_not_starts_with: String
+  identifier_not_starts_with: String
 
   """All values ending with the given string."""
-  email_ends_with: String
+  identifier_ends_with: String
 
   """All values not ending with the given string."""
-  email_not_ends_with: String
+  identifier_not_ends_with: String
+  identificationType: IdentificationType
+
+  """All values that are not equal to given value."""
+  identificationType_not: IdentificationType
+
+  """All values that are contained in given list."""
+  identificationType_in: [IdentificationType!]
+
+  """All values that are not contained in given list."""
+  identificationType_not_in: [IdentificationType!]
   password: String
 
   """All values that are not equal to given value."""
@@ -2633,5 +2658,5 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
-  email: String
+  identifier: String
 }

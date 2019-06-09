@@ -49,4 +49,5 @@ export const Mutation = {
     }
     return 'error';
   },
+  signup: async (_parent: any, invite: any, context: Context) => {},
 };

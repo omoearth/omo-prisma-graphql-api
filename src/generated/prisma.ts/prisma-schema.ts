@@ -575,6 +575,11 @@ input EmailTemplateWhereUniqueInput {
   name: String
 }
 
+enum IdentificationType {
+  LOGIN
+  SOCIAL
+}
+
 type Invitation {
   id: ID!
   type: InvitationType!
@@ -650,6 +655,8 @@ input InvitationSubscriptionWhereInput {
 
 enum InvitationType {
   EMAIL
+  PERSONALLINK
+  GLOBALLINK
 }
 
 input InvitationUpdateInput {
@@ -1274,7 +1281,8 @@ type Subscription {
 
 type User {
   id: ID!
-  email: String!
+  identifier: String!
+  identificationType: IdentificationType!
   password: String
   name: String
   city: City
@@ -1289,7 +1297,8 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
-  email: String!
+  identifier: String!
+  identificationType: IdentificationType!
   password: String
   name: String
   city: CityCreateOneInput
@@ -1309,8 +1318,10 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
-  email_ASC
-  email_DESC
+  identifier_ASC
+  identifier_DESC
+  identificationType_ASC
+  identificationType_DESC
   password_ASC
   password_DESC
   name_ASC
@@ -1319,7 +1330,8 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
-  email: String!
+  identifier: String!
+  identificationType: IdentificationType!
   password: String
   name: String
 }
@@ -1343,7 +1355,8 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateDataInput {
-  email: String
+  identifier: String
+  identificationType: IdentificationType
   password: String
   name: String
   city: CityUpdateOneInput
@@ -1351,7 +1364,8 @@ input UserUpdateDataInput {
 }
 
 input UserUpdateInput {
-  email: String
+  identifier: String
+  identificationType: IdentificationType
   password: String
   name: String
   city: CityUpdateOneInput
@@ -1359,7 +1373,8 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyMutationInput {
-  email: String
+  identifier: String
+  identificationType: IdentificationType
   password: String
   name: String
 }
@@ -1391,20 +1406,24 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
+  identifier: String
+  identifier_not: String
+  identifier_in: [String!]
+  identifier_not_in: [String!]
+  identifier_lt: String
+  identifier_lte: String
+  identifier_gt: String
+  identifier_gte: String
+  identifier_contains: String
+  identifier_not_contains: String
+  identifier_starts_with: String
+  identifier_not_starts_with: String
+  identifier_ends_with: String
+  identifier_not_ends_with: String
+  identificationType: IdentificationType
+  identificationType_not: IdentificationType
+  identificationType_in: [IdentificationType!]
+  identificationType_not_in: [IdentificationType!]
   password: String
   password_not: String
   password_in: [String!]
@@ -1444,6 +1463,6 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
-  email: String
+  identifier: String
 }
 `

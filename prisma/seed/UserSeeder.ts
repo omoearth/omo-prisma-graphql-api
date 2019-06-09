@@ -5,7 +5,8 @@ export class UserSeeder {
   async seed() {
     await prisma.createUser({
       name: 'Omo Sapiens',
-      email: 'admin@omo.earth',
+      identifier: 'admin@omo.earth',
+      identificationType: 'LOGIN',
       password: '$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G',
       city: { connect: { name: 'Munich' } },
       roles: { connect: [{ name: Role.USER }, { name: Role.ADMIN_AUTH }] },
@@ -13,7 +14,8 @@ export class UserSeeder {
 
     await prisma.createUser({
       name: 'Omo foo',
-      email: 'foo@omo.earth',
+      identifier: 'foo@omo.earth',
+      identificationType: 'LOGIN',
       password: '$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G',
       city: { connect: { name: 'Hamburg' } },
       roles: { connect: [{ name: Role.ADMIN_FOO }] },
@@ -21,7 +23,8 @@ export class UserSeeder {
 
     await prisma.createUser({
       name: 'Omo bar',
-      email: 'bar@omo.earth',
+      identifier: 'bar@omo.earth',
+      identificationType: 'LOGIN',
       password: '$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G',
       city: { connect: { name: 'Hamburg' } },
       roles: { connect: [{ name: Role.ADMIN_BAR }] },

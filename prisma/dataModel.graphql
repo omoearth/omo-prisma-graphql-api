@@ -12,11 +12,17 @@ type Claim {
 
 type User {
   id: ID! @id @unique
-  email: String! @unique
+  identifier: String! @unique
+  identificationType: IdentificationType!
   password: String
   name: String
   city: City @relation(name: "Hometown")
   roles: [Role]
+}
+
+enum IdentificationType {
+  LOGIN
+  SOCIAL
 }
 
 type City {
@@ -50,6 +56,8 @@ type Offer implements Thing {
 
 enum InvitationType {
   EMAIL
+  PERSONALLINK
+  GLOBALLINK
 }
 
 type Invitation {

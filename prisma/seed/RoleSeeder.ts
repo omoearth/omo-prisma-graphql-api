@@ -50,5 +50,16 @@ export class RoleSeeder {
         ],
       },
     });
+
+    await prisma.createRole({
+      name: Role.INVITED,
+      claims: {
+        connect: [
+          { name: Claim.INVITED_SELECT_CITY },
+          { name: Claim.INVITED_SELECT_OFFER },
+          { name: Claim.INVITED_SELECT_REGISTER },
+        ],
+      },
+    });
   }
 }
