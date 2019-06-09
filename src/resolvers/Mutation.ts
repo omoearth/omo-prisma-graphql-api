@@ -1,28 +1,23 @@
-import { registerUser, loginUser } from "../utils/Authentication";
-import { Context } from "../utils/Utils";
-import { VoteCity, LoginUser } from "../QueryArguments";
-import {
-  OfferChange,
-  OfferChangeEvent,
-  CityChange,
-  CityChangeEvent
-} from "../resolvers/ChangeEvents";
-import { NodeMailer } from "../messaging/email/NodeMailer";
-import { TransactionSystem } from "../utils/TransactionSystem";
-import { TransactionType } from "../enums/TransactionType";
-import { Asset } from "../enums/Asset";
+import { registerUser, loginUser } from '../utils/Authentication';
+import { Context } from '../utils/Utils';
+import { VoteCity, LoginUser } from '../QueryArguments';
+import { OfferChange, OfferChangeEvent, CityChange, CityChangeEvent } from '../resolvers/ChangeEvents';
+import { NodeMailer } from '../messaging/email/NodeMailer';
+import { TransactionSystem } from '../utils/TransactionSystem';
+import { TransactionType } from '../enums/TransactionType';
+import { Asset } from '../enums/Asset';
 
 const transactionSystem = new TransactionSystem();
 
-export const PublicMutations: Array<String> = ["register", "login", "buyOffer"];
+export const PublicMutations: Array<String> = ['register', 'login', 'buyOffer'];
 
 export const Mutation = {
-  register: async (_parent: any, { email, password }: any, context: Context) =>
-    registerUser(context, email, password),
+  register: async (_parent: any, { email, password }: any, context: Context) => registerUser(context, email, password),
   login: async (_parent: any, loginData: LoginUser, context: Context) => {
     return loginUser(context, loginData);
   },
   voteCity: async (_parent: any, cityVote: VoteCity, context: Context) => {
+    console.log(context.userid);
     let cityWalletId = await context.prisma
       .city({ id: cityVote.cityId })
       .wallet()
@@ -31,7 +26,7 @@ export const Mutation = {
       .user({ id: context.userid })
       .wallet()
       .id();
-
+    console.log(userWalletId);
     await transactionSystem.transact(
       context,
       userWalletId,
@@ -51,7 +46,7 @@ export const Mutation = {
     let counter = (await context.prisma.offer({ id: offerId }).count()) || 0;
     const offer = await context.prisma.updateOffer({
       where: { id: offerId },
-      data: { count: counter + 1 }
+      data: { count: counter + 1 },
     });
 
     if (offer) {
@@ -66,11 +61,11 @@ export const Mutation = {
     var city = await context.prisma.invitation({ id: invitation.id }).city();
 
     switch (invitation.type) {
-      case "EMAIL":
+      case 'EMAIL':
         return await new NodeMailer().sendInvitation(invitation, inviter, city);
     }
-    return "error";
-  }
+    return 'error';
+  },
 };
 
 // await prisma.createTransaction({

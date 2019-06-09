@@ -14,6 +14,7 @@ function claim(claimName: string) {
 
 export const authorize = shield({
   Query: {
+    
     //   cities: and(claim(Claim.USER_READ), claim(Claim.FOO_UPDATE)),
     //   cities: or(claim(Claim.USER_READ), claim(Claim.FOO_UPDATE),and()),
     cities: claim(Claim.CITY_READ)
