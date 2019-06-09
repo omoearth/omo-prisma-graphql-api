@@ -1,29 +1,38 @@
-import { prisma } from '../../src/generated/prisma.ts';
-
+import { prisma } from "../../src/generated/prisma.ts";
+import { WalletSeeder } from "./WalletSeeder";
 export class CitySeeder {
-  async seed() {
+  private wallets: WalletSeeder;
+
+  constructor(wallets: WalletSeeder) {
+    this.wallets = wallets;
+  }
+
+  async seed(): Promise<CitySeeder> {
     await prisma.createCity({
-      name: 'Munich',
+      name: "Munich",
       available: true,
-      votes: 0,
+      votes: 0
+      // wallet: { connect: { id: this.wallets.walletMunich.id } }
     });
 
     await prisma.createCity({
-      name: 'Milano',
+      name: "Milano",
       available: true,
-      votes: 0,
+      votes: 0
     });
 
     await prisma.createCity({
-      name: 'Vienna',
+      name: "Vienna",
       available: true,
-      votes: 0,
+      votes: 0
     });
 
     await prisma.createCity({
-      name: 'Hamburg',
+      name: "Hamburg",
       available: true,
-      votes: 0,
+      votes: 0
     });
+
+    return this;
   }
 }

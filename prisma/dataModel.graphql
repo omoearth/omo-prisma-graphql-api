@@ -17,6 +17,8 @@ type User {
   name: String
   city: City @relation(name: "Hometown")
   roles: [Role]
+  votes: Int
+  wallet: Wallet
 }
 
 type City {
@@ -24,16 +26,10 @@ type City {
   name: String! @unique
   available: Boolean!
   votes: Int
+  wallet: Wallet
 }
 
-interface Thing {
-  id: ID! @id
-  name: String!
-  image: String
-  description: String
-}
-
-type Offer implements Thing {
+type Offer {
   id: ID! @id
   name: String!
   image: String!
@@ -46,6 +42,33 @@ type Offer implements Thing {
   category: String
 
   count: Int
+}
+
+type Wallet {
+  id: ID! @id
+  votes: Int
+  omos: Int
+}
+
+type Transaction {
+  id: ID! @id
+  input: User! @relation(name: "Input")
+  output: City! @relation(name: "Output")
+  # operation: TransactionType! @relation(name: "Operation")
+  # asset: TransactionAsset! @relation(name: "Asset")
+  amount: Int!
+  # condition: String
+}
+
+enum TransactionAsset {
+  VOTE
+  OMO
+  EUR
+}
+
+enum TransactionType {
+  CREATE
+  TRANSFER
 }
 
 enum InvitationType {

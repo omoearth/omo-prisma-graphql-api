@@ -26,7 +26,15 @@ type AggregateRole {
   count: Int!
 }
 
+type AggregateTransaction {
+  count: Int!
+}
+
 type AggregateUser {
+  count: Int!
+}
+
+type AggregateWallet {
   count: Int!
 }
 
@@ -39,6 +47,7 @@ type City {
   name: String!
   available: Boolean!
   votes: Int
+  wallet: Wallet
 }
 
 type CityConnection {
@@ -52,6 +61,7 @@ input CityCreateInput {
   name: String!
   available: Boolean!
   votes: Int
+  wallet: WalletCreateOneInput
 }
 
 input CityCreateOneInput {
@@ -104,12 +114,14 @@ input CityUpdateDataInput {
   name: String
   available: Boolean
   votes: Int
+  wallet: WalletUpdateOneInput
 }
 
 input CityUpdateInput {
   name: String
   available: Boolean
   votes: Int
+  wallet: WalletUpdateOneInput
 }
 
 input CityUpdateManyMutationInput {
@@ -124,6 +136,13 @@ input CityUpdateOneInput {
   upsert: CityUpsertNestedInput
   delete: Boolean
   disconnect: Boolean
+  connect: CityWhereUniqueInput
+}
+
+input CityUpdateOneRequiredInput {
+  create: CityCreateInput
+  update: CityUpdateDataInput
+  upsert: CityUpsertNestedInput
   connect: CityWhereUniqueInput
 }
 
@@ -171,6 +190,7 @@ input CityWhereInput {
   votes_lte: Int
   votes_gt: Int
   votes_gte: Int
+  wallet: WalletWhereInput
   AND: [CityWhereInput!]
   OR: [CityWhereInput!]
   NOT: [CityWhereInput!]
@@ -779,12 +799,24 @@ type Mutation {
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
+  createTransaction(data: TransactionCreateInput!): Transaction!
+  updateTransaction(data: TransactionUpdateInput!, where: TransactionWhereUniqueInput!): Transaction
+  updateManyTransactions(data: TransactionUpdateManyMutationInput!, where: TransactionWhereInput): BatchPayload!
+  upsertTransaction(where: TransactionWhereUniqueInput!, create: TransactionCreateInput!, update: TransactionUpdateInput!): Transaction!
+  deleteTransaction(where: TransactionWhereUniqueInput!): Transaction
+  deleteManyTransactions(where: TransactionWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createWallet(data: WalletCreateInput!): Wallet!
+  updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
+  updateManyWallets(data: WalletUpdateManyMutationInput!, where: WalletWhereInput): BatchPayload!
+  upsertWallet(where: WalletWhereUniqueInput!, create: WalletCreateInput!, update: WalletUpdateInput!): Wallet!
+  deleteWallet(where: WalletWhereUniqueInput!): Wallet
+  deleteManyWallets(where: WalletWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1076,9 +1108,15 @@ type Query {
   role(where: RoleWhereUniqueInput!): Role
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
+  transaction(where: TransactionWhereUniqueInput!): Transaction
+  transactions(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transaction]!
+  transactionsConnection(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  wallet(where: WalletWhereUniqueInput!): Wallet
+  wallets(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Wallet]!
+  walletsConnection(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WalletConnection!
   node(id: ID!): Node
 }
 
@@ -1269,7 +1307,108 @@ type Subscription {
   invitation(where: InvitationSubscriptionWhereInput): InvitationSubscriptionPayload
   offer(where: OfferSubscriptionWhereInput): OfferSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
+  transaction(where: TransactionSubscriptionWhereInput): TransactionSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  wallet(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
+}
+
+type Transaction {
+  id: ID!
+  input: User!
+  output: City!
+  amount: Int!
+}
+
+type TransactionConnection {
+  pageInfo: PageInfo!
+  edges: [TransactionEdge]!
+  aggregate: AggregateTransaction!
+}
+
+input TransactionCreateInput {
+  id: ID
+  input: UserCreateOneInput!
+  output: CityCreateOneInput!
+  amount: Int!
+}
+
+type TransactionEdge {
+  node: Transaction!
+  cursor: String!
+}
+
+enum TransactionOrderByInput {
+  id_ASC
+  id_DESC
+  amount_ASC
+  amount_DESC
+}
+
+type TransactionPreviousValues {
+  id: ID!
+  amount: Int!
+}
+
+type TransactionSubscriptionPayload {
+  mutation: MutationType!
+  node: Transaction
+  updatedFields: [String!]
+  previousValues: TransactionPreviousValues
+}
+
+input TransactionSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TransactionWhereInput
+  AND: [TransactionSubscriptionWhereInput!]
+  OR: [TransactionSubscriptionWhereInput!]
+  NOT: [TransactionSubscriptionWhereInput!]
+}
+
+input TransactionUpdateInput {
+  input: UserUpdateOneRequiredInput
+  output: CityUpdateOneRequiredInput
+  amount: Int
+}
+
+input TransactionUpdateManyMutationInput {
+  amount: Int
+}
+
+input TransactionWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  input: UserWhereInput
+  output: CityWhereInput
+  amount: Int
+  amount_not: Int
+  amount_in: [Int!]
+  amount_not_in: [Int!]
+  amount_lt: Int
+  amount_lte: Int
+  amount_gt: Int
+  amount_gte: Int
+  AND: [TransactionWhereInput!]
+  OR: [TransactionWhereInput!]
+  NOT: [TransactionWhereInput!]
+}
+
+input TransactionWhereUniqueInput {
+  id: ID
 }
 
 type User {
@@ -1279,6 +1418,8 @@ type User {
   name: String
   city: City
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
+  votes: Int
+  wallet: Wallet
 }
 
 type UserConnection {
@@ -1294,6 +1435,8 @@ input UserCreateInput {
   name: String
   city: CityCreateOneInput
   roles: RoleCreateManyInput
+  votes: Int
+  wallet: WalletCreateOneInput
 }
 
 input UserCreateOneInput {
@@ -1315,6 +1458,8 @@ enum UserOrderByInput {
   password_DESC
   name_ASC
   name_DESC
+  votes_ASC
+  votes_DESC
 }
 
 type UserPreviousValues {
@@ -1322,6 +1467,7 @@ type UserPreviousValues {
   email: String!
   password: String
   name: String
+  votes: Int
 }
 
 type UserSubscriptionPayload {
@@ -1348,6 +1494,8 @@ input UserUpdateDataInput {
   name: String
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
+  votes: Int
+  wallet: WalletUpdateOneInput
 }
 
 input UserUpdateInput {
@@ -1356,12 +1504,15 @@ input UserUpdateInput {
   name: String
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
+  votes: Int
+  wallet: WalletUpdateOneInput
 }
 
 input UserUpdateManyMutationInput {
   email: String
   password: String
   name: String
+  votes: Int
 }
 
 input UserUpdateOneRequiredInput {
@@ -1437,6 +1588,15 @@ input UserWhereInput {
   roles_every: RoleWhereInput
   roles_some: RoleWhereInput
   roles_none: RoleWhereInput
+  votes: Int
+  votes_not: Int
+  votes_in: [Int!]
+  votes_not_in: [Int!]
+  votes_lt: Int
+  votes_lte: Int
+  votes_gt: Int
+  votes_gte: Int
+  wallet: WalletWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -1445,5 +1605,135 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+}
+
+type Wallet {
+  id: ID!
+  votes: Int
+  omos: Int
+}
+
+type WalletConnection {
+  pageInfo: PageInfo!
+  edges: [WalletEdge]!
+  aggregate: AggregateWallet!
+}
+
+input WalletCreateInput {
+  id: ID
+  votes: Int
+  omos: Int
+}
+
+input WalletCreateOneInput {
+  create: WalletCreateInput
+  connect: WalletWhereUniqueInput
+}
+
+type WalletEdge {
+  node: Wallet!
+  cursor: String!
+}
+
+enum WalletOrderByInput {
+  id_ASC
+  id_DESC
+  votes_ASC
+  votes_DESC
+  omos_ASC
+  omos_DESC
+}
+
+type WalletPreviousValues {
+  id: ID!
+  votes: Int
+  omos: Int
+}
+
+type WalletSubscriptionPayload {
+  mutation: MutationType!
+  node: Wallet
+  updatedFields: [String!]
+  previousValues: WalletPreviousValues
+}
+
+input WalletSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: WalletWhereInput
+  AND: [WalletSubscriptionWhereInput!]
+  OR: [WalletSubscriptionWhereInput!]
+  NOT: [WalletSubscriptionWhereInput!]
+}
+
+input WalletUpdateDataInput {
+  votes: Int
+  omos: Int
+}
+
+input WalletUpdateInput {
+  votes: Int
+  omos: Int
+}
+
+input WalletUpdateManyMutationInput {
+  votes: Int
+  omos: Int
+}
+
+input WalletUpdateOneInput {
+  create: WalletCreateInput
+  update: WalletUpdateDataInput
+  upsert: WalletUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: WalletWhereUniqueInput
+}
+
+input WalletUpsertNestedInput {
+  update: WalletUpdateDataInput!
+  create: WalletCreateInput!
+}
+
+input WalletWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  votes: Int
+  votes_not: Int
+  votes_in: [Int!]
+  votes_not_in: [Int!]
+  votes_lt: Int
+  votes_lte: Int
+  votes_gt: Int
+  votes_gte: Int
+  omos: Int
+  omos_not: Int
+  omos_in: [Int!]
+  omos_not_in: [Int!]
+  omos_lt: Int
+  omos_lte: Int
+  omos_gt: Int
+  omos_gte: Int
+  AND: [WalletWhereInput!]
+  OR: [WalletWhereInput!]
+  NOT: [WalletWhereInput!]
+}
+
+input WalletWhereUniqueInput {
+  id: ID
 }
 `
