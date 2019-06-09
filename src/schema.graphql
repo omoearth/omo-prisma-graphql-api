@@ -2,8 +2,9 @@
 
 type Query {
   currentUser: User!
-  cities: [City]
+  cities: [City!]!
   offers(category: String!): [Offer]
+  city: City!
 }
 
 type Mutation {
@@ -28,4 +29,12 @@ type LoginResponse {
 type Response {
   success: Boolean
   message: String
+}
+
+type City implements Node {
+  id: ID!
+  name: String!
+  available: Boolean!
+  wallet: Wallet!
+  votes: Int
 }

@@ -1,4 +1,4 @@
-import { prisma } from "../../src/generated/prisma.ts";
+import { prisma } from "../../src/generated/prisma-client";
 import { TransactionType } from "../../src/enums/TransactionType";
 
 export class TransactionTypeSeeder {

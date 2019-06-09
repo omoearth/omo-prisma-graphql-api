@@ -1,4 +1,4 @@
-import { Int, City } from "./generated/prisma.ts";
+import { Int, City } from './generated/prisma-client';
 
 export type LoginUser = {
   email: string;

@@ -1,5 +1,5 @@
-# source: https://eu1.prisma.sh/omo/omo-prisma/dev
-# timestamp: Sun Jun 09 2019 13:38:26 GMT+0200 (GMT+02:00)
+# source: https://eu1.prisma.sh/philapp-73f3dd/omo-dev/dev
+# timestamp: Sun Jun 09 2019 20:32:05 GMT+0200 (CEST)
 
 type AggregateAsset {
   count: Int!
@@ -543,7 +543,6 @@ type City implements Node {
   id: ID!
   name: String!
   available: Boolean!
-  votes: Int
   wallet: Wallet!
 }
 
@@ -561,7 +560,6 @@ input CityCreateInput {
   id: ID
   name: String!
   available: Boolean!
-  votes: Int
   wallet: WalletCreateOneInput!
 }
 
@@ -586,15 +584,12 @@ enum CityOrderByInput {
   name_DESC
   available_ASC
   available_DESC
-  votes_ASC
-  votes_DESC
 }
 
 type CityPreviousValues {
   id: ID!
   name: String!
   available: Boolean!
-  votes: Int
 }
 
 type CitySubscriptionPayload {
@@ -637,21 +632,18 @@ input CitySubscriptionWhereInput {
 input CityUpdateDataInput {
   name: String
   available: Boolean
-  votes: Int
   wallet: WalletUpdateOneRequiredInput
 }
 
 input CityUpdateInput {
   name: String
   available: Boolean
-  votes: Int
   wallet: WalletUpdateOneRequiredInput
 }
 
 input CityUpdateManyMutationInput {
   name: String
   available: Boolean
-  votes: Int
 }
 
 input CityUpdateOneInput {
@@ -761,28 +753,6 @@ input CityWhereInput {
 
   """All values that are not equal to given value."""
   available_not: Boolean
-  votes: Int
-
-  """All values that are not equal to given value."""
-  votes_not: Int
-
-  """All values that are contained in given list."""
-  votes_in: [Int!]
-
-  """All values that are not contained in given list."""
-  votes_not_in: [Int!]
-
-  """All values less than the given value."""
-  votes_lt: Int
-
-  """All values less than or equal the given value."""
-  votes_lte: Int
-
-  """All values greater than the given value."""
-  votes_gt: Int
-
-  """All values greater than or equal the given value."""
-  votes_gte: Int
   wallet: WalletWhereInput
 }
 
@@ -1891,8 +1861,8 @@ type Mutation {
   createBalance(data: BalanceCreateInput!): Balance!
   createClaim(data: ClaimCreateInput!): Claim!
   createUser(data: UserCreateInput!): User!
-  createWallet(data: WalletCreateInput!): Wallet!
   createTransactionType(data: TransactionTypeCreateInput!): TransactionType!
+  createWallet(data: WalletCreateInput!): Wallet!
   createAsset(data: AssetCreateInput!): Asset!
   updateOffer(data: OfferUpdateInput!, where: OfferWhereUniqueInput!): Offer
   updateTransaction(data: TransactionUpdateInput!, where: TransactionWhereUniqueInput!): Transaction
@@ -1903,8 +1873,8 @@ type Mutation {
   updateBalance(data: BalanceUpdateInput!, where: BalanceWhereUniqueInput!): Balance
   updateClaim(data: ClaimUpdateInput!, where: ClaimWhereUniqueInput!): Claim
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
   updateTransactionType(data: TransactionTypeUpdateInput!, where: TransactionTypeWhereUniqueInput!): TransactionType
+  updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
   updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset
   deleteOffer(where: OfferWhereUniqueInput!): Offer
   deleteTransaction(where: TransactionWhereUniqueInput!): Transaction
@@ -1915,8 +1885,8 @@ type Mutation {
   deleteBalance(where: BalanceWhereUniqueInput!): Balance
   deleteClaim(where: ClaimWhereUniqueInput!): Claim
   deleteUser(where: UserWhereUniqueInput!): User
-  deleteWallet(where: WalletWhereUniqueInput!): Wallet
   deleteTransactionType(where: TransactionTypeWhereUniqueInput!): TransactionType
+  deleteWallet(where: WalletWhereUniqueInput!): Wallet
   deleteAsset(where: AssetWhereUniqueInput!): Asset
   upsertOffer(where: OfferWhereUniqueInput!, create: OfferCreateInput!, update: OfferUpdateInput!): Offer!
   upsertTransaction(where: TransactionWhereUniqueInput!, create: TransactionCreateInput!, update: TransactionUpdateInput!): Transaction!
@@ -1927,8 +1897,8 @@ type Mutation {
   upsertBalance(where: BalanceWhereUniqueInput!, create: BalanceCreateInput!, update: BalanceUpdateInput!): Balance!
   upsertClaim(where: ClaimWhereUniqueInput!, create: ClaimCreateInput!, update: ClaimUpdateInput!): Claim!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertWallet(where: WalletWhereUniqueInput!, create: WalletCreateInput!, update: WalletUpdateInput!): Wallet!
   upsertTransactionType(where: TransactionTypeWhereUniqueInput!, create: TransactionTypeCreateInput!, update: TransactionTypeUpdateInput!): TransactionType!
+  upsertWallet(where: WalletWhereUniqueInput!, create: WalletCreateInput!, update: WalletUpdateInput!): Wallet!
   upsertAsset(where: AssetWhereUniqueInput!, create: AssetCreateInput!, update: AssetUpdateInput!): Asset!
   updateManyOffers(data: OfferUpdateManyMutationInput!, where: OfferWhereInput): BatchPayload!
   updateManyTransactions(data: TransactionUpdateManyMutationInput!, where: TransactionWhereInput): BatchPayload!
@@ -1950,8 +1920,8 @@ type Mutation {
   deleteManyBalances(where: BalanceWhereInput): BatchPayload!
   deleteManyClaims(where: ClaimWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyWallets(where: WalletWhereInput): BatchPayload!
   deleteManyTransactionTypes(where: TransactionTypeWhereInput): BatchPayload!
+  deleteManyWallets(where: WalletWhereInput): BatchPayload!
   deleteManyAssets(where: AssetWhereInput): BatchPayload!
 }
 
@@ -2513,8 +2483,8 @@ type Query {
   balances(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Balance]!
   claims(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Claim]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  wallets(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Wallet]!
   transactionTypes(where: TransactionTypeWhereInput, orderBy: TransactionTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TransactionType]!
+  wallets(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Wallet]!
   assets(where: AssetWhereInput, orderBy: AssetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Asset]!
   offer(where: OfferWhereUniqueInput!): Offer
   transaction(where: TransactionWhereUniqueInput!): Transaction
@@ -2525,8 +2495,8 @@ type Query {
   balance(where: BalanceWhereUniqueInput!): Balance
   claim(where: ClaimWhereUniqueInput!): Claim
   user(where: UserWhereUniqueInput!): User
-  wallet(where: WalletWhereUniqueInput!): Wallet
   transactionType(where: TransactionTypeWhereUniqueInput!): TransactionType
+  wallet(where: WalletWhereUniqueInput!): Wallet
   asset(where: AssetWhereUniqueInput!): Asset
   offersConnection(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OfferConnection!
   transactionsConnection(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionConnection!
@@ -2537,8 +2507,8 @@ type Query {
   balancesConnection(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BalanceConnection!
   claimsConnection(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClaimConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  walletsConnection(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WalletConnection!
   transactionTypesConnection(where: TransactionTypeWhereInput, orderBy: TransactionTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionTypeConnection!
+  walletsConnection(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WalletConnection!
   assetsConnection(where: AssetWhereInput, orderBy: AssetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AssetConnection!
 
   """Fetches an object given its ID"""
@@ -2879,8 +2849,8 @@ type Subscription {
   balance(where: BalanceSubscriptionWhereInput): BalanceSubscriptionPayload
   claim(where: ClaimSubscriptionWhereInput): ClaimSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  wallet(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
   transactionType(where: TransactionTypeSubscriptionWhereInput): TransactionTypeSubscriptionPayload
+  wallet(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
   asset(where: AssetSubscriptionWhereInput): AssetSubscriptionPayload
 }
 

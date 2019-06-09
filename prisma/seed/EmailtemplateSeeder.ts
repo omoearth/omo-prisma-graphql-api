@@ -1,4 +1,4 @@
-import { prisma } from '../../src/generated/prisma.ts';
+import { prisma } from '../../src/generated/prisma-client';
 
 export class EmailTemplateSeeder {
   async seed() {

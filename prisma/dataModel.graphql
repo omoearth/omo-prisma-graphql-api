@@ -24,8 +24,7 @@ type City {
   id: ID! @id
   name: String! @unique
   available: Boolean!
-  votes: Int
-  wallet: Wallet! @relation(name: "Wallet")
+  wallet: Wallet!
 }
 
 type Offer {
@@ -59,7 +58,7 @@ type Balance {
 
 type Wallet {
   id: ID! @id
-  balances: [Balance]
+  balances: [Balance!]!
 }
 
 type Transaction {

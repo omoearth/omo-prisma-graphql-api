@@ -1,4 +1,4 @@
-import { prisma, WalletCreateOneInput } from "../../src/generated/prisma.ts";
+import { prisma, WalletCreateOneInput } from "../../src/generated/prisma-client";
 import { Role } from "../../src/auth/Roles";
 import { Asset } from "../../src/enums/Asset";
 

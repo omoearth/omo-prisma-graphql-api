@@ -342,7 +342,6 @@ type City {
   id: ID!
   name: String!
   available: Boolean!
-  votes: Int
   wallet: Wallet!
 }
 
@@ -356,7 +355,6 @@ input CityCreateInput {
   id: ID
   name: String!
   available: Boolean!
-  votes: Int
   wallet: WalletCreateOneInput!
 }
 
@@ -377,15 +375,12 @@ enum CityOrderByInput {
   name_DESC
   available_ASC
   available_DESC
-  votes_ASC
-  votes_DESC
 }
 
 type CityPreviousValues {
   id: ID!
   name: String!
   available: Boolean!
-  votes: Int
 }
 
 type CitySubscriptionPayload {
@@ -409,21 +404,18 @@ input CitySubscriptionWhereInput {
 input CityUpdateDataInput {
   name: String
   available: Boolean
-  votes: Int
   wallet: WalletUpdateOneRequiredInput
 }
 
 input CityUpdateInput {
   name: String
   available: Boolean
-  votes: Int
   wallet: WalletUpdateOneRequiredInput
 }
 
 input CityUpdateManyMutationInput {
   name: String
   available: Boolean
-  votes: Int
 }
 
 input CityUpdateOneInput {
@@ -471,14 +463,6 @@ input CityWhereInput {
   name_not_ends_with: String
   available: Boolean
   available_not: Boolean
-  votes: Int
-  votes_not: Int
-  votes_in: [Int!]
-  votes_not_in: [Int!]
-  votes_lt: Int
-  votes_lte: Int
-  votes_gt: Int
-  votes_gte: Int
   wallet: WalletWhereInput
   AND: [CityWhereInput!]
   OR: [CityWhereInput!]

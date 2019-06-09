@@ -598,9 +598,7 @@ export type CityOrderByInput =
   | "name_ASC"
   | "name_DESC"
   | "available_ASC"
-  | "available_DESC"
-  | "votes_ASC"
-  | "votes_DESC";
+  | "available_DESC";
 
 export type ClaimOrderByInput =
   | "id_ASC"
@@ -654,7 +652,6 @@ export interface CityCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
   available: Boolean;
-  votes?: Maybe<Int>;
   wallet: WalletCreateOneInput;
 }
 
@@ -1077,7 +1074,6 @@ export interface UserUpdateInput {
 export interface CityUpdateDataInput {
   name?: Maybe<String>;
   available?: Maybe<Boolean>;
-  votes?: Maybe<Int>;
   wallet?: Maybe<WalletUpdateOneRequiredInput>;
 }
 
@@ -1603,7 +1599,6 @@ export interface UserUpdateManyMutationInput {
 export interface CityUpdateInput {
   name?: Maybe<String>;
   available?: Maybe<Boolean>;
-  votes?: Maybe<Int>;
   wallet?: Maybe<WalletUpdateOneRequiredInput>;
 }
 
@@ -1794,14 +1789,6 @@ export interface CityWhereInput {
   name_not_ends_with?: Maybe<String>;
   available?: Maybe<Boolean>;
   available_not?: Maybe<Boolean>;
-  votes?: Maybe<Int>;
-  votes_not?: Maybe<Int>;
-  votes_in?: Maybe<Int[] | Int>;
-  votes_not_in?: Maybe<Int[] | Int>;
-  votes_lt?: Maybe<Int>;
-  votes_lte?: Maybe<Int>;
-  votes_gt?: Maybe<Int>;
-  votes_gte?: Maybe<Int>;
   wallet?: Maybe<WalletWhereInput>;
   AND?: Maybe<CityWhereInput[] | CityWhereInput>;
   OR?: Maybe<CityWhereInput[] | CityWhereInput>;
@@ -1872,7 +1859,6 @@ export type BalanceWhereUniqueInput = AtLeastOne<{
 export interface CityUpdateManyMutationInput {
   name?: Maybe<String>;
   available?: Maybe<Boolean>;
-  votes?: Maybe<Int>;
 }
 
 export interface RoleWhereInput {
@@ -2746,7 +2732,6 @@ export interface CityPreviousValues {
   id: ID_Output;
   name: String;
   available: Boolean;
-  votes?: Int;
 }
 
 export interface CityPreviousValuesPromise
@@ -2755,7 +2740,6 @@ export interface CityPreviousValuesPromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   available: () => Promise<Boolean>;
-  votes: () => Promise<Int>;
 }
 
 export interface CityPreviousValuesSubscription
@@ -2764,7 +2748,6 @@ export interface CityPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   available: () => Promise<AsyncIterator<Boolean>>;
-  votes: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface Offer {
@@ -3800,14 +3783,12 @@ export interface City {
   id: ID_Output;
   name: String;
   available: Boolean;
-  votes?: Int;
 }
 
 export interface CityPromise extends Promise<City>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   available: () => Promise<Boolean>;
-  votes: () => Promise<Int>;
   wallet: <T = WalletPromise>() => T;
 }
 
@@ -3817,7 +3798,6 @@ export interface CitySubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   available: () => Promise<AsyncIterator<Boolean>>;
-  votes: () => Promise<AsyncIterator<Int>>;
   wallet: <T = WalletSubscription>() => T;
 }
 
@@ -3827,7 +3807,6 @@ export interface CityNullablePromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   available: () => Promise<Boolean>;
-  votes: () => Promise<Int>;
   wallet: <T = WalletPromise>() => T;
 }
 
