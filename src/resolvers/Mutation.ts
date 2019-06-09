@@ -15,7 +15,8 @@ import {
   TransactionCreateInput,
   User,
   City,
-  Int
+  Int,
+  UserUpdateInput
 } from "../generated/prisma.ts";
 import { NodeMailer } from "../messaging/email/NodeMailer";
 
@@ -71,22 +72,26 @@ export const Mutation = {
     return "error";
   },
   transaction: async (_parent: any, data: any, context: Context) => {
-    let from: User = data.user;
-    let to: City = data.city;
+    let from = await context.prisma.user({ id: data.from });
+    let to = await context.prisma.city({ id: data.to });
+    // let to: City = data.city;
     let amount: Int = data.amount;
 
-    if (from.votes && from.votes > amount) {
+    if (to && from && from.votes && from.votes >= amount) {
       let cityVotes = (to.votes || 0) + amount;
+      console.log(cityVotes);
       let userVotes = (from.votes || 0) - amount;
-      context.prisma.updateCity({
+      console.log(userVotes);
+
+      await context.prisma.updateCity({
         data: { votes: cityVotes },
         where: { id: to.id }
       });
-      context.prisma.updateUser({
+      await context.prisma.updateUser({
         data: { votes: userVotes },
         where: { id: from.id }
       });
-      context.prisma.createTransaction({
+      await context.prisma.createTransaction({
         input: { connect: { id: from.id } },
         output: { connect: { id: to.id } },
         amount: amount

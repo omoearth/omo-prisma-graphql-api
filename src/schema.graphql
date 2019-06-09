@@ -12,7 +12,7 @@ type Mutation {
   voteCity(cityId: String!, count: Int!): City
   buyOffer(offerId: String!): Offer
   invite(invite: InvitationCreateInput!): Response
-  transaction(user: User, city: City, amount: Int): String
+  transaction(from: String, to: String, amount: Int): String
 }
 
 type Subscription {
