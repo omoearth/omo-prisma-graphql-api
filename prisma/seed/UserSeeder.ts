@@ -1,12 +1,20 @@
-import { prisma } from "../../src/generated/prisma.ts";
+import { prisma, WalletCreateOneInput } from "../../src/generated/prisma.ts";
 import { Role } from "../../src/auth/Roles";
-import { WalletSeeder } from "./WalletSeeder";
+import { Asset } from "../../src/enums/assets";
 
 export class UserSeeder {
-  private wallets: WalletSeeder;
-  constructor(wallets: WalletSeeder) {
-    this.wallets = wallets;
-  }
+  private newCityWallet: WalletCreateOneInput = {
+    create: {
+      balances: {
+        create: [
+          { type: { connect: { name: Asset.CITYVOTES } }, value: 0 },
+          { type: { connect: { name: Asset.EURO } }, value: 0 },
+          { type: { connect: { name: Asset.OMO } }, value: 0 }
+        ]
+      }
+    }
+  };
+
   async seed() {
     await prisma.createUser({
       name: "Omo Sapiens",
@@ -14,8 +22,7 @@ export class UserSeeder {
       password: "$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G",
       city: { connect: { name: "Munich" } },
       roles: { connect: [{ name: Role.USER }, { name: Role.ADMIN_AUTH }] },
-      // wallet: { connect: { id: this.wallets.walletOmoSapiens.id } },
-      votes: 100
+      wallet: this.newCityWallet
     });
 
     await prisma.createUser({
@@ -23,7 +30,8 @@ export class UserSeeder {
       email: "foo@omo.earth",
       password: "$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G",
       city: { connect: { name: "Hamburg" } },
-      roles: { connect: [{ name: Role.ADMIN_FOO }] }
+      roles: { connect: [{ name: Role.ADMIN_FOO }] },
+      wallet: this.newCityWallet
     });
 
     await prisma.createUser({
@@ -31,7 +39,8 @@ export class UserSeeder {
       email: "bar@omo.earth",
       password: "$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G",
       city: { connect: { name: "Hamburg" } },
-      roles: { connect: [{ name: Role.ADMIN_BAR }] }
+      roles: { connect: [{ name: Role.ADMIN_BAR }] },
+      wallet: this.newCityWallet
     });
   }
 }

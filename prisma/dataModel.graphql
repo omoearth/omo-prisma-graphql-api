@@ -17,8 +17,7 @@ type User {
   name: String
   city: City @relation(name: "Hometown")
   roles: [Role]
-  votes: Int
-  wallet: Wallet
+  wallet: Wallet!
 }
 
 type City {
@@ -26,7 +25,7 @@ type City {
   name: String! @unique
   available: Boolean!
   votes: Int
-  wallet: Wallet
+  wallet: Wallet!
 }
 
 type Offer {
@@ -43,28 +42,36 @@ type Offer {
 
   count: Int
 }
+type Asset {
+  id: ID! @id
+  name: String! @unique
+}
+
+type Balance {
+  id: ID! @id
+  type: Asset!
+  value: Int!
+}
 
 type Wallet {
   id: ID! @id
-  votes: Int
-  omos: Int
+  balances: [Balance]!
 }
 
 type Transaction {
   id: ID! @id
-  input: User! @relation(name: "Input")
-  output: City! @relation(name: "Output")
-  # operation: TransactionType! @relation(name: "Operation")
-  # asset: TransactionAsset! @relation(name: "Asset")
+  input: Wallet! @relation(name: "Input")
+  output: Wallet! @relation(name: "Output")
+  operation: TransactionType! @relation(name: "Operation")
+  asset: Asset! @relation(name: "Asset")
   amount: Int!
-  # condition: String
 }
 
-enum TransactionAsset {
-  VOTE
-  OMO
-  EUR
-}
+# enum TransactionAsset {
+#   VOTE
+#   OMO
+#   EUR
+# }
 
 enum TransactionType {
   CREATE

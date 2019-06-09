@@ -2,7 +2,15 @@
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-export const typeDefs = /* GraphQL */ `type AggregateCity {
+export const typeDefs = /* GraphQL */ `type AggregateAsset {
+  count: Int!
+}
+
+type AggregateBalance {
+  count: Int!
+}
+
+type AggregateCity {
   count: Int!
 }
 
@@ -38,6 +46,290 @@ type AggregateWallet {
   count: Int!
 }
 
+type Asset {
+  id: ID!
+  name: String!
+}
+
+type AssetConnection {
+  pageInfo: PageInfo!
+  edges: [AssetEdge]!
+  aggregate: AggregateAsset!
+}
+
+input AssetCreateInput {
+  id: ID
+  name: String!
+}
+
+input AssetCreateOneInput {
+  create: AssetCreateInput
+  connect: AssetWhereUniqueInput
+}
+
+type AssetEdge {
+  node: Asset!
+  cursor: String!
+}
+
+enum AssetOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type AssetPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type AssetSubscriptionPayload {
+  mutation: MutationType!
+  node: Asset
+  updatedFields: [String!]
+  previousValues: AssetPreviousValues
+}
+
+input AssetSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AssetWhereInput
+  AND: [AssetSubscriptionWhereInput!]
+  OR: [AssetSubscriptionWhereInput!]
+  NOT: [AssetSubscriptionWhereInput!]
+}
+
+input AssetUpdateDataInput {
+  name: String
+}
+
+input AssetUpdateInput {
+  name: String
+}
+
+input AssetUpdateManyMutationInput {
+  name: String
+}
+
+input AssetUpdateOneRequiredInput {
+  create: AssetCreateInput
+  update: AssetUpdateDataInput
+  upsert: AssetUpsertNestedInput
+  connect: AssetWhereUniqueInput
+}
+
+input AssetUpsertNestedInput {
+  update: AssetUpdateDataInput!
+  create: AssetCreateInput!
+}
+
+input AssetWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [AssetWhereInput!]
+  OR: [AssetWhereInput!]
+  NOT: [AssetWhereInput!]
+}
+
+input AssetWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+type Balance {
+  id: ID!
+  type: Asset!
+  value: Int!
+}
+
+type BalanceConnection {
+  pageInfo: PageInfo!
+  edges: [BalanceEdge]!
+  aggregate: AggregateBalance!
+}
+
+input BalanceCreateInput {
+  id: ID
+  type: AssetCreateOneInput!
+  value: Int!
+}
+
+input BalanceCreateManyInput {
+  create: [BalanceCreateInput!]
+  connect: [BalanceWhereUniqueInput!]
+}
+
+type BalanceEdge {
+  node: Balance!
+  cursor: String!
+}
+
+enum BalanceOrderByInput {
+  id_ASC
+  id_DESC
+  value_ASC
+  value_DESC
+}
+
+type BalancePreviousValues {
+  id: ID!
+  value: Int!
+}
+
+input BalanceScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  value: Int
+  value_not: Int
+  value_in: [Int!]
+  value_not_in: [Int!]
+  value_lt: Int
+  value_lte: Int
+  value_gt: Int
+  value_gte: Int
+  AND: [BalanceScalarWhereInput!]
+  OR: [BalanceScalarWhereInput!]
+  NOT: [BalanceScalarWhereInput!]
+}
+
+type BalanceSubscriptionPayload {
+  mutation: MutationType!
+  node: Balance
+  updatedFields: [String!]
+  previousValues: BalancePreviousValues
+}
+
+input BalanceSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: BalanceWhereInput
+  AND: [BalanceSubscriptionWhereInput!]
+  OR: [BalanceSubscriptionWhereInput!]
+  NOT: [BalanceSubscriptionWhereInput!]
+}
+
+input BalanceUpdateDataInput {
+  type: AssetUpdateOneRequiredInput
+  value: Int
+}
+
+input BalanceUpdateInput {
+  type: AssetUpdateOneRequiredInput
+  value: Int
+}
+
+input BalanceUpdateManyDataInput {
+  value: Int
+}
+
+input BalanceUpdateManyInput {
+  create: [BalanceCreateInput!]
+  update: [BalanceUpdateWithWhereUniqueNestedInput!]
+  upsert: [BalanceUpsertWithWhereUniqueNestedInput!]
+  delete: [BalanceWhereUniqueInput!]
+  connect: [BalanceWhereUniqueInput!]
+  set: [BalanceWhereUniqueInput!]
+  disconnect: [BalanceWhereUniqueInput!]
+  deleteMany: [BalanceScalarWhereInput!]
+  updateMany: [BalanceUpdateManyWithWhereNestedInput!]
+}
+
+input BalanceUpdateManyMutationInput {
+  value: Int
+}
+
+input BalanceUpdateManyWithWhereNestedInput {
+  where: BalanceScalarWhereInput!
+  data: BalanceUpdateManyDataInput!
+}
+
+input BalanceUpdateWithWhereUniqueNestedInput {
+  where: BalanceWhereUniqueInput!
+  data: BalanceUpdateDataInput!
+}
+
+input BalanceUpsertWithWhereUniqueNestedInput {
+  where: BalanceWhereUniqueInput!
+  update: BalanceUpdateDataInput!
+  create: BalanceCreateInput!
+}
+
+input BalanceWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  type: AssetWhereInput
+  value: Int
+  value_not: Int
+  value_in: [Int!]
+  value_not_in: [Int!]
+  value_lt: Int
+  value_lte: Int
+  value_gt: Int
+  value_gte: Int
+  AND: [BalanceWhereInput!]
+  OR: [BalanceWhereInput!]
+  NOT: [BalanceWhereInput!]
+}
+
+input BalanceWhereUniqueInput {
+  id: ID
+}
+
 type BatchPayload {
   count: Long!
 }
@@ -47,7 +339,7 @@ type City {
   name: String!
   available: Boolean!
   votes: Int
-  wallet: Wallet
+  wallet: Wallet!
 }
 
 type CityConnection {
@@ -61,7 +353,7 @@ input CityCreateInput {
   name: String!
   available: Boolean!
   votes: Int
-  wallet: WalletCreateOneInput
+  wallet: WalletCreateOneInput!
 }
 
 input CityCreateOneInput {
@@ -114,14 +406,14 @@ input CityUpdateDataInput {
   name: String
   available: Boolean
   votes: Int
-  wallet: WalletUpdateOneInput
+  wallet: WalletUpdateOneRequiredInput
 }
 
 input CityUpdateInput {
   name: String
   available: Boolean
   votes: Int
-  wallet: WalletUpdateOneInput
+  wallet: WalletUpdateOneRequiredInput
 }
 
 input CityUpdateManyMutationInput {
@@ -136,13 +428,6 @@ input CityUpdateOneInput {
   upsert: CityUpsertNestedInput
   delete: Boolean
   disconnect: Boolean
-  connect: CityWhereUniqueInput
-}
-
-input CityUpdateOneRequiredInput {
-  create: CityCreateInput
-  update: CityUpdateDataInput
-  upsert: CityUpsertNestedInput
   connect: CityWhereUniqueInput
 }
 
@@ -763,6 +1048,18 @@ input InvitationWhereUniqueInput {
 scalar Long
 
 type Mutation {
+  createAsset(data: AssetCreateInput!): Asset!
+  updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset
+  updateManyAssets(data: AssetUpdateManyMutationInput!, where: AssetWhereInput): BatchPayload!
+  upsertAsset(where: AssetWhereUniqueInput!, create: AssetCreateInput!, update: AssetUpdateInput!): Asset!
+  deleteAsset(where: AssetWhereUniqueInput!): Asset
+  deleteManyAssets(where: AssetWhereInput): BatchPayload!
+  createBalance(data: BalanceCreateInput!): Balance!
+  updateBalance(data: BalanceUpdateInput!, where: BalanceWhereUniqueInput!): Balance
+  updateManyBalances(data: BalanceUpdateManyMutationInput!, where: BalanceWhereInput): BatchPayload!
+  upsertBalance(where: BalanceWhereUniqueInput!, create: BalanceCreateInput!, update: BalanceUpdateInput!): Balance!
+  deleteBalance(where: BalanceWhereUniqueInput!): Balance
+  deleteManyBalances(where: BalanceWhereInput): BatchPayload!
   createCity(data: CityCreateInput!): City!
   updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): City
   updateManyCities(data: CityUpdateManyMutationInput!, where: CityWhereInput): BatchPayload!
@@ -813,7 +1110,6 @@ type Mutation {
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   createWallet(data: WalletCreateInput!): Wallet!
   updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
-  updateManyWallets(data: WalletUpdateManyMutationInput!, where: WalletWhereInput): BatchPayload!
   upsertWallet(where: WalletWhereUniqueInput!, create: WalletCreateInput!, update: WalletUpdateInput!): Wallet!
   deleteWallet(where: WalletWhereUniqueInput!): Wallet
   deleteManyWallets(where: WalletWhereInput): BatchPayload!
@@ -1090,6 +1386,12 @@ type PageInfo {
 }
 
 type Query {
+  asset(where: AssetWhereUniqueInput!): Asset
+  assets(where: AssetWhereInput, orderBy: AssetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Asset]!
+  assetsConnection(where: AssetWhereInput, orderBy: AssetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AssetConnection!
+  balance(where: BalanceWhereUniqueInput!): Balance
+  balances(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Balance]!
+  balancesConnection(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BalanceConnection!
   city(where: CityWhereUniqueInput!): City
   cities(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [City]!
   citiesConnection(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CityConnection!
@@ -1301,6 +1603,8 @@ input RoleWhereUniqueInput {
 }
 
 type Subscription {
+  asset(where: AssetSubscriptionWhereInput): AssetSubscriptionPayload
+  balance(where: BalanceSubscriptionWhereInput): BalanceSubscriptionPayload
   city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
   claim(where: ClaimSubscriptionWhereInput): ClaimSubscriptionPayload
   emailTemplate(where: EmailTemplateSubscriptionWhereInput): EmailTemplateSubscriptionPayload
@@ -1314,8 +1618,10 @@ type Subscription {
 
 type Transaction {
   id: ID!
-  input: User!
-  output: City!
+  input: Wallet!
+  output: Wallet!
+  operation: TransactionType!
+  asset: Asset!
   amount: Int!
 }
 
@@ -1327,8 +1633,10 @@ type TransactionConnection {
 
 input TransactionCreateInput {
   id: ID
-  input: UserCreateOneInput!
-  output: CityCreateOneInput!
+  input: WalletCreateOneInput!
+  output: WalletCreateOneInput!
+  operation: TransactionType!
+  asset: AssetCreateOneInput!
   amount: Int!
 }
 
@@ -1340,12 +1648,15 @@ type TransactionEdge {
 enum TransactionOrderByInput {
   id_ASC
   id_DESC
+  operation_ASC
+  operation_DESC
   amount_ASC
   amount_DESC
 }
 
 type TransactionPreviousValues {
   id: ID!
+  operation: TransactionType!
   amount: Int!
 }
 
@@ -1367,13 +1678,21 @@ input TransactionSubscriptionWhereInput {
   NOT: [TransactionSubscriptionWhereInput!]
 }
 
+enum TransactionType {
+  CREATE
+  TRANSFER
+}
+
 input TransactionUpdateInput {
-  input: UserUpdateOneRequiredInput
-  output: CityUpdateOneRequiredInput
+  input: WalletUpdateOneRequiredInput
+  output: WalletUpdateOneRequiredInput
+  operation: TransactionType
+  asset: AssetUpdateOneRequiredInput
   amount: Int
 }
 
 input TransactionUpdateManyMutationInput {
+  operation: TransactionType
   amount: Int
 }
 
@@ -1392,8 +1711,13 @@ input TransactionWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  input: UserWhereInput
-  output: CityWhereInput
+  input: WalletWhereInput
+  output: WalletWhereInput
+  operation: TransactionType
+  operation_not: TransactionType
+  operation_in: [TransactionType!]
+  operation_not_in: [TransactionType!]
+  asset: AssetWhereInput
   amount: Int
   amount_not: Int
   amount_in: [Int!]
@@ -1418,8 +1742,7 @@ type User {
   name: String
   city: City
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
-  votes: Int
-  wallet: Wallet
+  wallet: Wallet!
 }
 
 type UserConnection {
@@ -1435,8 +1758,7 @@ input UserCreateInput {
   name: String
   city: CityCreateOneInput
   roles: RoleCreateManyInput
-  votes: Int
-  wallet: WalletCreateOneInput
+  wallet: WalletCreateOneInput!
 }
 
 input UserCreateOneInput {
@@ -1458,8 +1780,6 @@ enum UserOrderByInput {
   password_DESC
   name_ASC
   name_DESC
-  votes_ASC
-  votes_DESC
 }
 
 type UserPreviousValues {
@@ -1467,7 +1787,6 @@ type UserPreviousValues {
   email: String!
   password: String
   name: String
-  votes: Int
 }
 
 type UserSubscriptionPayload {
@@ -1494,8 +1813,7 @@ input UserUpdateDataInput {
   name: String
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
-  votes: Int
-  wallet: WalletUpdateOneInput
+  wallet: WalletUpdateOneRequiredInput
 }
 
 input UserUpdateInput {
@@ -1504,15 +1822,13 @@ input UserUpdateInput {
   name: String
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
-  votes: Int
-  wallet: WalletUpdateOneInput
+  wallet: WalletUpdateOneRequiredInput
 }
 
 input UserUpdateManyMutationInput {
   email: String
   password: String
   name: String
-  votes: Int
 }
 
 input UserUpdateOneRequiredInput {
@@ -1588,14 +1904,6 @@ input UserWhereInput {
   roles_every: RoleWhereInput
   roles_some: RoleWhereInput
   roles_none: RoleWhereInput
-  votes: Int
-  votes_not: Int
-  votes_in: [Int!]
-  votes_not_in: [Int!]
-  votes_lt: Int
-  votes_lte: Int
-  votes_gt: Int
-  votes_gte: Int
   wallet: WalletWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
@@ -1609,8 +1917,7 @@ input UserWhereUniqueInput {
 
 type Wallet {
   id: ID!
-  votes: Int
-  omos: Int
+  balances(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Balance!]
 }
 
 type WalletConnection {
@@ -1621,8 +1928,7 @@ type WalletConnection {
 
 input WalletCreateInput {
   id: ID
-  votes: Int
-  omos: Int
+  balances: BalanceCreateManyInput
 }
 
 input WalletCreateOneInput {
@@ -1638,16 +1944,10 @@ type WalletEdge {
 enum WalletOrderByInput {
   id_ASC
   id_DESC
-  votes_ASC
-  votes_DESC
-  omos_ASC
-  omos_DESC
 }
 
 type WalletPreviousValues {
   id: ID!
-  votes: Int
-  omos: Int
 }
 
 type WalletSubscriptionPayload {
@@ -1669,26 +1969,17 @@ input WalletSubscriptionWhereInput {
 }
 
 input WalletUpdateDataInput {
-  votes: Int
-  omos: Int
+  balances: BalanceUpdateManyInput
 }
 
 input WalletUpdateInput {
-  votes: Int
-  omos: Int
+  balances: BalanceUpdateManyInput
 }
 
-input WalletUpdateManyMutationInput {
-  votes: Int
-  omos: Int
-}
-
-input WalletUpdateOneInput {
+input WalletUpdateOneRequiredInput {
   create: WalletCreateInput
   update: WalletUpdateDataInput
   upsert: WalletUpsertNestedInput
-  delete: Boolean
-  disconnect: Boolean
   connect: WalletWhereUniqueInput
 }
 
@@ -1712,22 +2003,9 @@ input WalletWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  votes: Int
-  votes_not: Int
-  votes_in: [Int!]
-  votes_not_in: [Int!]
-  votes_lt: Int
-  votes_lte: Int
-  votes_gt: Int
-  votes_gte: Int
-  omos: Int
-  omos_not: Int
-  omos_in: [Int!]
-  omos_not_in: [Int!]
-  omos_lt: Int
-  omos_lte: Int
-  omos_gt: Int
-  omos_gte: Int
+  balances_every: BalanceWhereInput
+  balances_some: BalanceWhereInput
+  balances_none: BalanceWhereInput
   AND: [WalletWhereInput!]
   OR: [WalletWhereInput!]
   NOT: [WalletWhereInput!]

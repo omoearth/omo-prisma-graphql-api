@@ -12,7 +12,6 @@ type Mutation {
   voteCity(cityId: String!, count: Int!): City
   buyOffer(offerId: String!): Offer
   invite(invite: InvitationCreateInput!): Response
-  transaction(from: String, to: String, amount: Int): String
 }
 
 type Subscription {
