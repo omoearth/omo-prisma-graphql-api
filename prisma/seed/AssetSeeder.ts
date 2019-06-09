@@ -1,5 +1,5 @@
 import { prisma } from "../../src/generated/prisma.ts";
-import { Asset } from "../../src/enums/assets";
+import { Asset } from "../../src/enums/Asset";
 
 export class AssetSeeder {
   async seed() {

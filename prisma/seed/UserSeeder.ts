@@ -1,15 +1,15 @@
 import { prisma, WalletCreateOneInput } from "../../src/generated/prisma.ts";
 import { Role } from "../../src/auth/Roles";
-import { Asset } from "../../src/enums/assets";
+import { Asset } from "../../src/enums/Asset";
 
 export class UserSeeder {
   private newCityWallet: WalletCreateOneInput = {
     create: {
       balances: {
         create: [
-          { type: { connect: { name: Asset.CITYVOTES } }, value: 0 },
-          { type: { connect: { name: Asset.EURO } }, value: 0 },
-          { type: { connect: { name: Asset.OMO } }, value: 0 }
+          { asset: { connect: { name: Asset.CITYVOTES } }, value: 50 },
+          { asset: { connect: { name: Asset.EURO } }, value: 0 },
+          { asset: { connect: { name: Asset.OMO } }, value: 0 }
         ]
       }
     }

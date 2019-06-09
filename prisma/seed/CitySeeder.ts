@@ -1,11 +1,14 @@
 import { prisma, WalletCreateOneInput } from "../../src/generated/prisma.ts";
-import { Asset } from "../../src/enums/assets";
+import { Asset } from "../../src/enums/Asset";
 
 export class CitySeeder {
   private newCityWallet: WalletCreateOneInput = {
     create: {
       balances: {
-        create: { type: { connect: { name: Asset.CITYVOTES } }, value: 0 }
+        create: {
+          asset: { connect: { name: Asset.CITYVOTES.toString() } },
+          value: 0
+        }
       }
     }
   };
@@ -15,7 +18,17 @@ export class CitySeeder {
       name: "Munich",
       available: true,
       votes: 0,
-      wallet: this.newCityWallet
+      wallet: {
+        create: {
+          balances: {
+            create: {
+              asset: { connect: { name: Asset.CITYVOTES.toString() } },
+              value: 0
+            }
+          }
+        }
+      }
+      // wallet: this.newCityWallet
     });
 
     await prisma.createCity({

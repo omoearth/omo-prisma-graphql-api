@@ -9,7 +9,7 @@ type Query {
 type Mutation {
   register(email: String!, password: String!): User!
   login(email: String!, password: String!): LoginResponse!
-  voteCity(cityId: String!, count: Int!): City
+  voteCity(cityId: String!, amount: Int!): City
   buyOffer(offerId: String!): Offer
   invite(invite: InvitationCreateInput!): Response
 }

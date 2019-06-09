@@ -38,6 +38,10 @@ type AggregateTransaction {
   count: Int!
 }
 
+type AggregateTransactionType {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -167,8 +171,8 @@ input AssetWhereUniqueInput {
 
 type Balance {
   id: ID!
-  type: Asset!
   value: Int!
+  asset: Asset!
 }
 
 type BalanceConnection {
@@ -179,8 +183,8 @@ type BalanceConnection {
 
 input BalanceCreateInput {
   id: ID
-  type: AssetCreateOneInput!
   value: Int!
+  asset: AssetCreateOneInput!
 }
 
 input BalanceCreateManyInput {
@@ -252,13 +256,13 @@ input BalanceSubscriptionWhereInput {
 }
 
 input BalanceUpdateDataInput {
-  type: AssetUpdateOneRequiredInput
   value: Int
+  asset: AssetUpdateOneRequiredInput
 }
 
 input BalanceUpdateInput {
-  type: AssetUpdateOneRequiredInput
   value: Int
+  asset: AssetUpdateOneRequiredInput
 }
 
 input BalanceUpdateManyDataInput {
@@ -312,7 +316,6 @@ input BalanceWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  type: AssetWhereInput
   value: Int
   value_not: Int
   value_in: [Int!]
@@ -321,6 +324,7 @@ input BalanceWhereInput {
   value_lte: Int
   value_gt: Int
   value_gte: Int
+  asset: AssetWhereInput
   AND: [BalanceWhereInput!]
   OR: [BalanceWhereInput!]
   NOT: [BalanceWhereInput!]
@@ -1102,6 +1106,12 @@ type Mutation {
   upsertTransaction(where: TransactionWhereUniqueInput!, create: TransactionCreateInput!, update: TransactionUpdateInput!): Transaction!
   deleteTransaction(where: TransactionWhereUniqueInput!): Transaction
   deleteManyTransactions(where: TransactionWhereInput): BatchPayload!
+  createTransactionType(data: TransactionTypeCreateInput!): TransactionType!
+  updateTransactionType(data: TransactionTypeUpdateInput!, where: TransactionTypeWhereUniqueInput!): TransactionType
+  updateManyTransactionTypes(data: TransactionTypeUpdateManyMutationInput!, where: TransactionTypeWhereInput): BatchPayload!
+  upsertTransactionType(where: TransactionTypeWhereUniqueInput!, create: TransactionTypeCreateInput!, update: TransactionTypeUpdateInput!): TransactionType!
+  deleteTransactionType(where: TransactionTypeWhereUniqueInput!): TransactionType
+  deleteManyTransactionTypes(where: TransactionTypeWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -1413,6 +1423,9 @@ type Query {
   transaction(where: TransactionWhereUniqueInput!): Transaction
   transactions(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transaction]!
   transactionsConnection(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionConnection!
+  transactionType(where: TransactionTypeWhereUniqueInput!): TransactionType
+  transactionTypes(where: TransactionTypeWhereInput, orderBy: TransactionTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TransactionType]!
+  transactionTypesConnection(where: TransactionTypeWhereInput, orderBy: TransactionTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionTypeConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -1612,6 +1625,7 @@ type Subscription {
   offer(where: OfferSubscriptionWhereInput): OfferSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   transaction(where: TransactionSubscriptionWhereInput): TransactionSubscriptionPayload
+  transactionType(where: TransactionTypeSubscriptionWhereInput): TransactionTypeSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   wallet(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
 }
@@ -1635,7 +1649,7 @@ input TransactionCreateInput {
   id: ID
   input: WalletCreateOneInput!
   output: WalletCreateOneInput!
-  operation: TransactionType!
+  operation: TransactionTypeCreateOneInput!
   asset: AssetCreateOneInput!
   amount: Int!
 }
@@ -1648,15 +1662,12 @@ type TransactionEdge {
 enum TransactionOrderByInput {
   id_ASC
   id_DESC
-  operation_ASC
-  operation_DESC
   amount_ASC
   amount_DESC
 }
 
 type TransactionPreviousValues {
   id: ID!
-  operation: TransactionType!
   amount: Int!
 }
 
@@ -1678,21 +1689,134 @@ input TransactionSubscriptionWhereInput {
   NOT: [TransactionSubscriptionWhereInput!]
 }
 
-enum TransactionType {
-  CREATE
-  TRANSFER
+type TransactionType {
+  id: ID!
+  name: String!
+}
+
+type TransactionTypeConnection {
+  pageInfo: PageInfo!
+  edges: [TransactionTypeEdge]!
+  aggregate: AggregateTransactionType!
+}
+
+input TransactionTypeCreateInput {
+  id: ID
+  name: String!
+}
+
+input TransactionTypeCreateOneInput {
+  create: TransactionTypeCreateInput
+  connect: TransactionTypeWhereUniqueInput
+}
+
+type TransactionTypeEdge {
+  node: TransactionType!
+  cursor: String!
+}
+
+enum TransactionTypeOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type TransactionTypePreviousValues {
+  id: ID!
+  name: String!
+}
+
+type TransactionTypeSubscriptionPayload {
+  mutation: MutationType!
+  node: TransactionType
+  updatedFields: [String!]
+  previousValues: TransactionTypePreviousValues
+}
+
+input TransactionTypeSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TransactionTypeWhereInput
+  AND: [TransactionTypeSubscriptionWhereInput!]
+  OR: [TransactionTypeSubscriptionWhereInput!]
+  NOT: [TransactionTypeSubscriptionWhereInput!]
+}
+
+input TransactionTypeUpdateDataInput {
+  name: String
+}
+
+input TransactionTypeUpdateInput {
+  name: String
+}
+
+input TransactionTypeUpdateManyMutationInput {
+  name: String
+}
+
+input TransactionTypeUpdateOneRequiredInput {
+  create: TransactionTypeCreateInput
+  update: TransactionTypeUpdateDataInput
+  upsert: TransactionTypeUpsertNestedInput
+  connect: TransactionTypeWhereUniqueInput
+}
+
+input TransactionTypeUpsertNestedInput {
+  update: TransactionTypeUpdateDataInput!
+  create: TransactionTypeCreateInput!
+}
+
+input TransactionTypeWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [TransactionTypeWhereInput!]
+  OR: [TransactionTypeWhereInput!]
+  NOT: [TransactionTypeWhereInput!]
+}
+
+input TransactionTypeWhereUniqueInput {
+  id: ID
+  name: String
 }
 
 input TransactionUpdateInput {
   input: WalletUpdateOneRequiredInput
   output: WalletUpdateOneRequiredInput
-  operation: TransactionType
+  operation: TransactionTypeUpdateOneRequiredInput
   asset: AssetUpdateOneRequiredInput
   amount: Int
 }
 
 input TransactionUpdateManyMutationInput {
-  operation: TransactionType
   amount: Int
 }
 
@@ -1713,10 +1837,7 @@ input TransactionWhereInput {
   id_not_ends_with: ID
   input: WalletWhereInput
   output: WalletWhereInput
-  operation: TransactionType
-  operation_not: TransactionType
-  operation_in: [TransactionType!]
-  operation_not_in: [TransactionType!]
+  operation: TransactionTypeWhereInput
   asset: AssetWhereInput
   amount: Int
   amount_not: Int

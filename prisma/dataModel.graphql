@@ -25,7 +25,7 @@ type City {
   name: String! @unique
   available: Boolean!
   votes: Int
-  wallet: Wallet!
+  wallet: Wallet! @relation(name: "Wallet")
 }
 
 type Offer {
@@ -46,16 +46,20 @@ type Asset {
   id: ID! @id
   name: String! @unique
 }
+type TransactionType {
+  id: ID! @id
+  name: String! @unique
+}
 
 type Balance {
   id: ID! @id
-  type: Asset!
   value: Int!
+  asset: Asset!
 }
 
 type Wallet {
   id: ID! @id
-  balances: [Balance]!
+  balances: [Balance]
 }
 
 type Transaction {
@@ -73,10 +77,10 @@ type Transaction {
 #   EUR
 # }
 
-enum TransactionType {
-  CREATE
-  TRANSFER
-}
+# enum TransactionType {
+#   CREATE
+#   TRANSFER
+# }
 
 enum InvitationType {
   EMAIL

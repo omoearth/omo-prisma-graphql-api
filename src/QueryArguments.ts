@@ -1,4 +1,4 @@
-import { Int, City } from './generated/prisma.ts';
+import { Int, City } from "./generated/prisma.ts";
 
 export type LoginUser = {
   email: string;
@@ -7,6 +7,5 @@ export type LoginUser = {
 
 export type VoteCity = {
   cityId: string;
-  count: Int;
+  amount: Int;
 };
-

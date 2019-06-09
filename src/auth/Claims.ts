@@ -19,5 +19,5 @@ export enum Claim {
   BAR_READ = "bar.read",
   BAR_UPDATE = "bar.update",
   BAR_DELETE = "bar.delete",
-  TRANSACTION_CREATE = "transaction.create"
+  TRANSACTION_TRANSFER = "transaction.transfer"
 }

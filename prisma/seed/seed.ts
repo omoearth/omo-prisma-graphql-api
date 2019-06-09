@@ -5,8 +5,10 @@ import { UserSeeder } from "./UserSeeder";
 import { OfferSeeder } from "./OfferSeeder";
 import { EmailTemplateSeeder } from "./EmailtemplateSeeder";
 import { AssetSeeder } from "./AssetSeeder";
+import { TransactionTypeSeeder } from "./TransactionTypeSeeder";
 
 async function main() {
+  await new TransactionTypeSeeder().seed();
   await new AssetSeeder().seed();
   await new CitySeeder().seed();
   await new ClaimSeeder().seed();

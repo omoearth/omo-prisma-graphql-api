@@ -11,7 +11,6 @@ export enum CityChangeEvent {
 export const CityChange = {
   identifier: "CITY_CHANGE",
   publish: (city: City, event: CityChangeEvent) => {
-    console.log(event.toString());
     pubsub.publish(CityChange.identifier, { city });
   }
 };
@@ -26,7 +25,6 @@ export enum OfferChangeEvent {
 export const OfferChange = {
   identifier: "OFFER_CHANGE",
   publish: (offer: Offer, event: OfferChangeEvent) => {
-    console.log(event.toString());
     pubsub.publish(OfferChange.identifier, { offer });
   }
 };
