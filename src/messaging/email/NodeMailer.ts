@@ -40,6 +40,7 @@ export class NodeMailer {
         text: this.replacements(template.text || '', replacements),
         html: this.replacements(template.html || '', replacements),
       });
+      console.log(info);
     } catch (error) {
       return { sucess: false, message: error.message };
     }
@@ -50,7 +51,7 @@ export class NodeMailer {
     let replacements = new Map<string, string>();
     replacements.set('$-{inviter}', inviter.name || '');
     replacements.set('$-{invitee}', invitation.name || '');
-    replacements.set('$-{link}', `${process.env.EARTH_HTTP_ENDPOINT}/?invite=${invitation.id}`);
+    replacements.set('$-{link}', `${process.env.EARTH_HTTP_ENDPOINT}/${invitation.id}`);
     return this.sendMailTemplate('INVITATION', invitation.email || '', replacements);
   }
 }

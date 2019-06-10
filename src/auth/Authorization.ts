@@ -5,8 +5,6 @@ import { Context } from "../utils/Utils";
 function claim(claimName: string) {
   return rule()(
     async (_parent: any, _args: any, context: Context, _info: any) => {
-      console.log(claimName);
-      console.log(context.claims);
       return context.claims.includes(claimName);
     }
   );
@@ -14,7 +12,7 @@ function claim(claimName: string) {
 
 export const authorize = shield({
   Query: {
-    
+
     //   cities: and(claim(Claim.USER_READ), claim(Claim.FOO_UPDATE)),
     //   cities: or(claim(Claim.USER_READ), claim(Claim.FOO_UPDATE),and()),
     cities: claim(Claim.CITY_READ)

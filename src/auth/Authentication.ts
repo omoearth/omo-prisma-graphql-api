@@ -17,7 +17,6 @@ export const autheticate = async (resolve: any, root: any, args: any, context: C
       token = jwt.verify(auth.accessToken, process.env.OMO_SECRET || '');
       context.userid = token.id;
       context.claims = token.claims;
-      // console.log(context.userid);
       return await resolve(root, args, context, info);
     }
   } catch (e) {

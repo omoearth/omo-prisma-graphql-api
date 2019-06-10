@@ -17,7 +17,6 @@ export const Mutation = {
     return loginUser(context, loginData);
   },
   voteCity: async (_parent: any, cityVote: VoteCity, context: Context) => {
-    console.log(context.userid);
     let cityWalletId = await context.prisma
       .city({ id: cityVote.cityId })
       .wallet()
@@ -26,7 +25,6 @@ export const Mutation = {
       .user({ id: context.userid })
       .wallet()
       .id();
-    console.log(userWalletId);
     await transactionSystem.transact(
       context,
       userWalletId,
