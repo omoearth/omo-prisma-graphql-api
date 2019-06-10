@@ -76,17 +76,6 @@ type Transaction {
   amount: Int!
 }
 
-# enum TransactionAsset {
-#   VOTE
-#   OMO
-#   EUR
-# }
-
-# enum TransactionType {
-#   CREATE
-#   TRANSFER
-# }
-
 enum InvitationType {
   EMAIL
   PERSONALLINK
@@ -96,12 +85,20 @@ enum InvitationType {
 type Invitation {
   id: ID! @id
   type: InvitationType!
-  user: User! @relation(name: "Inviter")
+  invitedBy: User! @relation(name: "Inviter")
   email: String
   name: String
   city: City
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  invited: [User] @relation(name: "Invited")
+  state: InvitationState!
+}
+
+enum InvitationState {
+  Invited
+  TemporaryAccount
+  Finished
 }
 
 type EmailTemplate {

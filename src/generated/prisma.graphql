@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/philapp-73f3dd/omo-dev/dev
-# timestamp: Mon Jun 10 2019 09:02:13 GMT+0200 (CEST)
+# timestamp: Mon Jun 10 2019 12:44:19 GMT+0200 (Mitteleuropäische Sommerzeit)
 
 type AggregateAsset {
   count: Int!
@@ -1544,12 +1544,14 @@ enum IdentificationType {
 type Invitation implements Node {
   id: ID!
   type: InvitationType!
-  user: User!
+  invitedBy: User!
   email: String
   name: String
   city: City
   createdAt: DateTime!
   updatedAt: DateTime!
+  invited(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  state: InvitationState!
 }
 
 """A connection to a list of items."""
@@ -1567,8 +1569,10 @@ input InvitationCreateInput {
   type: InvitationType!
   email: String
   name: String
-  user: UserCreateOneInput!
+  state: InvitationState!
+  invitedBy: UserCreateOneInput!
   city: CityCreateOneInput
+  invited: UserCreateManyInput
 }
 
 """An edge in a connection."""
@@ -1593,6 +1597,8 @@ enum InvitationOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  state_ASC
+  state_DESC
 }
 
 type InvitationPreviousValues {
@@ -1602,6 +1608,13 @@ type InvitationPreviousValues {
   name: String
   createdAt: DateTime!
   updatedAt: DateTime!
+  state: InvitationState!
+}
+
+enum InvitationState {
+  Invited
+  TemporaryAccount
+  Finished
 }
 
 type InvitationSubscriptionPayload {
@@ -1651,14 +1664,17 @@ input InvitationUpdateInput {
   type: InvitationType
   email: String
   name: String
-  user: UserUpdateOneRequiredInput
+  state: InvitationState
+  invitedBy: UserUpdateOneRequiredInput
   city: CityUpdateOneInput
+  invited: UserUpdateManyInput
 }
 
 input InvitationUpdateManyMutationInput {
   type: InvitationType
   email: String
   name: String
+  state: InvitationState
 }
 
 input InvitationWhereInput {
@@ -1844,8 +1860,21 @@ input InvitationWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
-  user: UserWhereInput
+  state: InvitationState
+
+  """All values that are not equal to given value."""
+  state_not: InvitationState
+
+  """All values that are contained in given list."""
+  state_in: [InvitationState!]
+
+  """All values that are not contained in given list."""
+  state_not_in: [InvitationState!]
+  invitedBy: UserWhereInput
   city: CityWhereInput
+  invited_every: UserWhereInput
+  invited_some: UserWhereInput
+  invited_none: UserWhereInput
 }
 
 input InvitationWhereUniqueInput {
@@ -1865,9 +1894,9 @@ type Mutation {
   createEmailTemplate(data: EmailTemplateCreateInput!): EmailTemplate!
   createRole(data: RoleCreateInput!): Role!
   createCity(data: CityCreateInput!): City!
+  createUser(data: UserCreateInput!): User!
   createBalance(data: BalanceCreateInput!): Balance!
   createClaim(data: ClaimCreateInput!): Claim!
-  createUser(data: UserCreateInput!): User!
   createTransactionType(data: TransactionTypeCreateInput!): TransactionType!
   createWallet(data: WalletCreateInput!): Wallet!
   createAsset(data: AssetCreateInput!): Asset!
@@ -1877,9 +1906,9 @@ type Mutation {
   updateEmailTemplate(data: EmailTemplateUpdateInput!, where: EmailTemplateWhereUniqueInput!): EmailTemplate
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
   updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): City
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateBalance(data: BalanceUpdateInput!, where: BalanceWhereUniqueInput!): Balance
   updateClaim(data: ClaimUpdateInput!, where: ClaimWhereUniqueInput!): Claim
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateTransactionType(data: TransactionTypeUpdateInput!, where: TransactionTypeWhereUniqueInput!): TransactionType
   updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
   updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset
@@ -1889,9 +1918,9 @@ type Mutation {
   deleteEmailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteCity(where: CityWhereUniqueInput!): City
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteBalance(where: BalanceWhereUniqueInput!): Balance
   deleteClaim(where: ClaimWhereUniqueInput!): Claim
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteTransactionType(where: TransactionTypeWhereUniqueInput!): TransactionType
   deleteWallet(where: WalletWhereUniqueInput!): Wallet
   deleteAsset(where: AssetWhereUniqueInput!): Asset
@@ -1901,9 +1930,9 @@ type Mutation {
   upsertEmailTemplate(where: EmailTemplateWhereUniqueInput!, create: EmailTemplateCreateInput!, update: EmailTemplateUpdateInput!): EmailTemplate!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   upsertCity(where: CityWhereUniqueInput!, create: CityCreateInput!, update: CityUpdateInput!): City!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertBalance(where: BalanceWhereUniqueInput!, create: BalanceCreateInput!, update: BalanceUpdateInput!): Balance!
   upsertClaim(where: ClaimWhereUniqueInput!, create: ClaimCreateInput!, update: ClaimUpdateInput!): Claim!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertTransactionType(where: TransactionTypeWhereUniqueInput!, create: TransactionTypeCreateInput!, update: TransactionTypeUpdateInput!): TransactionType!
   upsertWallet(where: WalletWhereUniqueInput!, create: WalletCreateInput!, update: WalletUpdateInput!): Wallet!
   upsertAsset(where: AssetWhereUniqueInput!, create: AssetCreateInput!, update: AssetUpdateInput!): Asset!
@@ -1913,9 +1942,9 @@ type Mutation {
   updateManyEmailTemplates(data: EmailTemplateUpdateManyMutationInput!, where: EmailTemplateWhereInput): BatchPayload!
   updateManyRoles(data: RoleUpdateManyMutationInput!, where: RoleWhereInput): BatchPayload!
   updateManyCities(data: CityUpdateManyMutationInput!, where: CityWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyBalances(data: BalanceUpdateManyMutationInput!, where: BalanceWhereInput): BatchPayload!
   updateManyClaims(data: ClaimUpdateManyMutationInput!, where: ClaimWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyTransactionTypes(data: TransactionTypeUpdateManyMutationInput!, where: TransactionTypeWhereInput): BatchPayload!
   updateManyAssets(data: AssetUpdateManyMutationInput!, where: AssetWhereInput): BatchPayload!
   deleteManyOffers(where: OfferWhereInput): BatchPayload!
@@ -1924,9 +1953,9 @@ type Mutation {
   deleteManyEmailTemplates(where: EmailTemplateWhereInput): BatchPayload!
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
   deleteManyCities(where: CityWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyBalances(where: BalanceWhereInput): BatchPayload!
   deleteManyClaims(where: ClaimWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyTransactionTypes(where: TransactionTypeWhereInput): BatchPayload!
   deleteManyWallets(where: WalletWhereInput): BatchPayload!
   deleteManyAssets(where: AssetWhereInput): BatchPayload!
@@ -2487,9 +2516,9 @@ type Query {
   emailTemplates(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EmailTemplate]!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
   cities(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [City]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   balances(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Balance]!
   claims(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Claim]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   transactionTypes(where: TransactionTypeWhereInput, orderBy: TransactionTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TransactionType]!
   wallets(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Wallet]!
   assets(where: AssetWhereInput, orderBy: AssetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Asset]!
@@ -2499,9 +2528,9 @@ type Query {
   emailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
   role(where: RoleWhereUniqueInput!): Role
   city(where: CityWhereUniqueInput!): City
+  user(where: UserWhereUniqueInput!): User
   balance(where: BalanceWhereUniqueInput!): Balance
   claim(where: ClaimWhereUniqueInput!): Claim
-  user(where: UserWhereUniqueInput!): User
   transactionType(where: TransactionTypeWhereUniqueInput!): TransactionType
   wallet(where: WalletWhereUniqueInput!): Wallet
   asset(where: AssetWhereUniqueInput!): Asset
@@ -2511,9 +2540,9 @@ type Query {
   emailTemplatesConnection(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmailTemplateConnection!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
   citiesConnection(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CityConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   balancesConnection(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BalanceConnection!
   claimsConnection(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClaimConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   transactionTypesConnection(where: TransactionTypeWhereInput, orderBy: TransactionTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionTypeConnection!
   walletsConnection(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WalletConnection!
   assetsConnection(where: AssetWhereInput, orderBy: AssetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AssetConnection!
@@ -2853,9 +2882,9 @@ type Subscription {
   emailTemplate(where: EmailTemplateSubscriptionWhereInput): EmailTemplateSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   balance(where: BalanceSubscriptionWhereInput): BalanceSubscriptionPayload
   claim(where: ClaimSubscriptionWhereInput): ClaimSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   transactionType(where: TransactionTypeSubscriptionWhereInput): TransactionTypeSubscriptionPayload
   wallet(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
   asset(where: AssetSubscriptionWhereInput): AssetSubscriptionPayload
@@ -3275,6 +3304,11 @@ input UserCreateInput {
   wallet: WalletCreateOneInput!
 }
 
+input UserCreateManyInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
 input UserCreateOneInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
@@ -3308,6 +3342,187 @@ type UserPreviousValues {
   identificationType: IdentificationType!
   password: String
   name: String
+}
+
+input UserScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  identifier: String
+
+  """All values that are not equal to given value."""
+  identifier_not: String
+
+  """All values that are contained in given list."""
+  identifier_in: [String!]
+
+  """All values that are not contained in given list."""
+  identifier_not_in: [String!]
+
+  """All values less than the given value."""
+  identifier_lt: String
+
+  """All values less than or equal the given value."""
+  identifier_lte: String
+
+  """All values greater than the given value."""
+  identifier_gt: String
+
+  """All values greater than or equal the given value."""
+  identifier_gte: String
+
+  """All values containing the given string."""
+  identifier_contains: String
+
+  """All values not containing the given string."""
+  identifier_not_contains: String
+
+  """All values starting with the given string."""
+  identifier_starts_with: String
+
+  """All values not starting with the given string."""
+  identifier_not_starts_with: String
+
+  """All values ending with the given string."""
+  identifier_ends_with: String
+
+  """All values not ending with the given string."""
+  identifier_not_ends_with: String
+  identificationType: IdentificationType
+
+  """All values that are not equal to given value."""
+  identificationType_not: IdentificationType
+
+  """All values that are contained in given list."""
+  identificationType_in: [IdentificationType!]
+
+  """All values that are not contained in given list."""
+  identificationType_not_in: [IdentificationType!]
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
 }
 
 type UserSubscriptionPayload {
@@ -3367,11 +3582,35 @@ input UserUpdateInput {
   wallet: WalletUpdateOneRequiredInput
 }
 
+input UserUpdateManyDataInput {
+  identifier: String
+  identificationType: IdentificationType
+  password: String
+  name: String
+}
+
+input UserUpdateManyInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueNestedInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  upsert: [UserUpsertWithWhereUniqueNestedInput!]
+}
+
 input UserUpdateManyMutationInput {
   identifier: String
   identificationType: IdentificationType
   password: String
   name: String
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
 }
 
 input UserUpdateOneRequiredInput {
@@ -3381,7 +3620,18 @@ input UserUpdateOneRequiredInput {
   upsert: UserUpsertNestedInput
 }
 
+input UserUpdateWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateDataInput!
+}
+
 input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserUpsertWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
   update: UserUpdateDataInput!
   create: UserCreateInput!
 }

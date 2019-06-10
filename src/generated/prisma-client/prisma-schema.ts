@@ -876,12 +876,14 @@ enum IdentificationType {
 type Invitation {
   id: ID!
   type: InvitationType!
-  user: User!
+  invitedBy: User!
   email: String
   name: String
   city: City
   createdAt: DateTime!
   updatedAt: DateTime!
+  invited(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  state: InvitationState!
 }
 
 type InvitationConnection {
@@ -893,10 +895,12 @@ type InvitationConnection {
 input InvitationCreateInput {
   id: ID
   type: InvitationType!
-  user: UserCreateOneInput!
+  invitedBy: UserCreateOneInput!
   email: String
   name: String
   city: CityCreateOneInput
+  invited: UserCreateManyInput
+  state: InvitationState!
 }
 
 type InvitationEdge {
@@ -917,6 +921,8 @@ enum InvitationOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  state_ASC
+  state_DESC
 }
 
 type InvitationPreviousValues {
@@ -926,6 +932,13 @@ type InvitationPreviousValues {
   name: String
   createdAt: DateTime!
   updatedAt: DateTime!
+  state: InvitationState!
+}
+
+enum InvitationState {
+  Invited
+  TemporaryAccount
+  Finished
 }
 
 type InvitationSubscriptionPayload {
@@ -954,16 +967,19 @@ enum InvitationType {
 
 input InvitationUpdateInput {
   type: InvitationType
-  user: UserUpdateOneRequiredInput
+  invitedBy: UserUpdateOneRequiredInput
   email: String
   name: String
   city: CityUpdateOneInput
+  invited: UserUpdateManyInput
+  state: InvitationState
 }
 
 input InvitationUpdateManyMutationInput {
   type: InvitationType
   email: String
   name: String
+  state: InvitationState
 }
 
 input InvitationWhereInput {
@@ -985,7 +1001,7 @@ input InvitationWhereInput {
   type_not: InvitationType
   type_in: [InvitationType!]
   type_not_in: [InvitationType!]
-  user: UserWhereInput
+  invitedBy: UserWhereInput
   email: String
   email_not: String
   email_in: [String!]
@@ -1031,6 +1047,13 @@ input InvitationWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  invited_every: UserWhereInput
+  invited_some: UserWhereInput
+  invited_none: UserWhereInput
+  state: InvitationState
+  state_not: InvitationState
+  state_in: [InvitationState!]
+  state_not_in: [InvitationState!]
   AND: [InvitationWhereInput!]
   OR: [InvitationWhereInput!]
   NOT: [InvitationWhereInput!]
@@ -1875,6 +1898,11 @@ input UserCreateInput {
   wallet: WalletCreateOneInput!
 }
 
+input UserCreateManyInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
 input UserCreateOneInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
@@ -1904,6 +1932,72 @@ type UserPreviousValues {
   identificationType: IdentificationType!
   password: String
   name: String
+}
+
+input UserScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  identifier: String
+  identifier_not: String
+  identifier_in: [String!]
+  identifier_not_in: [String!]
+  identifier_lt: String
+  identifier_lte: String
+  identifier_gt: String
+  identifier_gte: String
+  identifier_contains: String
+  identifier_not_contains: String
+  identifier_starts_with: String
+  identifier_not_starts_with: String
+  identifier_ends_with: String
+  identifier_not_ends_with: String
+  identificationType: IdentificationType
+  identificationType_not: IdentificationType
+  identificationType_in: [IdentificationType!]
+  identificationType_not_in: [IdentificationType!]
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
 }
 
 type UserSubscriptionPayload {
@@ -1944,11 +2038,35 @@ input UserUpdateInput {
   wallet: WalletUpdateOneRequiredInput
 }
 
+input UserUpdateManyDataInput {
+  identifier: String
+  identificationType: IdentificationType
+  password: String
+  name: String
+}
+
+input UserUpdateManyInput {
+  create: [UserCreateInput!]
+  update: [UserUpdateWithWhereUniqueNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueNestedInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
 input UserUpdateManyMutationInput {
   identifier: String
   identificationType: IdentificationType
   password: String
   name: String
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
 }
 
 input UserUpdateOneRequiredInput {
@@ -1958,7 +2076,18 @@ input UserUpdateOneRequiredInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateDataInput!
+}
+
 input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserUpsertWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
   update: UserUpdateDataInput!
   create: UserCreateInput!
 }

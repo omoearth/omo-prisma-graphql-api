@@ -4,16 +4,17 @@ type Query {
   currentUser: User!
   cities: [City!]!
   offers(category: String!): [Offer]
+  users: [User!]!
   city: City!
 }
 
 type Mutation {
-  # register(email: String!, password: String!): User!
-  # login(email: String!, password: String!): LoginResponse!
+  register(email: String!, password: String!): User!
+  login(email: String!, password: String!): LoginResponse!
   voteCity(cityId: String!, count: Int!): City
   buyOffer(offerId: String!): Offer
   invite(invite: InvitationCreateInput!): Response
-  signup(invitationId: String!): LoginResponse!
+  signInOrSignUp(invitationId: String!): LoginResponse
 }
 
 type Subscription {
@@ -22,9 +23,8 @@ type Subscription {
 }
 
 type LoginResponse {
-  token: String
   user: User
-  claims: [String]
+  token: String
 }
 
 type Response {
@@ -38,4 +38,24 @@ type City implements Node {
   available: Boolean!
   wallet: Wallet!
   votes: Int
+}
+
+type User implements Node {
+  id: ID!
+  identifier: String!
+  identificationType: IdentificationType!
+  password: String
+  name: String
+  city: City
+  roles(
+    where: RoleWhereInput
+    orderBy: RoleOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Role!]
+  wallet: Wallet!
+  claims: [String]
 }
