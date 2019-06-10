@@ -18,6 +18,10 @@ type AggregateClaim {
   count: Int!
 }
 
+type AggregateEmailLogin {
+  count: Int!
+}
+
 type AggregateEmailTemplate {
   count: Int!
 }
@@ -686,6 +690,83 @@ input ClaimWhereUniqueInput {
 
 scalar DateTime
 
+type EmailLogin {
+  id: ID!
+  user: User!
+}
+
+type EmailLoginConnection {
+  pageInfo: PageInfo!
+  edges: [EmailLoginEdge]!
+  aggregate: AggregateEmailLogin!
+}
+
+input EmailLoginCreateInput {
+  id: ID
+  user: UserCreateOneInput!
+}
+
+type EmailLoginEdge {
+  node: EmailLogin!
+  cursor: String!
+}
+
+enum EmailLoginOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type EmailLoginPreviousValues {
+  id: ID!
+}
+
+type EmailLoginSubscriptionPayload {
+  mutation: MutationType!
+  node: EmailLogin
+  updatedFields: [String!]
+  previousValues: EmailLoginPreviousValues
+}
+
+input EmailLoginSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: EmailLoginWhereInput
+  AND: [EmailLoginSubscriptionWhereInput!]
+  OR: [EmailLoginSubscriptionWhereInput!]
+  NOT: [EmailLoginSubscriptionWhereInput!]
+}
+
+input EmailLoginUpdateInput {
+  user: UserUpdateOneRequiredInput
+}
+
+input EmailLoginWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  user: UserWhereInput
+  AND: [EmailLoginWhereInput!]
+  OR: [EmailLoginWhereInput!]
+  NOT: [EmailLoginWhereInput!]
+}
+
+input EmailLoginWhereUniqueInput {
+  id: ID
+}
+
 type EmailTemplate {
   id: ID!
   name: String!
@@ -1090,6 +1171,11 @@ type Mutation {
   upsertClaim(where: ClaimWhereUniqueInput!, create: ClaimCreateInput!, update: ClaimUpdateInput!): Claim!
   deleteClaim(where: ClaimWhereUniqueInput!): Claim
   deleteManyClaims(where: ClaimWhereInput): BatchPayload!
+  createEmailLogin(data: EmailLoginCreateInput!): EmailLogin!
+  updateEmailLogin(data: EmailLoginUpdateInput!, where: EmailLoginWhereUniqueInput!): EmailLogin
+  upsertEmailLogin(where: EmailLoginWhereUniqueInput!, create: EmailLoginCreateInput!, update: EmailLoginUpdateInput!): EmailLogin!
+  deleteEmailLogin(where: EmailLoginWhereUniqueInput!): EmailLogin
+  deleteManyEmailLogins(where: EmailLoginWhereInput): BatchPayload!
   createEmailTemplate(data: EmailTemplateCreateInput!): EmailTemplate!
   updateEmailTemplate(data: EmailTemplateUpdateInput!, where: EmailTemplateWhereUniqueInput!): EmailTemplate
   updateManyEmailTemplates(data: EmailTemplateUpdateManyMutationInput!, where: EmailTemplateWhereInput): BatchPayload!
@@ -1422,6 +1508,9 @@ type Query {
   claim(where: ClaimWhereUniqueInput!): Claim
   claims(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Claim]!
   claimsConnection(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClaimConnection!
+  emailLogin(where: EmailLoginWhereUniqueInput!): EmailLogin
+  emailLogins(where: EmailLoginWhereInput, orderBy: EmailLoginOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EmailLogin]!
+  emailLoginsConnection(where: EmailLoginWhereInput, orderBy: EmailLoginOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmailLoginConnection!
   emailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
   emailTemplates(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EmailTemplate]!
   emailTemplatesConnection(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmailTemplateConnection!
@@ -1634,6 +1723,7 @@ type Subscription {
   balance(where: BalanceSubscriptionWhereInput): BalanceSubscriptionPayload
   city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
   claim(where: ClaimSubscriptionWhereInput): ClaimSubscriptionPayload
+  emailLogin(where: EmailLoginSubscriptionWhereInput): EmailLoginSubscriptionPayload
   emailTemplate(where: EmailTemplateSubscriptionWhereInput): EmailTemplateSubscriptionPayload
   invitation(where: InvitationSubscriptionWhereInput): InvitationSubscriptionPayload
   offer(where: OfferSubscriptionWhereInput): OfferSubscriptionPayload

@@ -1,6 +1,6 @@
 import { rule, shield, allow, deny, or, and, not } from "graphql-shield";
 import { Claim } from "./Claims";
-import { Context } from "../utils/Utils";
+import Context from "../definitions/Interfaces";
 
 function claim(claimName: string) {
   return rule()(
@@ -10,9 +10,8 @@ function claim(claimName: string) {
   );
 }
 
-export const authorize = shield({
+export const authorizationMiddleware = shield({
   Query: {
-
     //   cities: and(claim(Claim.USER_READ), claim(Claim.FOO_UPDATE)),
     //   cities: or(claim(Claim.USER_READ), claim(Claim.FOO_UPDATE),and()),
     cities: claim(Claim.CITY_READ)

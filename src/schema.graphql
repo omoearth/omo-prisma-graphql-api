@@ -5,13 +5,15 @@ type Query {
   cities: [City!]!
   offers(category: String!): [Offer]
   users: [User!]!
-  city: City!
 }
 
 type Mutation {
   register(email: String!, password: String!): User!
   login(identifier: String!, password: String!): LoginResponse!
-  voteCity(cityId: String!, count: Int!): City
+  loginWithMail(emailLoginId:String):LoginResponse!
+  sendLoginLink(identifier: String!): Response!
+
+  voteCity(cityId: String!, amount: Int!): City
   buyOffer(offerId: String!): Offer
   invite(invite: InvitationCreateInput!): Response
   signInOrSignUp(invitationId: String!): LoginResponse

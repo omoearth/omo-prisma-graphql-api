@@ -1,6 +1,6 @@
-import { TransactionType } from '../enums/TransactionType';
-import { Asset } from '../enums/Asset';
-import { Context } from '../utils/Utils';
+import {TransactionType}  from '../definitions/Enums';
+import { AssetType } from '../definitions/Enums';
+import  Context  from '../definitions/Interfaces';
 import { Int } from '../generated/prisma-client';
 
 export class TransactionSystem {
@@ -9,7 +9,7 @@ export class TransactionSystem {
     walletFromId: string,
     walletToId: string,
     transactionType: TransactionType,
-    asset: Asset,
+    asset: AssetType,
     amount: Int
   ) {
     let toBalances = await context.prisma.wallet({ id: walletToId }).balances({ where: { asset: { name: asset } } });

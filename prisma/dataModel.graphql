@@ -109,3 +109,8 @@ type EmailTemplate {
   text: String
   html: String
 }
+
+type EmailLogin{
+  id: ID! @id
+  user: User!
+}

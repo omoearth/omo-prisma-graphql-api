@@ -1,5 +1,5 @@
-# source: https://eu1.prisma.sh/omo/omo-prisma/dev
-# timestamp: Mon Jun 10 2019 16:58:23 GMT+0200 (GMT+02:00)
+# source: https://eu1.prisma.sh/philapp-73f3dd/omo-dev/dev
+# timestamp: Mon Jun 10 2019 23:15:52 GMT+0200 (Mitteleuropäische Sommerzeit)
 
 type AggregateAsset {
   count: Int!
@@ -14,6 +14,10 @@ type AggregateCity {
 }
 
 type AggregateClaim {
+  count: Int!
+}
+
+type AggregateEmailLogin {
   count: Int!
 }
 
@@ -1166,6 +1170,141 @@ input ClaimWhereUniqueInput {
 
 scalar DateTime
 
+type EmailLogin implements Node {
+  id: ID!
+  user: User!
+}
+
+"""A connection to a list of items."""
+type EmailLoginConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [EmailLoginEdge]!
+  aggregate: AggregateEmailLogin!
+}
+
+input EmailLoginCreateInput {
+  id: ID
+  user: UserCreateOneInput!
+}
+
+"""An edge in a connection."""
+type EmailLoginEdge {
+  """The item at the end of the edge."""
+  node: EmailLogin!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum EmailLoginOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type EmailLoginPreviousValues {
+  id: ID!
+}
+
+type EmailLoginSubscriptionPayload {
+  mutation: MutationType!
+  node: EmailLogin
+  updatedFields: [String!]
+  previousValues: EmailLoginPreviousValues
+}
+
+input EmailLoginSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EmailLoginSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EmailLoginSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EmailLoginSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: EmailLoginWhereInput
+}
+
+input EmailLoginUpdateInput {
+  user: UserUpdateOneRequiredInput
+}
+
+input EmailLoginWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EmailLoginWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EmailLoginWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EmailLoginWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  user: UserWhereInput
+}
+
+input EmailLoginWhereUniqueInput {
+  id: ID
+}
+
 type EmailTemplate implements Node {
   id: ID!
   name: String!
@@ -1892,10 +2031,11 @@ type Mutation {
   createTransaction(data: TransactionCreateInput!): Transaction!
   createInvitation(data: InvitationCreateInput!): Invitation!
   createEmailTemplate(data: EmailTemplateCreateInput!): EmailTemplate!
+  createEmailLogin(data: EmailLoginCreateInput!): EmailLogin!
   createRole(data: RoleCreateInput!): Role!
   createCity(data: CityCreateInput!): City!
-  createUser(data: UserCreateInput!): User!
   createBalance(data: BalanceCreateInput!): Balance!
+  createUser(data: UserCreateInput!): User!
   createClaim(data: ClaimCreateInput!): Claim!
   createTransactionType(data: TransactionTypeCreateInput!): TransactionType!
   createWallet(data: WalletCreateInput!): Wallet!
@@ -1904,10 +2044,11 @@ type Mutation {
   updateTransaction(data: TransactionUpdateInput!, where: TransactionWhereUniqueInput!): Transaction
   updateInvitation(data: InvitationUpdateInput!, where: InvitationWhereUniqueInput!): Invitation
   updateEmailTemplate(data: EmailTemplateUpdateInput!, where: EmailTemplateWhereUniqueInput!): EmailTemplate
+  updateEmailLogin(data: EmailLoginUpdateInput!, where: EmailLoginWhereUniqueInput!): EmailLogin
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
   updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): City
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateBalance(data: BalanceUpdateInput!, where: BalanceWhereUniqueInput!): Balance
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateClaim(data: ClaimUpdateInput!, where: ClaimWhereUniqueInput!): Claim
   updateTransactionType(data: TransactionTypeUpdateInput!, where: TransactionTypeWhereUniqueInput!): TransactionType
   updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
@@ -1916,10 +2057,11 @@ type Mutation {
   deleteTransaction(where: TransactionWhereUniqueInput!): Transaction
   deleteInvitation(where: InvitationWhereUniqueInput!): Invitation
   deleteEmailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
+  deleteEmailLogin(where: EmailLoginWhereUniqueInput!): EmailLogin
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteCity(where: CityWhereUniqueInput!): City
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteBalance(where: BalanceWhereUniqueInput!): Balance
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteClaim(where: ClaimWhereUniqueInput!): Claim
   deleteTransactionType(where: TransactionTypeWhereUniqueInput!): TransactionType
   deleteWallet(where: WalletWhereUniqueInput!): Wallet
@@ -1928,10 +2070,11 @@ type Mutation {
   upsertTransaction(where: TransactionWhereUniqueInput!, create: TransactionCreateInput!, update: TransactionUpdateInput!): Transaction!
   upsertInvitation(where: InvitationWhereUniqueInput!, create: InvitationCreateInput!, update: InvitationUpdateInput!): Invitation!
   upsertEmailTemplate(where: EmailTemplateWhereUniqueInput!, create: EmailTemplateCreateInput!, update: EmailTemplateUpdateInput!): EmailTemplate!
+  upsertEmailLogin(where: EmailLoginWhereUniqueInput!, create: EmailLoginCreateInput!, update: EmailLoginUpdateInput!): EmailLogin!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   upsertCity(where: CityWhereUniqueInput!, create: CityCreateInput!, update: CityUpdateInput!): City!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertBalance(where: BalanceWhereUniqueInput!, create: BalanceCreateInput!, update: BalanceUpdateInput!): Balance!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertClaim(where: ClaimWhereUniqueInput!, create: ClaimCreateInput!, update: ClaimUpdateInput!): Claim!
   upsertTransactionType(where: TransactionTypeWhereUniqueInput!, create: TransactionTypeCreateInput!, update: TransactionTypeUpdateInput!): TransactionType!
   upsertWallet(where: WalletWhereUniqueInput!, create: WalletCreateInput!, update: WalletUpdateInput!): Wallet!
@@ -1942,8 +2085,8 @@ type Mutation {
   updateManyEmailTemplates(data: EmailTemplateUpdateManyMutationInput!, where: EmailTemplateWhereInput): BatchPayload!
   updateManyRoles(data: RoleUpdateManyMutationInput!, where: RoleWhereInput): BatchPayload!
   updateManyCities(data: CityUpdateManyMutationInput!, where: CityWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyBalances(data: BalanceUpdateManyMutationInput!, where: BalanceWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyClaims(data: ClaimUpdateManyMutationInput!, where: ClaimWhereInput): BatchPayload!
   updateManyTransactionTypes(data: TransactionTypeUpdateManyMutationInput!, where: TransactionTypeWhereInput): BatchPayload!
   updateManyAssets(data: AssetUpdateManyMutationInput!, where: AssetWhereInput): BatchPayload!
@@ -1951,10 +2094,11 @@ type Mutation {
   deleteManyTransactions(where: TransactionWhereInput): BatchPayload!
   deleteManyInvitations(where: InvitationWhereInput): BatchPayload!
   deleteManyEmailTemplates(where: EmailTemplateWhereInput): BatchPayload!
+  deleteManyEmailLogins(where: EmailLoginWhereInput): BatchPayload!
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
   deleteManyCities(where: CityWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyBalances(where: BalanceWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyClaims(where: ClaimWhereInput): BatchPayload!
   deleteManyTransactionTypes(where: TransactionTypeWhereInput): BatchPayload!
   deleteManyWallets(where: WalletWhereInput): BatchPayload!
@@ -2514,10 +2658,11 @@ type Query {
   transactions(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transaction]!
   invitations(where: InvitationWhereInput, orderBy: InvitationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Invitation]!
   emailTemplates(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EmailTemplate]!
+  emailLogins(where: EmailLoginWhereInput, orderBy: EmailLoginOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EmailLogin]!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
   cities(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [City]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   balances(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Balance]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   claims(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Claim]!
   transactionTypes(where: TransactionTypeWhereInput, orderBy: TransactionTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TransactionType]!
   wallets(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Wallet]!
@@ -2526,10 +2671,11 @@ type Query {
   transaction(where: TransactionWhereUniqueInput!): Transaction
   invitation(where: InvitationWhereUniqueInput!): Invitation
   emailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
+  emailLogin(where: EmailLoginWhereUniqueInput!): EmailLogin
   role(where: RoleWhereUniqueInput!): Role
   city(where: CityWhereUniqueInput!): City
-  user(where: UserWhereUniqueInput!): User
   balance(where: BalanceWhereUniqueInput!): Balance
+  user(where: UserWhereUniqueInput!): User
   claim(where: ClaimWhereUniqueInput!): Claim
   transactionType(where: TransactionTypeWhereUniqueInput!): TransactionType
   wallet(where: WalletWhereUniqueInput!): Wallet
@@ -2538,10 +2684,11 @@ type Query {
   transactionsConnection(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionConnection!
   invitationsConnection(where: InvitationWhereInput, orderBy: InvitationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InvitationConnection!
   emailTemplatesConnection(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmailTemplateConnection!
+  emailLoginsConnection(where: EmailLoginWhereInput, orderBy: EmailLoginOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmailLoginConnection!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
   citiesConnection(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CityConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   balancesConnection(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BalanceConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   claimsConnection(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClaimConnection!
   transactionTypesConnection(where: TransactionTypeWhereInput, orderBy: TransactionTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionTypeConnection!
   walletsConnection(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WalletConnection!
@@ -2880,10 +3027,11 @@ type Subscription {
   transaction(where: TransactionSubscriptionWhereInput): TransactionSubscriptionPayload
   invitation(where: InvitationSubscriptionWhereInput): InvitationSubscriptionPayload
   emailTemplate(where: EmailTemplateSubscriptionWhereInput): EmailTemplateSubscriptionPayload
+  emailLogin(where: EmailLoginSubscriptionWhereInput): EmailLoginSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   balance(where: BalanceSubscriptionWhereInput): BalanceSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   claim(where: ClaimSubscriptionWhereInput): ClaimSubscriptionPayload
   transactionType(where: TransactionTypeSubscriptionWhereInput): TransactionTypeSubscriptionPayload
   wallet(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload

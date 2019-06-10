@@ -1,99 +1,37 @@
-import {
-  signInOrSignUpUserByInvitation,
-  loginUser
-} from "../utils/Authentication";
-import { Context } from "../utils/Utils";
-import { VoteCity, LoginUser } from "../QueryArguments";
-import {
-  OfferChange,
-  OfferChangeEvent,
-  CityChange,
-  CityChangeEvent
-} from "../resolvers/ChangeEvents";
-import { NodeMailer } from "../messaging/email/NodeMailer";
-import { TransactionSystem } from "../utils/TransactionSystem";
-import { TransactionType } from "../enums/TransactionType";
-import { Asset } from "../enums/Asset";
+import { VoteCity, LoginUser } from '../QueryArguments';
+import { OfferChange, OfferChangeEvent } from '../resolvers/ChangeEvents';
+import Context from '../definitions/Interfaces';
+import { CityTransactions } from '../transactions/CityTransactions';
+import { Authentication } from '../auth/Authentication';
+import { InviteTransactions } from '../transactions/InviteTransactions';
 
-const transactionSystem = new TransactionSystem();
+const authentication = new Authentication();
+const cityTransactions = new CityTransactions();
+const inviteTransactions = new InviteTransactions();
 
-export const PublicMutations: Array<String> = [
-  "register",
-  "login",
-  "buyOffer",
-  "signInOrSignUp"
-];
+export const PublicMutations: Array<String> = [ 'register', 'login', 'buyOffer', 'signInOrSignUp' ];
 
 export const Mutation = {
-  login: async (_parent: any, loginData: LoginUser, context: Context) => {
-    return loginUser(context, loginData);
-  },
-  voteCity: async (_parent: any, cityVote: VoteCity, context: Context) => {
-    let cityWalletId = await context.prisma
-      .city({ id: cityVote.cityId })
-      .wallet()
-      .id();
-    let userWalletId = await context.prisma
-      .user({ id: context.userid })
-      .wallet()
-      .id();
-    await transactionSystem.transact(
-      context,
-      userWalletId,
-      cityWalletId,
-      TransactionType.TRANSFER,
-      Asset.CITYVOTES,
-      cityVote.amount
-    );
+	login: (_parent: any, loginData: LoginUser, context: Context) => authentication.loginUser(context, loginData),
+	loginWithMail: (_parent: any, emailLoginId: string, context: Context) =>
+		authentication.loginWithMail(context, emailLoginId),
+	sendLoginLink: (_parent: any, identifier: string, context: Context) =>
+		authentication.sendLoginLink(context, identifier),
+	voteCity: (_parent: any, cityVote: VoteCity, context: Context) => cityTransactions.voteCity(context, cityVote),
+	invite: async (_parent: any, invite: any, context: Context) => inviteTransactions.createInvitation(context, invite),
+	signInOrSignUp: async (_parent: any, invite: any, context: Context) =>
+		authentication.signInOrSignUpUserByInvitation(context, invite.invitationId),
+	buyOffer: async (_parent: any, { offerId }: any, context: Context) => {
+		let counter = (await context.prisma.offer({ id: offerId }).count()) || 0;
+		const offer = await context.prisma.updateOffer({
+			where: { id: offerId },
+			data: { count: counter + 1 }
+		});
 
-    //Subscription
-    let city = await context.prisma.city({ id: cityVote.cityId });
-    if (city) {
-      CityChange.publish(city, CityChangeEvent.VOTE);
-    }
-  },
-  buyOffer: async (_parent: any, { offerId }: any, context: Context) => {
-    let counter = (await context.prisma.offer({ id: offerId }).count()) || 0;
-    const offer = await context.prisma.updateOffer({
-      where: { id: offerId },
-      data: { count: counter + 1 }
-    });
-
-    if (offer) {
-      OfferChange.publish(offer, OfferChangeEvent.BUY);
-      return offer;
-    }
-    return offer;
-  },
-  invite: async (_parent: any, invite: any, context: Context) => {
-    var invitation = await context.prisma.createInvitation(invite.invite);
-    var inviter = await context.prisma
-      .invitation({ id: invitation.id })
-      .invitedBy();
-    var city = await context.prisma.invitation({ id: invitation.id }).city();
-
-    switch (invitation.type) {
-      case "EMAIL":
-        return await new NodeMailer().sendInvitation(invitation, inviter, city);
-    }
-    return "error";
-  },
-  signInOrSignUp: async (_parent: any, invite: any, context: Context) => {
-    return signInOrSignUpUserByInvitation(context, invite.invitationId);
-  }
+		if (offer) {
+			OfferChange.publish(offer, OfferChangeEvent.BUY);
+			return offer;
+		}
+		return offer;
+	}
 };
-
-// await prisma.createTransaction({
-//   input: { connect: { id: this.wallets.walletGenesis.id } },
-//   output: { connect: { id: this.wallets.walletOmoSapiens.id } },
-//   amount: 1,
-//   asset: "VOTE",
-//   operation: "TRANSFER"
-// });
-// await prisma.createTransaction({
-//   input: { connect: { id: this.wallets.walletGenesis.id } },
-//   output: { connect: { id: this.wallets.walletOmoSapiens.id } },
-//   amount: 1,
-//   asset: "OMO",
-//   operation: "TRANSFER"
-// });

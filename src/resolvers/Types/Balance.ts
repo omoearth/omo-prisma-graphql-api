@@ -1,7 +1,5 @@
-import { Context } from '../../utils/Utils';
+import Context from '../../definitions/Interfaces';
 
 export const Balance = {
-  asset: ({ id }: any, _args: any, ctx: Context) => {
-    return ctx.prisma.balance({ id }).asset();
-  },
+	asset: ({ id }: any, _args: any, ctx: Context) => ctx.prisma.balance({ id }).asset()
 };
