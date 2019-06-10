@@ -10,7 +10,7 @@ type Query {
 type Mutation {
   register(email: String!, password: String!): User!
   login(identifier: String!, password: String!): LoginResponse!
-  loginWithMail(emailLoginId:String):LoginResponse!
+  loginWithMail(emailLoginId: String): LoginResponse!
   sendLoginLink(identifier: String!): Response!
 
   voteCity(cityId: String!, amount: Int!): City
