@@ -1,16 +1,11 @@
 import * as bcrypt from "bcryptjs";
 import { Context } from "./Utils";
-import { LoginUser } from "../QueryArguments";
-import {
-  UserCreateInput,
-  User,
-  InvitationType,
-  Invitation
-} from "../generated/prisma-client";
+import { UserCreateInput, User, Invitation } from "../generated/prisma-client";
 import uuid from "uuid";
 import { Role } from "../auth/Roles";
 import * as jwt from "jsonwebtoken";
 import { getUserClaims } from "../resolvers/Types/User";
+import { LoginUser } from "../QueryArguments";
 
 async function hashPassword(password: string) {
   if (password.length < 8) {
@@ -43,8 +38,22 @@ function getUserIdentifier(invitation: Invitation) {
       return uuid.v4();
   }
 }
+async function loginUser(context: Context, loginData: LoginUser) {
+  const user = await context.prisma.user({ identifier: loginData.identifier });
+  if (!user) {
+    throw Error("Invalid Login");
+  }
+  const passwordMatch = await bcrypt.compare(
+    loginData.password,
+    user.password || ""
+  );
+  if (!passwordMatch) {
+    throw Error("Invalid Login");
+  }
+  return await getLoginResponse(context, user);
+}
 
-async function loginUser(context: Context, user: User) {
+async function getLoginResponse(context: Context, user: User) {
   return {
     user,
     token: await generateToken(user, context)
@@ -98,13 +107,13 @@ async function signInOrSignUpUserByInvitation(
   switch (invitation.state) {
     case "Invited": {
       let user = await registerUser(context, invitation);
-      return await loginUser(context, user);
+      return await getLoginResponse(context, user);
     }
     case "TemporaryAccount": {
       let user = await context.prisma.user({
         identifier: getUserIdentifier(invitation)
       });
-      if (user) return await loginUser(context, user);
+      if (user) return await getLoginResponse(context, user);
       else {
         throw new Error("user not found");
       }
@@ -114,4 +123,4 @@ async function signInOrSignUpUserByInvitation(
   }
 }
 
-export { signInOrSignUpUserByInvitation };
+export { signInOrSignUpUserByInvitation, loginUser };

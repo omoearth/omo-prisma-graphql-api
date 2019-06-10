@@ -1,4 +1,7 @@
-import { signInOrSignUpUserByInvitation } from "../utils/Authentication";
+import {
+  signInOrSignUpUserByInvitation,
+  loginUser
+} from "../utils/Authentication";
 import { Context } from "../utils/Utils";
 import { VoteCity, LoginUser } from "../QueryArguments";
 import {
@@ -22,15 +25,8 @@ export const PublicMutations: Array<String> = [
 ];
 
 export const Mutation = {
-  register: async (
-    _parent: any,
-    { email, password }: any,
-    context: Context
-  ) => {
-    // return registerUser(context, email, password),
-  },
   login: async (_parent: any, loginData: LoginUser, context: Context) => {
-    // return loginUser(context, loginData);
+    return loginUser(context, loginData);
   },
   voteCity: async (_parent: any, cityVote: VoteCity, context: Context) => {
     let cityWalletId = await context.prisma

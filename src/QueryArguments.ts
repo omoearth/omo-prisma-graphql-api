@@ -1,7 +1,7 @@
-import { Int, City } from './generated/prisma-client';
+import { Int, City } from "./generated/prisma-client";
 
 export type LoginUser = {
-  email: string;
+  identifier: string;
   password: string;
 };
 
