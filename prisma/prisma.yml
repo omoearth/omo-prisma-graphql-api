@@ -9,7 +9,7 @@ generate:
   - generator: graphql-schema
     output: ../src/generated/prisma.graphql
   - generator: typescript-client
-    output: ../src/generated/prisma.ts
+    output: ../src/generated/prisma-client
 
 hooks:
   post-deploy:

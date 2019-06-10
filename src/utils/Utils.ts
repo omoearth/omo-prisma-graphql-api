@@ -1,13 +1,14 @@
-import { Prisma } from '../generated/prisma.ts';
+import { Prisma, User } from '../generated/prisma-client';
 import { PubSub } from 'graphql-yoga';
 import { FragmentReplacement } from 'graphql-binding';
 import { Request } from 'graphql-upload';
 
 export interface Context {
-  userid: string;
+  userid: any;
+  user: User;
   pubsub: PubSub;
   prisma: Prisma;
   fragmentReplacements: FragmentReplacement[];
-  request: Request;
-  claims?: string;
+  request: any;
+  claims: [string];
 }

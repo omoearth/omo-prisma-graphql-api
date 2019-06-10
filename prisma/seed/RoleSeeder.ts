@@ -1,6 +1,6 @@
-import { prisma } from '../../src/generated/prisma.ts';
-import { Claim } from '../../src/auth/Claims';
-import { Role } from '../../src/auth/Roles';
+import { prisma } from "../../src/generated/prisma-client";
+import { Claim } from "../../src/auth/Claims";
+import { Role } from "../../src/auth/Roles";
 
 export class RoleSeeder {
   async seed() {
@@ -11,9 +11,9 @@ export class RoleSeeder {
           { name: Claim.CLAIM_CREATE },
           { name: Claim.CLAIM_READ },
           { name: Claim.CLAIM_UPDATE },
-          { name: Claim.CLAIM_DELETE },
-        ],
-      },
+          { name: Claim.CLAIM_DELETE }
+        ]
+      }
     });
     await prisma.createRole({
       name: Role.ADMIN_FOO,
@@ -22,9 +22,9 @@ export class RoleSeeder {
           { name: Claim.FOO_CREATE },
           { name: Claim.FOO_READ },
           { name: Claim.FOO_UPDATE },
-          { name: Claim.FOO_DELETE },
-        ],
-      },
+          { name: Claim.FOO_DELETE }
+        ]
+      }
     });
     await prisma.createRole({
       name: Role.ADMIN_BAR,
@@ -34,9 +34,9 @@ export class RoleSeeder {
           { name: Claim.BAR_CREATE },
           { name: Claim.BAR_READ },
           { name: Claim.BAR_UPDATE },
-          { name: Claim.BAR_DELETE },
-        ],
-      },
+          { name: Claim.BAR_DELETE }
+        ]
+      }
     });
     await prisma.createRole({
       name: Role.USER,
@@ -47,8 +47,9 @@ export class RoleSeeder {
           { name: Claim.USER_UPDATE },
           { name: Claim.USER_DELETE },
           { name: Claim.CITY_READ },
-        ],
-      },
+          { name: Claim.TRANSACTION_TRANSFER }
+        ]
+      }
     });
 
     await prisma.createRole({

@@ -2,8 +2,8 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 import { PubSub } from 'graphql-subscriptions';
 import { GraphQLServer } from 'graphql-yoga';
-import { prisma } from './generated/prisma.ts';
-import { resolvers, fragmentReplacements } from './resolvers/index';
+import { prisma } from './generated/prisma-client';
+import { resolvers, fragmentReplacements } from './resolvers';
 import { autheticate } from './auth/Authentication';
 import { authorize } from './auth/Authorization';
 export const pubsub = new PubSub();
@@ -22,7 +22,7 @@ function getUser(request: any) {
 }
 
 export const server = new GraphQLServer({
-  typeDefs: 'src/schema.graphql',
+  typeDefs: './src/schema.graphql',
   resolvers,
   context: request => ({
     user: getUser(request),
@@ -31,7 +31,7 @@ export const server = new GraphQLServer({
     fragmentReplacements,
     request,
   }),
-  middlewares: [autheticate, authorize],
+  middlewares: [autheticate],
   resolverValidationOptions: {
     requireResolversForResolveType: false,
   },

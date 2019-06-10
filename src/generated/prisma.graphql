@@ -1,5 +1,13 @@
 # source: https://eu1.prisma.sh/philapp-73f3dd/omo-dev/dev
-# timestamp: Sat Jun 08 2019 17:57:49 GMT+0200 (CEST)
+# timestamp: Mon Jun 10 2019 09:02:13 GMT+0200 (CEST)
+
+type AggregateAsset {
+  count: Int!
+}
+
+type AggregateBalance {
+  count: Int!
+}
 
 type AggregateCity {
   count: Int!
@@ -25,8 +33,505 @@ type AggregateRole {
   count: Int!
 }
 
+type AggregateTransaction {
+  count: Int!
+}
+
+type AggregateTransactionType {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
+}
+
+type AggregateWallet {
+  count: Int!
+}
+
+type Asset implements Node {
+  id: ID!
+  name: String!
+}
+
+"""A connection to a list of items."""
+type AssetConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AssetEdge]!
+  aggregate: AggregateAsset!
+}
+
+input AssetCreateInput {
+  id: ID
+  name: String!
+}
+
+input AssetCreateOneInput {
+  create: AssetCreateInput
+  connect: AssetWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type AssetEdge {
+  """The item at the end of the edge."""
+  node: Asset!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AssetOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type AssetPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type AssetSubscriptionPayload {
+  mutation: MutationType!
+  node: Asset
+  updatedFields: [String!]
+  previousValues: AssetPreviousValues
+}
+
+input AssetSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AssetSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AssetSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AssetSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AssetWhereInput
+}
+
+input AssetUpdateDataInput {
+  name: String
+}
+
+input AssetUpdateInput {
+  name: String
+}
+
+input AssetUpdateManyMutationInput {
+  name: String
+}
+
+input AssetUpdateOneRequiredInput {
+  create: AssetCreateInput
+  connect: AssetWhereUniqueInput
+  update: AssetUpdateDataInput
+  upsert: AssetUpsertNestedInput
+}
+
+input AssetUpsertNestedInput {
+  update: AssetUpdateDataInput!
+  create: AssetCreateInput!
+}
+
+input AssetWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AssetWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AssetWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AssetWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+}
+
+input AssetWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+type Balance implements Node {
+  id: ID!
+  value: Int!
+  asset: Asset!
+}
+
+"""A connection to a list of items."""
+type BalanceConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BalanceEdge]!
+  aggregate: AggregateBalance!
+}
+
+input BalanceCreateInput {
+  id: ID
+  value: Int!
+  asset: AssetCreateOneInput!
+}
+
+input BalanceCreateManyInput {
+  create: [BalanceCreateInput!]
+  connect: [BalanceWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type BalanceEdge {
+  """The item at the end of the edge."""
+  node: Balance!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum BalanceOrderByInput {
+  id_ASC
+  id_DESC
+  value_ASC
+  value_DESC
+}
+
+type BalancePreviousValues {
+  id: ID!
+  value: Int!
+}
+
+input BalanceScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BalanceScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BalanceScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BalanceScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  value: Int
+
+  """All values that are not equal to given value."""
+  value_not: Int
+
+  """All values that are contained in given list."""
+  value_in: [Int!]
+
+  """All values that are not contained in given list."""
+  value_not_in: [Int!]
+
+  """All values less than the given value."""
+  value_lt: Int
+
+  """All values less than or equal the given value."""
+  value_lte: Int
+
+  """All values greater than the given value."""
+  value_gt: Int
+
+  """All values greater than or equal the given value."""
+  value_gte: Int
+}
+
+type BalanceSubscriptionPayload {
+  mutation: MutationType!
+  node: Balance
+  updatedFields: [String!]
+  previousValues: BalancePreviousValues
+}
+
+input BalanceSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BalanceSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BalanceSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BalanceSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: BalanceWhereInput
+}
+
+input BalanceUpdateDataInput {
+  value: Int
+  asset: AssetUpdateOneRequiredInput
+}
+
+input BalanceUpdateInput {
+  value: Int
+  asset: AssetUpdateOneRequiredInput
+}
+
+input BalanceUpdateManyDataInput {
+  value: Int
+}
+
+input BalanceUpdateManyInput {
+  create: [BalanceCreateInput!]
+  connect: [BalanceWhereUniqueInput!]
+  set: [BalanceWhereUniqueInput!]
+  disconnect: [BalanceWhereUniqueInput!]
+  delete: [BalanceWhereUniqueInput!]
+  update: [BalanceUpdateWithWhereUniqueNestedInput!]
+  updateMany: [BalanceUpdateManyWithWhereNestedInput!]
+  deleteMany: [BalanceScalarWhereInput!]
+  upsert: [BalanceUpsertWithWhereUniqueNestedInput!]
+}
+
+input BalanceUpdateManyMutationInput {
+  value: Int
+}
+
+input BalanceUpdateManyWithWhereNestedInput {
+  where: BalanceScalarWhereInput!
+  data: BalanceUpdateManyDataInput!
+}
+
+input BalanceUpdateWithWhereUniqueNestedInput {
+  where: BalanceWhereUniqueInput!
+  data: BalanceUpdateDataInput!
+}
+
+input BalanceUpsertWithWhereUniqueNestedInput {
+  where: BalanceWhereUniqueInput!
+  update: BalanceUpdateDataInput!
+  create: BalanceCreateInput!
+}
+
+input BalanceWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BalanceWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BalanceWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BalanceWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  value: Int
+
+  """All values that are not equal to given value."""
+  value_not: Int
+
+  """All values that are contained in given list."""
+  value_in: [Int!]
+
+  """All values that are not contained in given list."""
+  value_not_in: [Int!]
+
+  """All values less than the given value."""
+  value_lt: Int
+
+  """All values less than or equal the given value."""
+  value_lte: Int
+
+  """All values greater than the given value."""
+  value_gt: Int
+
+  """All values greater than or equal the given value."""
+  value_gte: Int
+  asset: AssetWhereInput
+}
+
+input BalanceWhereUniqueInput {
+  id: ID
 }
 
 type BatchPayload {
@@ -38,7 +543,7 @@ type City implements Node {
   id: ID!
   name: String!
   available: Boolean!
-  votes: Int
+  wallet: Wallet!
 }
 
 """A connection to a list of items."""
@@ -55,7 +560,7 @@ input CityCreateInput {
   id: ID
   name: String!
   available: Boolean!
-  votes: Int
+  wallet: WalletCreateOneInput!
 }
 
 input CityCreateOneInput {
@@ -79,15 +584,12 @@ enum CityOrderByInput {
   name_DESC
   available_ASC
   available_DESC
-  votes_ASC
-  votes_DESC
 }
 
 type CityPreviousValues {
   id: ID!
   name: String!
   available: Boolean!
-  votes: Int
 }
 
 type CitySubscriptionPayload {
@@ -130,19 +632,18 @@ input CitySubscriptionWhereInput {
 input CityUpdateDataInput {
   name: String
   available: Boolean
-  votes: Int
+  wallet: WalletUpdateOneRequiredInput
 }
 
 input CityUpdateInput {
   name: String
   available: Boolean
-  votes: Int
+  wallet: WalletUpdateOneRequiredInput
 }
 
 input CityUpdateManyMutationInput {
   name: String
   available: Boolean
-  votes: Int
 }
 
 input CityUpdateOneInput {
@@ -252,28 +753,7 @@ input CityWhereInput {
 
   """All values that are not equal to given value."""
   available_not: Boolean
-  votes: Int
-
-  """All values that are not equal to given value."""
-  votes_not: Int
-
-  """All values that are contained in given list."""
-  votes_in: [Int!]
-
-  """All values that are not contained in given list."""
-  votes_not_in: [Int!]
-
-  """All values less than the given value."""
-  votes_lt: Int
-
-  """All values less than or equal the given value."""
-  votes_lte: Int
-
-  """All values greater than the given value."""
-  votes_gt: Int
-
-  """All values greater than or equal the given value."""
-  votes_gte: Int
+  wallet: WalletWhereInput
 }
 
 input CityWhereUniqueInput {
@@ -1380,47 +1860,76 @@ scalar Long
 
 type Mutation {
   createOffer(data: OfferCreateInput!): Offer!
+  createTransaction(data: TransactionCreateInput!): Transaction!
   createInvitation(data: InvitationCreateInput!): Invitation!
   createEmailTemplate(data: EmailTemplateCreateInput!): EmailTemplate!
   createRole(data: RoleCreateInput!): Role!
   createCity(data: CityCreateInput!): City!
+  createBalance(data: BalanceCreateInput!): Balance!
   createClaim(data: ClaimCreateInput!): Claim!
   createUser(data: UserCreateInput!): User!
+  createTransactionType(data: TransactionTypeCreateInput!): TransactionType!
+  createWallet(data: WalletCreateInput!): Wallet!
+  createAsset(data: AssetCreateInput!): Asset!
   updateOffer(data: OfferUpdateInput!, where: OfferWhereUniqueInput!): Offer
+  updateTransaction(data: TransactionUpdateInput!, where: TransactionWhereUniqueInput!): Transaction
   updateInvitation(data: InvitationUpdateInput!, where: InvitationWhereUniqueInput!): Invitation
   updateEmailTemplate(data: EmailTemplateUpdateInput!, where: EmailTemplateWhereUniqueInput!): EmailTemplate
   updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
   updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): City
+  updateBalance(data: BalanceUpdateInput!, where: BalanceWhereUniqueInput!): Balance
   updateClaim(data: ClaimUpdateInput!, where: ClaimWhereUniqueInput!): Claim
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateTransactionType(data: TransactionTypeUpdateInput!, where: TransactionTypeWhereUniqueInput!): TransactionType
+  updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
+  updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset
   deleteOffer(where: OfferWhereUniqueInput!): Offer
+  deleteTransaction(where: TransactionWhereUniqueInput!): Transaction
   deleteInvitation(where: InvitationWhereUniqueInput!): Invitation
   deleteEmailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
   deleteRole(where: RoleWhereUniqueInput!): Role
   deleteCity(where: CityWhereUniqueInput!): City
+  deleteBalance(where: BalanceWhereUniqueInput!): Balance
   deleteClaim(where: ClaimWhereUniqueInput!): Claim
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteTransactionType(where: TransactionTypeWhereUniqueInput!): TransactionType
+  deleteWallet(where: WalletWhereUniqueInput!): Wallet
+  deleteAsset(where: AssetWhereUniqueInput!): Asset
   upsertOffer(where: OfferWhereUniqueInput!, create: OfferCreateInput!, update: OfferUpdateInput!): Offer!
+  upsertTransaction(where: TransactionWhereUniqueInput!, create: TransactionCreateInput!, update: TransactionUpdateInput!): Transaction!
   upsertInvitation(where: InvitationWhereUniqueInput!, create: InvitationCreateInput!, update: InvitationUpdateInput!): Invitation!
   upsertEmailTemplate(where: EmailTemplateWhereUniqueInput!, create: EmailTemplateCreateInput!, update: EmailTemplateUpdateInput!): EmailTemplate!
   upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
   upsertCity(where: CityWhereUniqueInput!, create: CityCreateInput!, update: CityUpdateInput!): City!
+  upsertBalance(where: BalanceWhereUniqueInput!, create: BalanceCreateInput!, update: BalanceUpdateInput!): Balance!
   upsertClaim(where: ClaimWhereUniqueInput!, create: ClaimCreateInput!, update: ClaimUpdateInput!): Claim!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertTransactionType(where: TransactionTypeWhereUniqueInput!, create: TransactionTypeCreateInput!, update: TransactionTypeUpdateInput!): TransactionType!
+  upsertWallet(where: WalletWhereUniqueInput!, create: WalletCreateInput!, update: WalletUpdateInput!): Wallet!
+  upsertAsset(where: AssetWhereUniqueInput!, create: AssetCreateInput!, update: AssetUpdateInput!): Asset!
   updateManyOffers(data: OfferUpdateManyMutationInput!, where: OfferWhereInput): BatchPayload!
+  updateManyTransactions(data: TransactionUpdateManyMutationInput!, where: TransactionWhereInput): BatchPayload!
   updateManyInvitations(data: InvitationUpdateManyMutationInput!, where: InvitationWhereInput): BatchPayload!
   updateManyEmailTemplates(data: EmailTemplateUpdateManyMutationInput!, where: EmailTemplateWhereInput): BatchPayload!
   updateManyRoles(data: RoleUpdateManyMutationInput!, where: RoleWhereInput): BatchPayload!
   updateManyCities(data: CityUpdateManyMutationInput!, where: CityWhereInput): BatchPayload!
+  updateManyBalances(data: BalanceUpdateManyMutationInput!, where: BalanceWhereInput): BatchPayload!
   updateManyClaims(data: ClaimUpdateManyMutationInput!, where: ClaimWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyTransactionTypes(data: TransactionTypeUpdateManyMutationInput!, where: TransactionTypeWhereInput): BatchPayload!
+  updateManyAssets(data: AssetUpdateManyMutationInput!, where: AssetWhereInput): BatchPayload!
   deleteManyOffers(where: OfferWhereInput): BatchPayload!
+  deleteManyTransactions(where: TransactionWhereInput): BatchPayload!
   deleteManyInvitations(where: InvitationWhereInput): BatchPayload!
   deleteManyEmailTemplates(where: EmailTemplateWhereInput): BatchPayload!
   deleteManyRoles(where: RoleWhereInput): BatchPayload!
   deleteManyCities(where: CityWhereInput): BatchPayload!
+  deleteManyBalances(where: BalanceWhereInput): BatchPayload!
   deleteManyClaims(where: ClaimWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyTransactionTypes(where: TransactionTypeWhereInput): BatchPayload!
+  deleteManyWallets(where: WalletWhereInput): BatchPayload!
+  deleteManyAssets(where: AssetWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1973,26 +2482,41 @@ type PageInfo {
 
 type Query {
   offers(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Offer]!
+  transactions(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transaction]!
   invitations(where: InvitationWhereInput, orderBy: InvitationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Invitation]!
   emailTemplates(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EmailTemplate]!
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
   cities(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [City]!
+  balances(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Balance]!
   claims(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Claim]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  transactionTypes(where: TransactionTypeWhereInput, orderBy: TransactionTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TransactionType]!
+  wallets(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Wallet]!
+  assets(where: AssetWhereInput, orderBy: AssetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Asset]!
   offer(where: OfferWhereUniqueInput!): Offer
+  transaction(where: TransactionWhereUniqueInput!): Transaction
   invitation(where: InvitationWhereUniqueInput!): Invitation
   emailTemplate(where: EmailTemplateWhereUniqueInput!): EmailTemplate
   role(where: RoleWhereUniqueInput!): Role
   city(where: CityWhereUniqueInput!): City
+  balance(where: BalanceWhereUniqueInput!): Balance
   claim(where: ClaimWhereUniqueInput!): Claim
   user(where: UserWhereUniqueInput!): User
+  transactionType(where: TransactionTypeWhereUniqueInput!): TransactionType
+  wallet(where: WalletWhereUniqueInput!): Wallet
+  asset(where: AssetWhereUniqueInput!): Asset
   offersConnection(where: OfferWhereInput, orderBy: OfferOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OfferConnection!
+  transactionsConnection(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionConnection!
   invitationsConnection(where: InvitationWhereInput, orderBy: InvitationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InvitationConnection!
   emailTemplatesConnection(where: EmailTemplateWhereInput, orderBy: EmailTemplateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmailTemplateConnection!
   rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
   citiesConnection(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CityConnection!
+  balancesConnection(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BalanceConnection!
   claimsConnection(where: ClaimWhereInput, orderBy: ClaimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClaimConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  transactionTypesConnection(where: TransactionTypeWhereInput, orderBy: TransactionTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransactionTypeConnection!
+  walletsConnection(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WalletConnection!
+  assetsConnection(where: AssetWhereInput, orderBy: AssetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AssetConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -2324,12 +2848,399 @@ input RoleWhereUniqueInput {
 
 type Subscription {
   offer(where: OfferSubscriptionWhereInput): OfferSubscriptionPayload
+  transaction(where: TransactionSubscriptionWhereInput): TransactionSubscriptionPayload
   invitation(where: InvitationSubscriptionWhereInput): InvitationSubscriptionPayload
   emailTemplate(where: EmailTemplateSubscriptionWhereInput): EmailTemplateSubscriptionPayload
   role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
+  balance(where: BalanceSubscriptionWhereInput): BalanceSubscriptionPayload
   claim(where: ClaimSubscriptionWhereInput): ClaimSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  transactionType(where: TransactionTypeSubscriptionWhereInput): TransactionTypeSubscriptionPayload
+  wallet(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
+  asset(where: AssetSubscriptionWhereInput): AssetSubscriptionPayload
+}
+
+type Transaction implements Node {
+  id: ID!
+  input: Wallet!
+  output: Wallet!
+  operation: TransactionType!
+  asset: Asset!
+  amount: Int!
+}
+
+"""A connection to a list of items."""
+type TransactionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [TransactionEdge]!
+  aggregate: AggregateTransaction!
+}
+
+input TransactionCreateInput {
+  id: ID
+  amount: Int!
+  input: WalletCreateOneInput!
+  output: WalletCreateOneInput!
+  operation: TransactionTypeCreateOneInput!
+  asset: AssetCreateOneInput!
+}
+
+"""An edge in a connection."""
+type TransactionEdge {
+  """The item at the end of the edge."""
+  node: Transaction!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum TransactionOrderByInput {
+  id_ASC
+  id_DESC
+  amount_ASC
+  amount_DESC
+}
+
+type TransactionPreviousValues {
+  id: ID!
+  amount: Int!
+}
+
+type TransactionSubscriptionPayload {
+  mutation: MutationType!
+  node: Transaction
+  updatedFields: [String!]
+  previousValues: TransactionPreviousValues
+}
+
+input TransactionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TransactionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TransactionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TransactionSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: TransactionWhereInput
+}
+
+type TransactionType implements Node {
+  id: ID!
+  name: String!
+}
+
+"""A connection to a list of items."""
+type TransactionTypeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [TransactionTypeEdge]!
+  aggregate: AggregateTransactionType!
+}
+
+input TransactionTypeCreateInput {
+  id: ID
+  name: String!
+}
+
+input TransactionTypeCreateOneInput {
+  create: TransactionTypeCreateInput
+  connect: TransactionTypeWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type TransactionTypeEdge {
+  """The item at the end of the edge."""
+  node: TransactionType!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum TransactionTypeOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type TransactionTypePreviousValues {
+  id: ID!
+  name: String!
+}
+
+type TransactionTypeSubscriptionPayload {
+  mutation: MutationType!
+  node: TransactionType
+  updatedFields: [String!]
+  previousValues: TransactionTypePreviousValues
+}
+
+input TransactionTypeSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TransactionTypeSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TransactionTypeSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TransactionTypeSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: TransactionTypeWhereInput
+}
+
+input TransactionTypeUpdateDataInput {
+  name: String
+}
+
+input TransactionTypeUpdateInput {
+  name: String
+}
+
+input TransactionTypeUpdateManyMutationInput {
+  name: String
+}
+
+input TransactionTypeUpdateOneRequiredInput {
+  create: TransactionTypeCreateInput
+  connect: TransactionTypeWhereUniqueInput
+  update: TransactionTypeUpdateDataInput
+  upsert: TransactionTypeUpsertNestedInput
+}
+
+input TransactionTypeUpsertNestedInput {
+  update: TransactionTypeUpdateDataInput!
+  create: TransactionTypeCreateInput!
+}
+
+input TransactionTypeWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TransactionTypeWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TransactionTypeWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TransactionTypeWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+}
+
+input TransactionTypeWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+input TransactionUpdateInput {
+  amount: Int
+  input: WalletUpdateOneRequiredInput
+  output: WalletUpdateOneRequiredInput
+  operation: TransactionTypeUpdateOneRequiredInput
+  asset: AssetUpdateOneRequiredInput
+}
+
+input TransactionUpdateManyMutationInput {
+  amount: Int
+}
+
+input TransactionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TransactionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TransactionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TransactionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  amount: Int
+
+  """All values that are not equal to given value."""
+  amount_not: Int
+
+  """All values that are contained in given list."""
+  amount_in: [Int!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Int!]
+
+  """All values less than the given value."""
+  amount_lt: Int
+
+  """All values less than or equal the given value."""
+  amount_lte: Int
+
+  """All values greater than the given value."""
+  amount_gt: Int
+
+  """All values greater than or equal the given value."""
+  amount_gte: Int
+  input: WalletWhereInput
+  output: WalletWhereInput
+  operation: TransactionTypeWhereInput
+  asset: AssetWhereInput
+}
+
+input TransactionWhereUniqueInput {
+  id: ID
 }
 
 type User implements Node {
@@ -2340,6 +3251,7 @@ type User implements Node {
   name: String
   city: City
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
+  wallet: Wallet!
 }
 
 """A connection to a list of items."""
@@ -2360,6 +3272,7 @@ input UserCreateInput {
   name: String
   city: CityCreateOneInput
   roles: RoleCreateManyInput
+  wallet: WalletCreateOneInput!
 }
 
 input UserCreateOneInput {
@@ -2441,6 +3354,7 @@ input UserUpdateDataInput {
   name: String
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
+  wallet: WalletUpdateOneRequiredInput
 }
 
 input UserUpdateInput {
@@ -2450,6 +3364,7 @@ input UserUpdateInput {
   name: String
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
+  wallet: WalletUpdateOneRequiredInput
 }
 
 input UserUpdateManyMutationInput {
@@ -2654,9 +3569,168 @@ input UserWhereInput {
   roles_every: RoleWhereInput
   roles_some: RoleWhereInput
   roles_none: RoleWhereInput
+  wallet: WalletWhereInput
 }
 
 input UserWhereUniqueInput {
   id: ID
   identifier: String
+}
+
+type Wallet implements Node {
+  id: ID!
+  balances(where: BalanceWhereInput, orderBy: BalanceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Balance!]
+}
+
+"""A connection to a list of items."""
+type WalletConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [WalletEdge]!
+  aggregate: AggregateWallet!
+}
+
+input WalletCreateInput {
+  id: ID
+  balances: BalanceCreateManyInput
+}
+
+input WalletCreateOneInput {
+  create: WalletCreateInput
+  connect: WalletWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type WalletEdge {
+  """The item at the end of the edge."""
+  node: Wallet!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum WalletOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type WalletPreviousValues {
+  id: ID!
+}
+
+type WalletSubscriptionPayload {
+  mutation: MutationType!
+  node: Wallet
+  updatedFields: [String!]
+  previousValues: WalletPreviousValues
+}
+
+input WalletSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WalletSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WalletSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WalletSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: WalletWhereInput
+}
+
+input WalletUpdateDataInput {
+  balances: BalanceUpdateManyInput
+}
+
+input WalletUpdateInput {
+  balances: BalanceUpdateManyInput
+}
+
+input WalletUpdateOneRequiredInput {
+  create: WalletCreateInput
+  connect: WalletWhereUniqueInput
+  update: WalletUpdateDataInput
+  upsert: WalletUpsertNestedInput
+}
+
+input WalletUpsertNestedInput {
+  update: WalletUpdateDataInput!
+  create: WalletCreateInput!
+}
+
+input WalletWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WalletWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WalletWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WalletWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  balances_every: BalanceWhereInput
+  balances_some: BalanceWhereInput
+  balances_none: BalanceWhereInput
+}
+
+input WalletWhereUniqueInput {
+  id: ID
 }

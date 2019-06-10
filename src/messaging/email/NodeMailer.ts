@@ -1,13 +1,11 @@
 require('dotenv').config();
-import { prisma, InvitationPromise, Invitation, User, City } from '../../generated/prisma.ts';
-import { Response } from '../../QueryArguments';
+import { prisma, Invitation, User, City } from '../../generated/prisma-client';
 
 const nodemailer = require('nodemailer');
 
 export class NodeMailer {
   transporter: any;
   constructor() {
-    console.log(process.env.MAILPORT);
     this.transporter = nodemailer.createTransport({
       host: process.env.MAILHOST,
       port: process.env.MAILPORT,
@@ -28,7 +26,11 @@ export class NodeMailer {
 
   async sendMailTemplate(templateName: string, to: string, replacements: Map<string, string>) {
     let template = await prisma.emailTemplate({ name: templateName });
-    if (!template) return { sucess: false, message: `Template with name ${templateName} was not found in database` };
+    if (!template)
+      return {
+        sucess: false,
+        message: `Template with name ${templateName} was not found in database`,
+      };
 
     try {
       let info = await this.transporter.sendMail({
@@ -49,7 +51,7 @@ export class NodeMailer {
     let replacements = new Map<string, string>();
     replacements.set('$-{inviter}', inviter.name || '');
     replacements.set('$-{invitee}', invitation.name || '');
-    replacements.set('$-{link}', `${process.env.EARTH_HTTP_ENDPOINT}/invite/${invitation.id}`);
+    replacements.set('$-{link}', `${process.env.EARTH_HTTP_ENDPOINT}/${invitation.id}`);
     return this.sendMailTemplate('INVITATION', invitation.email || '', replacements);
   }
 }

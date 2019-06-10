@@ -18,6 +18,7 @@ type User {
   name: String
   city: City @relation(name: "Hometown")
   roles: [Role]
+  wallet: Wallet!
 }
 
 enum IdentificationType {
@@ -29,17 +30,10 @@ type City {
   id: ID! @id
   name: String! @unique
   available: Boolean!
-  votes: Int
+  wallet: Wallet!
 }
 
-interface Thing {
-  id: ID! @id
-  name: String!
-  image: String
-  description: String
-}
-
-type Offer implements Thing {
+type Offer {
   id: ID! @id
   name: String!
   image: String!
@@ -53,6 +47,45 @@ type Offer implements Thing {
 
   count: Int
 }
+type Asset {
+  id: ID! @id
+  name: String! @unique
+}
+type TransactionType {
+  id: ID! @id
+  name: String! @unique
+}
+
+type Balance {
+  id: ID! @id
+  value: Int!
+  asset: Asset!
+}
+
+type Wallet {
+  id: ID! @id
+  balances: [Balance!]!
+}
+
+type Transaction {
+  id: ID! @id
+  input: Wallet! @relation(name: "Input")
+  output: Wallet! @relation(name: "Output")
+  operation: TransactionType! @relation(name: "Operation")
+  asset: Asset! @relation(name: "Asset")
+  amount: Int!
+}
+
+# enum TransactionAsset {
+#   VOTE
+#   OMO
+#   EUR
+# }
+
+# enum TransactionType {
+#   CREATE
+#   TRANSFER
+# }
 
 enum InvitationType {
   EMAIL

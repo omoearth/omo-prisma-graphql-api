@@ -1,11 +1,15 @@
 import { registerUser, loginUser } from '../utils/Authentication';
 import { Context } from '../utils/Utils';
 import { VoteCity, LoginUser } from '../QueryArguments';
-import { CityChange, CityChangeEvent, OfferChange, OfferChangeEvent } from '../resolvers/ChangeEvents';
-import { Invitation, InvitationType, InvitationCreateInput } from '../generated/prisma.ts';
+import { OfferChange, OfferChangeEvent, CityChange, CityChangeEvent } from '../resolvers/ChangeEvents';
 import { NodeMailer } from '../messaging/email/NodeMailer';
+import { TransactionSystem } from '../utils/TransactionSystem';
+import { TransactionType } from '../enums/TransactionType';
+import { Asset } from '../enums/Asset';
 
-export const PublicMutations: Array<String> = ['register', 'login', 'buyOffer', 'voteCity'];
+const transactionSystem = new TransactionSystem();
+
+export const PublicMutations: Array<String> = ['register', 'login', 'buyOffer'];
 
 export const Mutation = {
   register: async (_parent: any, { email, password }: any, context: Context) => registerUser(context, email, password),
@@ -13,17 +17,28 @@ export const Mutation = {
     return loginUser(context, loginData);
   },
   voteCity: async (_parent: any, cityVote: VoteCity, context: Context) => {
-    let votes = (await context.prisma.city({ id: cityVote.cityId }).votes()) || 0;
-    const city = await context.prisma.updateCity({
-      where: { id: cityVote.cityId },
-      data: { votes: votes + cityVote.count },
-    });
+    let cityWalletId = await context.prisma
+      .city({ id: cityVote.cityId })
+      .wallet()
+      .id();
+    let userWalletId = await context.prisma
+      .user({ id: context.userid })
+      .wallet()
+      .id();
+    await transactionSystem.transact(
+      context,
+      userWalletId,
+      cityWalletId,
+      TransactionType.TRANSFER,
+      Asset.CITYVOTES,
+      cityVote.amount
+    );
 
+    //Subscription
+    let city = await context.prisma.city({ id: cityVote.cityId });
     if (city) {
       CityChange.publish(city, CityChangeEvent.VOTE);
-      return city;
     }
-    return null;
   },
   buyOffer: async (_parent: any, { offerId }: any, context: Context) => {
     let counter = (await context.prisma.offer({ id: offerId }).count()) || 0;
@@ -51,3 +66,18 @@ export const Mutation = {
   },
   signup: async (_parent: any, invite: any, context: Context) => {},
 };
+
+// await prisma.createTransaction({
+//   input: { connect: { id: this.wallets.walletGenesis.id } },
+//   output: { connect: { id: this.wallets.walletOmoSapiens.id } },
+//   amount: 1,
+//   asset: "VOTE",
+//   operation: "TRANSFER"
+// });
+// await prisma.createTransaction({
+//   input: { connect: { id: this.wallets.walletGenesis.id } },
+//   output: { connect: { id: this.wallets.walletOmoSapiens.id } },
+//   amount: 1,
+//   asset: "OMO",
+//   operation: "TRANSFER"
+// });

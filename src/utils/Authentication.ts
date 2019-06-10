@@ -1,8 +1,7 @@
-import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
-import { Context } from './Utils';
-import { UserCreateInput } from '../generated/prisma.ts';
-import { Role } from '../auth/Roles';
+import * as bcrypt from "bcryptjs";
+import * as jwt from "jsonwebtoken";
+import { Context } from "./Utils";
+import { LoginUser } from "../QueryArguments";
 
 async function userClaims(identifier: String, context: Context) {
   let data = await context.prisma.$graphql(
@@ -79,15 +78,15 @@ async function signupUser(context: Context, invitationId: string) {
       username: user.name || user.identifier,
       claims: claims,
     },
-    process.env.OMO_SECRET || '',
+    process.env.OMO_SECRET || "",
     {
-      expiresIn: `${process.env.TOKEN_EXPIRES}d`,
+      expiresIn: `${process.env.TOKEN_EXPIRES}d`
     }
   );
   return {
     token,
     user,
-    claims,
+    claims
   };
 }
 

@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
-const Cookie = require('js-cookie');
 const cookieparser = require('cookieparser');
 import { Context } from '../utils/Utils';
 import { PublicMutations } from '../resolvers/Mutation';
@@ -9,10 +8,9 @@ import { PublicQueries } from '../resolvers/Query';
 import { PublicSubcriptions } from '../resolvers/Subscription';
 
 export const autheticate = async (resolve: any, root: any, args: any, context: Context, info: any) => {
+  if (root) return await resolve(root, args, context, info);
   let token: any;
   try {
-    console.log(Cookie.get('auth'));
-
     if (context.request.request.headers.cookie) {
       const parsed = cookieparser.parse(context.request.request.headers.cookie);
       var auth = JSON.parse(parsed.auth);
