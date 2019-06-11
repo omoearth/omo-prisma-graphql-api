@@ -56,11 +56,12 @@ export class RoleSeeder {
       name: Role.INVITED,
       claims: {
         connect: [
+          { name: Claim.CITY_READ },
           { name: Claim.INVITED_SELECT_CITY },
           { name: Claim.INVITED_SELECT_OFFER },
-          { name: Claim.INVITED_SELECT_REGISTER },
-        ],
-      },
+          { name: Claim.INVITED_SELECT_REGISTER }
+        ]
+      }
     });
   }
 }
