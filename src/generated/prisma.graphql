@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/omo/omo-prisma/dev
-# timestamp: Tue Jun 11 2019 00:40:24 GMT+0200 (GMT+02:00)
+# timestamp: Mon Jun 24 2019 18:59:29 GMT+0200 (GMT+02:00)
 
 type AggregateAsset {
   count: Int!
