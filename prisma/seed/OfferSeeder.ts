@@ -85,85 +85,85 @@ export class OfferSeeder {
       await prisma.createOffer({
         name: "+1 FRIEND",
         image: "bike",
-        description: "Enjoy 1. month the Bike Flat for free",
+        description: "1. month free bike flat",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+2 FRIENDS",
         image: "miniscooter",
-        description: "Enjoy 1. month the eFlat XS for free",
+        description: "1. month free eFlat XS",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+4 FRIENDS",
         image: "pedelec",
-        description: "Enjoy 1. month the eFlat S for free",
+        description: "1. month free eFlat S",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+6 FRIENDS",
         image: "scooter",
-        description: "Enjoy 1. month the eFlat M for free",
+        description: "1. month free eFlat M",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+8 FRIENDS",
         image: "minicar",
-        description: "Enjoy 1. month the eFlat L for free",
+        description: "1. month free eFlat L",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+10 FRIENDS",
         image: "car",
-        description: "Enjoy 1. month the eFlat XL for free",
+        description: "1. month free eFlat XL",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+25 FRIENDS",
         image: "bike",
-        description: "Enjoy lifelong the bikeFlat for free",
+        description: "lifelong free bike Flat",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+50 FRIENDS",
         image: "miniscooter",
-        description: "Enjoy lifelong the eFlat XS for free",
+        description: "lifelong free eFlat XS",
+        category: "voucher"
+      }),
+      await prisma.createOffer({
+        name: "+75 FRIENDS",
+        image: "pedelec",
+        description: "lifelong free eFlat S",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+100 FRIENDS",
-        image: "pedelec",
-        description: "Enjoy lifelong the eFlat S for free",
+        image: "scooter",
+        description: "lifelong free eFlat M",
+        category: "voucher"
+      }),
+      await prisma.createOffer({
+        name: "+150 FRIENDS",
+        image: "minicar",
+        description: "lifelong free eFlat L",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+250 FRIENDS",
-        image: "scooter",
-        description: "Enjoy lifelong the eFlat M for free",
+        image: "car",
+        description: "lifelong free eFlat XL",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+500 FRIENDS",
-        image: "minicar",
-        description: "Enjoy lifelong the eFlat L for free",
+        image: "city",
+        description: "lifelong free eFlat city",
         category: "voucher"
       }),
       await prisma.createOffer({
         name: "+1.000 FRIENDS",
-        image: "car",
-        description: "Enjoy lifelong the eFlat XL for free",
-        category: "voucher"
-      }),
-      await prisma.createOffer({
-        name: "+2.500 FRIENDS",
         image: "intercity",
-        description: "Enjoy lifelong the eFlat city for free",
-        category: "voucher"
-      }),
-      await prisma.createOffer({
-        name: "+10.000 FRIENDS",
-        image: "intercity",
-        description: "Enjoy lifelong the eFlat intercity for free",
+        description: "lifelong free eFlat intercity",
         category: "voucher"
       });
   }
