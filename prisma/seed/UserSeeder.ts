@@ -4,6 +4,7 @@ import {
 } from "../../src/generated/prisma-client";
 import { Role } from "../../src/auth/Roles";
 import { AssetType } from "../../src/definitions/Enums";
+import { date } from "yup";
 
 export class UserSeeder {
   private newCityWallet: WalletCreateOneInput = {
@@ -23,10 +24,11 @@ export class UserSeeder {
       name: "Omo Sapiens",
       identifier: "admin@omo.earth",
       identificationType: "LOGIN",
-      password: "$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G",
+      // password: "$2a$10$erVpiTyklC09tIASpFVBtunBsOThqulnZytRSCoe6Z/GNbM8cnA2G",
       city: { connect: { name: "Munich" } },
       roles: { connect: [{ name: Role.USER }, { name: Role.ADMIN_AUTH }] },
-      wallet: this.newCityWallet
+      registered: new Date()
+      // wallet: this.newCityWallet
     });
 
     // await prisma.createUser({

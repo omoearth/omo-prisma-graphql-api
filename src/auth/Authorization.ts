@@ -1,6 +1,6 @@
 import { rule, shield, allow, deny, or, and, not } from "graphql-shield";
 import { Claim } from "./Claims";
-import Context from "../definitions/Interfaces";
+import { Context } from "../definitions/Interfaces";
 
 function claim(claimName: string) {
   return rule()(
@@ -20,7 +20,7 @@ export const authorizationMiddleware = shield({
     //   cities: deny,
   },
   Mutation: {
-    voteCity: claim(Claim.TRANSACTION_TRANSFER)
+    // voteCity: claim(Claim.TRANSACTION_TRANSFER)
   },
   Subscription: {}
 });

@@ -8,30 +8,24 @@ type Query {
 }
 
 type Mutation {
-  register(email: String!, password: String!): User!
-  login(identifier: String!, password: String!): LoginResponse!
+  signInOrSignUp(email: String!): Response!
   loginWithMail(emailLoginId: String): LoginResponse!
-  sendLoginLink(identifier: String!): Response!
-
-  voteCity(cityId: String!, amount: Int!): City
-  buyOffer(offerId: String!): Offer
-  invite(invite: InvitationCreateInput!): Response
-  signInOrSignUp(invitationId: String!): LoginResponse
 }
 
 type Subscription {
   city: City
   offer: Offer
 }
-
-type LoginResponse {
-  user: User
-  token: String
-}
-
 type Response {
   success: Boolean
   message: String
+}
+
+type LoginResponse {
+  success: Boolean
+  message: String
+  user: User
+  token: String
 }
 
 type City implements Node {

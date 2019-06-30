@@ -1964,11 +1964,10 @@ type User {
   id: ID!
   identifier: String!
   identificationType: IdentificationType!
-  password: String
   name: String
   city: City
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
-  wallet: Wallet!
+  registered: DateTime
 }
 
 type UserConnection {
@@ -1981,11 +1980,10 @@ input UserCreateInput {
   id: ID
   identifier: String!
   identificationType: IdentificationType!
-  password: String
   name: String
   city: CityCreateOneInput
   roles: RoleCreateManyInput
-  wallet: WalletCreateOneInput!
+  registered: DateTime
 }
 
 input UserCreateManyInput {
@@ -2010,18 +2008,18 @@ enum UserOrderByInput {
   identifier_DESC
   identificationType_ASC
   identificationType_DESC
-  password_ASC
-  password_DESC
   name_ASC
   name_DESC
+  registered_ASC
+  registered_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   identifier: String!
   identificationType: IdentificationType!
-  password: String
   name: String
+  registered: DateTime
 }
 
 input UserScalarWhereInput {
@@ -2057,20 +2055,6 @@ input UserScalarWhereInput {
   identificationType_not: IdentificationType
   identificationType_in: [IdentificationType!]
   identificationType_not_in: [IdentificationType!]
-  password: String
-  password_not: String
-  password_in: [String!]
-  password_not_in: [String!]
-  password_lt: String
-  password_lte: String
-  password_gt: String
-  password_gte: String
-  password_contains: String
-  password_not_contains: String
-  password_starts_with: String
-  password_not_starts_with: String
-  password_ends_with: String
-  password_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -2085,6 +2069,14 @@ input UserScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  registered: DateTime
+  registered_not: DateTime
+  registered_in: [DateTime!]
+  registered_not_in: [DateTime!]
+  registered_lt: DateTime
+  registered_lte: DateTime
+  registered_gt: DateTime
+  registered_gte: DateTime
   AND: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   NOT: [UserScalarWhereInput!]
@@ -2111,28 +2103,26 @@ input UserSubscriptionWhereInput {
 input UserUpdateDataInput {
   identifier: String
   identificationType: IdentificationType
-  password: String
   name: String
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
-  wallet: WalletUpdateOneRequiredInput
+  registered: DateTime
 }
 
 input UserUpdateInput {
   identifier: String
   identificationType: IdentificationType
-  password: String
   name: String
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
-  wallet: WalletUpdateOneRequiredInput
+  registered: DateTime
 }
 
 input UserUpdateManyDataInput {
   identifier: String
   identificationType: IdentificationType
-  password: String
   name: String
+  registered: DateTime
 }
 
 input UserUpdateManyInput {
@@ -2150,8 +2140,8 @@ input UserUpdateManyInput {
 input UserUpdateManyMutationInput {
   identifier: String
   identificationType: IdentificationType
-  password: String
   name: String
+  registered: DateTime
 }
 
 input UserUpdateManyWithWhereNestedInput {
@@ -2215,20 +2205,6 @@ input UserWhereInput {
   identificationType_not: IdentificationType
   identificationType_in: [IdentificationType!]
   identificationType_not_in: [IdentificationType!]
-  password: String
-  password_not: String
-  password_in: [String!]
-  password_not_in: [String!]
-  password_lt: String
-  password_lte: String
-  password_gt: String
-  password_gte: String
-  password_contains: String
-  password_not_contains: String
-  password_starts_with: String
-  password_not_starts_with: String
-  password_ends_with: String
-  password_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -2247,7 +2223,14 @@ input UserWhereInput {
   roles_every: RoleWhereInput
   roles_some: RoleWhereInput
   roles_none: RoleWhereInput
-  wallet: WalletWhereInput
+  registered: DateTime
+  registered_not: DateTime
+  registered_in: [DateTime!]
+  registered_not_in: [DateTime!]
+  registered_lt: DateTime
+  registered_lte: DateTime
+  registered_gt: DateTime
+  registered_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

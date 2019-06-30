@@ -14,11 +14,12 @@ type User {
   id: ID! @id @unique
   identifier: String! @unique
   identificationType: IdentificationType!
-  password: String
+  # password: String
   name: String
   city: City @relation(name: "Hometown")
   roles: [Role]
-  wallet: Wallet!
+  registered: DateTime
+  # wallet: Wallet!
 }
 
 enum IdentificationType {

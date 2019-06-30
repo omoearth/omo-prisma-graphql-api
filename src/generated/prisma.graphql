@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/omo/omo-prisma/dev
-# timestamp: Mon Jun 24 2019 23:05:46 GMT+0200 (GMT+02:00)
+# timestamp: Sun Jun 30 2019 18:47:47 GMT+0200 (GMT+02:00)
 
 type AggregateAsset {
   count: Int!
@@ -3424,11 +3424,10 @@ type User implements Node {
   id: ID!
   identifier: String!
   identificationType: IdentificationType!
-  password: String
   name: String
   city: City
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
-  wallet: Wallet!
+  registered: DateTime
 }
 
 """A connection to a list of items."""
@@ -3445,11 +3444,10 @@ input UserCreateInput {
   id: ID
   identifier: String!
   identificationType: IdentificationType!
-  password: String
   name: String
+  registered: DateTime
   city: CityCreateOneInput
   roles: RoleCreateManyInput
-  wallet: WalletCreateOneInput!
 }
 
 input UserCreateManyInput {
@@ -3478,18 +3476,18 @@ enum UserOrderByInput {
   identifier_DESC
   identificationType_ASC
   identificationType_DESC
-  password_ASC
-  password_DESC
   name_ASC
   name_DESC
+  registered_ASC
+  registered_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   identifier: String!
   identificationType: IdentificationType!
-  password: String
   name: String
+  registered: DateTime
 }
 
 input UserScalarWhereInput {
@@ -3591,46 +3589,6 @@ input UserScalarWhereInput {
 
   """All values that are not contained in given list."""
   identificationType_not_in: [IdentificationType!]
-  password: String
-
-  """All values that are not equal to given value."""
-  password_not: String
-
-  """All values that are contained in given list."""
-  password_in: [String!]
-
-  """All values that are not contained in given list."""
-  password_not_in: [String!]
-
-  """All values less than the given value."""
-  password_lt: String
-
-  """All values less than or equal the given value."""
-  password_lte: String
-
-  """All values greater than the given value."""
-  password_gt: String
-
-  """All values greater than or equal the given value."""
-  password_gte: String
-
-  """All values containing the given string."""
-  password_contains: String
-
-  """All values not containing the given string."""
-  password_not_contains: String
-
-  """All values starting with the given string."""
-  password_starts_with: String
-
-  """All values not starting with the given string."""
-  password_not_starts_with: String
-
-  """All values ending with the given string."""
-  password_ends_with: String
-
-  """All values not ending with the given string."""
-  password_not_ends_with: String
   name: String
 
   """All values that are not equal to given value."""
@@ -3671,6 +3629,28 @@ input UserScalarWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  registered: DateTime
+
+  """All values that are not equal to given value."""
+  registered_not: DateTime
+
+  """All values that are contained in given list."""
+  registered_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  registered_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  registered_lt: DateTime
+
+  """All values less than or equal the given value."""
+  registered_lte: DateTime
+
+  """All values greater than the given value."""
+  registered_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  registered_gte: DateTime
 }
 
 type UserSubscriptionPayload {
@@ -3713,28 +3693,26 @@ input UserSubscriptionWhereInput {
 input UserUpdateDataInput {
   identifier: String
   identificationType: IdentificationType
-  password: String
   name: String
+  registered: DateTime
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
-  wallet: WalletUpdateOneRequiredInput
 }
 
 input UserUpdateInput {
   identifier: String
   identificationType: IdentificationType
-  password: String
   name: String
+  registered: DateTime
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
-  wallet: WalletUpdateOneRequiredInput
 }
 
 input UserUpdateManyDataInput {
   identifier: String
   identificationType: IdentificationType
-  password: String
   name: String
+  registered: DateTime
 }
 
 input UserUpdateManyInput {
@@ -3752,8 +3730,8 @@ input UserUpdateManyInput {
 input UserUpdateManyMutationInput {
   identifier: String
   identificationType: IdentificationType
-  password: String
   name: String
+  registered: DateTime
 }
 
 input UserUpdateManyWithWhereNestedInput {
@@ -3883,46 +3861,6 @@ input UserWhereInput {
 
   """All values that are not contained in given list."""
   identificationType_not_in: [IdentificationType!]
-  password: String
-
-  """All values that are not equal to given value."""
-  password_not: String
-
-  """All values that are contained in given list."""
-  password_in: [String!]
-
-  """All values that are not contained in given list."""
-  password_not_in: [String!]
-
-  """All values less than the given value."""
-  password_lt: String
-
-  """All values less than or equal the given value."""
-  password_lte: String
-
-  """All values greater than the given value."""
-  password_gt: String
-
-  """All values greater than or equal the given value."""
-  password_gte: String
-
-  """All values containing the given string."""
-  password_contains: String
-
-  """All values not containing the given string."""
-  password_not_contains: String
-
-  """All values starting with the given string."""
-  password_starts_with: String
-
-  """All values not starting with the given string."""
-  password_not_starts_with: String
-
-  """All values ending with the given string."""
-  password_ends_with: String
-
-  """All values not ending with the given string."""
-  password_not_ends_with: String
   name: String
 
   """All values that are not equal to given value."""
@@ -3963,11 +3901,32 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  registered: DateTime
+
+  """All values that are not equal to given value."""
+  registered_not: DateTime
+
+  """All values that are contained in given list."""
+  registered_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  registered_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  registered_lt: DateTime
+
+  """All values less than or equal the given value."""
+  registered_lte: DateTime
+
+  """All values greater than the given value."""
+  registered_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  registered_gte: DateTime
   city: CityWhereInput
   roles_every: RoleWhereInput
   roles_some: RoleWhereInput
   roles_none: RoleWhereInput
-  wallet: WalletWhereInput
 }
 
 input UserWhereUniqueInput {
