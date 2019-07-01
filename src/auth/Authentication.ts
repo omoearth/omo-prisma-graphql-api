@@ -9,7 +9,7 @@ import { Context, LoginResponse, Response } from "../definitions/Interfaces";
 import { NodeMailer } from "../messaging/email/NodeMailer";
 import { getUserClaims } from "../resolvers/Types/User";
 import { Role } from "../auth/Roles";
-import { resolveSoa } from "dns";
+var uuid = require("uuid/v4");
 
 export class Authentication {
   private nodeMailer = new NodeMailer();
@@ -25,7 +25,8 @@ export class Authentication {
   async registerByMail(context: Context, email: string): Promise<Response> {
     let user = await context.prisma.createUser({
       identificationType: "LOGIN",
-      identifier: email
+      identifier: email,
+      crispToken: uuid()
     });
     return this.sendRegisterLink(context, user);
   }
@@ -70,8 +71,10 @@ export class Authentication {
   private async generateToken(user: User) {
     let token = jwt.sign(
       {
-        id: user.id,
-        username: user.name || user.identifier
+        user: user
+        // id: user.id,
+        // username: user.name || user.identifier,
+        // crispToken: user.crispToken
         // claims: getUserClaims(user.id, context)
       },
       process.env.OMO_SECRET || "",
@@ -106,7 +109,7 @@ export const authenticateMiddleware = async (
 
   try {
     // try to parse authentication out of the cookie of the request.
-    // if it fails the logic for  non authenicated endpoints will be applied.
+    // if it fails the logic for non authenicated endpoints will be applied.
     const parsed = cookieparser.parse(context.request.request.headers.cookie);
     var auth = JSON.parse(parsed.auth);
     token = jwt.verify(auth.accessToken, process.env.OMO_SECRET || "");

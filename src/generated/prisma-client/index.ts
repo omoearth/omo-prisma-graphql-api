@@ -589,7 +589,9 @@ export type UserOrderByInput =
   | "name_ASC"
   | "name_DESC"
   | "registered_ASC"
-  | "registered_DESC";
+  | "registered_DESC"
+  | "crispToken_ASC"
+  | "crispToken_DESC";
 
 export type CityOrderByInput =
   | "id_ASC"
@@ -1107,6 +1109,20 @@ export interface UserWhereInput {
   registered_lte?: Maybe<DateTimeInput>;
   registered_gt?: Maybe<DateTimeInput>;
   registered_gte?: Maybe<DateTimeInput>;
+  crispToken?: Maybe<String>;
+  crispToken_not?: Maybe<String>;
+  crispToken_in?: Maybe<String[] | String>;
+  crispToken_not_in?: Maybe<String[] | String>;
+  crispToken_lt?: Maybe<String>;
+  crispToken_lte?: Maybe<String>;
+  crispToken_gt?: Maybe<String>;
+  crispToken_gte?: Maybe<String>;
+  crispToken_contains?: Maybe<String>;
+  crispToken_not_contains?: Maybe<String>;
+  crispToken_starts_with?: Maybe<String>;
+  crispToken_not_starts_with?: Maybe<String>;
+  crispToken_ends_with?: Maybe<String>;
+  crispToken_not_ends_with?: Maybe<String>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -1167,6 +1183,7 @@ export interface UserUpdateInput {
   city?: Maybe<CityUpdateOneInput>;
   roles?: Maybe<RoleUpdateManyInput>;
   registered?: Maybe<DateTimeInput>;
+  crispToken?: Maybe<String>;
 }
 
 export interface ClaimUpsertWithWhereUniqueNestedInput {
@@ -1300,6 +1317,7 @@ export interface UserUpdateManyDataInput {
   identificationType?: Maybe<IdentificationType>;
   name?: Maybe<String>;
   registered?: Maybe<DateTimeInput>;
+  crispToken?: Maybe<String>;
 }
 
 export interface BalanceUpdateInput {
@@ -1362,6 +1380,20 @@ export interface UserScalarWhereInput {
   registered_lte?: Maybe<DateTimeInput>;
   registered_gt?: Maybe<DateTimeInput>;
   registered_gte?: Maybe<DateTimeInput>;
+  crispToken?: Maybe<String>;
+  crispToken_not?: Maybe<String>;
+  crispToken_in?: Maybe<String[] | String>;
+  crispToken_not_in?: Maybe<String[] | String>;
+  crispToken_lt?: Maybe<String>;
+  crispToken_lte?: Maybe<String>;
+  crispToken_gt?: Maybe<String>;
+  crispToken_gte?: Maybe<String>;
+  crispToken_contains?: Maybe<String>;
+  crispToken_not_contains?: Maybe<String>;
+  crispToken_starts_with?: Maybe<String>;
+  crispToken_not_starts_with?: Maybe<String>;
+  crispToken_ends_with?: Maybe<String>;
+  crispToken_not_ends_with?: Maybe<String>;
   AND?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
   OR?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
   NOT?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
@@ -1916,6 +1948,7 @@ export interface UserUpdateManyMutationInput {
   identificationType?: Maybe<IdentificationType>;
   name?: Maybe<String>;
   registered?: Maybe<DateTimeInput>;
+  crispToken?: Maybe<String>;
 }
 
 export interface UserCreateOneInput {
@@ -1936,6 +1969,7 @@ export interface UserCreateInput {
   city?: Maybe<CityCreateOneInput>;
   roles?: Maybe<RoleCreateManyInput>;
   registered?: Maybe<DateTimeInput>;
+  crispToken?: Maybe<String>;
 }
 
 export interface InvitationWhereInput {
@@ -2236,6 +2270,7 @@ export interface UserUpdateDataInput {
   city?: Maybe<CityUpdateOneInput>;
   roles?: Maybe<RoleUpdateManyInput>;
   registered?: Maybe<DateTimeInput>;
+  crispToken?: Maybe<String>;
 }
 
 export interface UserUpdateOneRequiredInput {
@@ -2953,6 +2988,7 @@ export interface User {
   identificationType: IdentificationType;
   name?: String;
   registered?: DateTimeOutput;
+  crispToken?: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -2971,6 +3007,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     last?: Int;
   }) => T;
   registered: () => Promise<DateTimeOutput>;
+  crispToken: () => Promise<String>;
 }
 
 export interface UserSubscription
@@ -2991,6 +3028,7 @@ export interface UserSubscription
     last?: Int;
   }) => T;
   registered: () => Promise<AsyncIterator<DateTimeOutput>>;
+  crispToken: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserNullablePromise
@@ -3011,6 +3049,7 @@ export interface UserNullablePromise
     last?: Int;
   }) => T;
   registered: () => Promise<DateTimeOutput>;
+  crispToken: () => Promise<String>;
 }
 
 export interface OfferConnection {
@@ -3188,6 +3227,7 @@ export interface UserPreviousValues {
   identificationType: IdentificationType;
   name?: String;
   registered?: DateTimeOutput;
+  crispToken?: String;
 }
 
 export interface UserPreviousValuesPromise
@@ -3198,6 +3238,7 @@ export interface UserPreviousValuesPromise
   identificationType: () => Promise<IdentificationType>;
   name: () => Promise<String>;
   registered: () => Promise<DateTimeOutput>;
+  crispToken: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -3208,6 +3249,7 @@ export interface UserPreviousValuesSubscription
   identificationType: () => Promise<AsyncIterator<IdentificationType>>;
   name: () => Promise<AsyncIterator<String>>;
   registered: () => Promise<AsyncIterator<DateTimeOutput>>;
+  crispToken: () => Promise<AsyncIterator<String>>;
 }
 
 export interface ClaimPreviousValues {

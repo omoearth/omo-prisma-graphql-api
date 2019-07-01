@@ -20,6 +20,7 @@ type User {
   roles: [Role]
   registered: DateTime
   # wallet: Wallet!
+  crispToken: String
 }
 
 enum IdentificationType {

@@ -1968,6 +1968,7 @@ type User {
   city: City
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
   registered: DateTime
+  crispToken: String
 }
 
 type UserConnection {
@@ -1984,6 +1985,7 @@ input UserCreateInput {
   city: CityCreateOneInput
   roles: RoleCreateManyInput
   registered: DateTime
+  crispToken: String
 }
 
 input UserCreateManyInput {
@@ -2012,6 +2014,8 @@ enum UserOrderByInput {
   name_DESC
   registered_ASC
   registered_DESC
+  crispToken_ASC
+  crispToken_DESC
 }
 
 type UserPreviousValues {
@@ -2020,6 +2024,7 @@ type UserPreviousValues {
   identificationType: IdentificationType!
   name: String
   registered: DateTime
+  crispToken: String
 }
 
 input UserScalarWhereInput {
@@ -2077,6 +2082,20 @@ input UserScalarWhereInput {
   registered_lte: DateTime
   registered_gt: DateTime
   registered_gte: DateTime
+  crispToken: String
+  crispToken_not: String
+  crispToken_in: [String!]
+  crispToken_not_in: [String!]
+  crispToken_lt: String
+  crispToken_lte: String
+  crispToken_gt: String
+  crispToken_gte: String
+  crispToken_contains: String
+  crispToken_not_contains: String
+  crispToken_starts_with: String
+  crispToken_not_starts_with: String
+  crispToken_ends_with: String
+  crispToken_not_ends_with: String
   AND: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   NOT: [UserScalarWhereInput!]
@@ -2107,6 +2126,7 @@ input UserUpdateDataInput {
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
   registered: DateTime
+  crispToken: String
 }
 
 input UserUpdateInput {
@@ -2116,6 +2136,7 @@ input UserUpdateInput {
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
   registered: DateTime
+  crispToken: String
 }
 
 input UserUpdateManyDataInput {
@@ -2123,6 +2144,7 @@ input UserUpdateManyDataInput {
   identificationType: IdentificationType
   name: String
   registered: DateTime
+  crispToken: String
 }
 
 input UserUpdateManyInput {
@@ -2142,6 +2164,7 @@ input UserUpdateManyMutationInput {
   identificationType: IdentificationType
   name: String
   registered: DateTime
+  crispToken: String
 }
 
 input UserUpdateManyWithWhereNestedInput {
@@ -2231,6 +2254,20 @@ input UserWhereInput {
   registered_lte: DateTime
   registered_gt: DateTime
   registered_gte: DateTime
+  crispToken: String
+  crispToken_not: String
+  crispToken_in: [String!]
+  crispToken_not_in: [String!]
+  crispToken_lt: String
+  crispToken_lte: String
+  crispToken_gt: String
+  crispToken_gte: String
+  crispToken_contains: String
+  crispToken_not_contains: String
+  crispToken_starts_with: String
+  crispToken_not_starts_with: String
+  crispToken_ends_with: String
+  crispToken_not_ends_with: String
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

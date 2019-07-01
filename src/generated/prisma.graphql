@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/omo/omo-prisma/dev
-# timestamp: Sun Jun 30 2019 18:47:47 GMT+0200 (GMT+02:00)
+# timestamp: Sun Jun 30 2019 20:03:42 GMT+0200 (GMT+02:00)
 
 type AggregateAsset {
   count: Int!
@@ -3428,6 +3428,7 @@ type User implements Node {
   city: City
   roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
   registered: DateTime
+  crispToken: String
 }
 
 """A connection to a list of items."""
@@ -3446,6 +3447,7 @@ input UserCreateInput {
   identificationType: IdentificationType!
   name: String
   registered: DateTime
+  crispToken: String
   city: CityCreateOneInput
   roles: RoleCreateManyInput
 }
@@ -3480,6 +3482,8 @@ enum UserOrderByInput {
   name_DESC
   registered_ASC
   registered_DESC
+  crispToken_ASC
+  crispToken_DESC
 }
 
 type UserPreviousValues {
@@ -3488,6 +3492,7 @@ type UserPreviousValues {
   identificationType: IdentificationType!
   name: String
   registered: DateTime
+  crispToken: String
 }
 
 input UserScalarWhereInput {
@@ -3651,6 +3656,46 @@ input UserScalarWhereInput {
 
   """All values greater than or equal the given value."""
   registered_gte: DateTime
+  crispToken: String
+
+  """All values that are not equal to given value."""
+  crispToken_not: String
+
+  """All values that are contained in given list."""
+  crispToken_in: [String!]
+
+  """All values that are not contained in given list."""
+  crispToken_not_in: [String!]
+
+  """All values less than the given value."""
+  crispToken_lt: String
+
+  """All values less than or equal the given value."""
+  crispToken_lte: String
+
+  """All values greater than the given value."""
+  crispToken_gt: String
+
+  """All values greater than or equal the given value."""
+  crispToken_gte: String
+
+  """All values containing the given string."""
+  crispToken_contains: String
+
+  """All values not containing the given string."""
+  crispToken_not_contains: String
+
+  """All values starting with the given string."""
+  crispToken_starts_with: String
+
+  """All values not starting with the given string."""
+  crispToken_not_starts_with: String
+
+  """All values ending with the given string."""
+  crispToken_ends_with: String
+
+  """All values not ending with the given string."""
+  crispToken_not_ends_with: String
 }
 
 type UserSubscriptionPayload {
@@ -3695,6 +3740,7 @@ input UserUpdateDataInput {
   identificationType: IdentificationType
   name: String
   registered: DateTime
+  crispToken: String
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
 }
@@ -3704,6 +3750,7 @@ input UserUpdateInput {
   identificationType: IdentificationType
   name: String
   registered: DateTime
+  crispToken: String
   city: CityUpdateOneInput
   roles: RoleUpdateManyInput
 }
@@ -3713,6 +3760,7 @@ input UserUpdateManyDataInput {
   identificationType: IdentificationType
   name: String
   registered: DateTime
+  crispToken: String
 }
 
 input UserUpdateManyInput {
@@ -3732,6 +3780,7 @@ input UserUpdateManyMutationInput {
   identificationType: IdentificationType
   name: String
   registered: DateTime
+  crispToken: String
 }
 
 input UserUpdateManyWithWhereNestedInput {
@@ -3923,6 +3972,46 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   registered_gte: DateTime
+  crispToken: String
+
+  """All values that are not equal to given value."""
+  crispToken_not: String
+
+  """All values that are contained in given list."""
+  crispToken_in: [String!]
+
+  """All values that are not contained in given list."""
+  crispToken_not_in: [String!]
+
+  """All values less than the given value."""
+  crispToken_lt: String
+
+  """All values less than or equal the given value."""
+  crispToken_lte: String
+
+  """All values greater than the given value."""
+  crispToken_gt: String
+
+  """All values greater than or equal the given value."""
+  crispToken_gte: String
+
+  """All values containing the given string."""
+  crispToken_contains: String
+
+  """All values not containing the given string."""
+  crispToken_not_contains: String
+
+  """All values starting with the given string."""
+  crispToken_starts_with: String
+
+  """All values not starting with the given string."""
+  crispToken_not_starts_with: String
+
+  """All values ending with the given string."""
+  crispToken_ends_with: String
+
+  """All values not ending with the given string."""
+  crispToken_not_ends_with: String
   city: CityWhereInput
   roles_every: RoleWhereInput
   roles_some: RoleWhereInput
