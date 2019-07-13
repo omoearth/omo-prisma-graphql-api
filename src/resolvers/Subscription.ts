@@ -6,7 +6,6 @@ export const PublicSubcriptions: Array<String> = ["city", "offer"];
 export const Subscription = {
   city: {
     subscribe: (_parent: any, _args: any, context: Context) => {
-      console.log("subscribe city");
       return context.pubsub.asyncIterator(CityChange.identifier);
     }
   },

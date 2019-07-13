@@ -1,85 +1,84 @@
 import { prisma } from "../../src/generated/prisma-client";
-
 export class OfferSeeder {
   async seed() {
     await prisma.createOffer({
-      name: "Bike Flat",
+      name: "Flat XS",
       image: "bike",
       description: "∞km / month",
       price: 11,
       priceCurrency: "€",
       businessFunction: "RENT",
-      availabilityStarts: "est. launch 2020 Q1",
+      availabilityStarts: "2020 Q1",
       category: "mobility"
     }),
       await prisma.createOffer({
-        name: "eFlat XS",
+        name: "Flat S",
         image: "miniscooter",
         description: "50km / month",
         price: 22,
         priceCurrency: "€",
         businessFunction: "RENT",
-        availabilityStarts: "est. launch 2020 Q1",
+        availabilityStarts: "2020 Q1",
         category: "mobility"
       }),
       await prisma.createOffer({
-        name: "eFlat S",
+        name: "Flat M",
         image: "pedelec",
         description: "75km / month",
         price: 33,
         priceCurrency: "€",
         businessFunction: "RENT",
-        availabilityStarts: "est. launch 2020 Q1",
+        availabilityStarts: "2020 Q1",
         category: "mobility"
       }),
       await prisma.createOffer({
-        name: "eFlat M",
+        name: "Flat L",
         image: "scooter",
         description: "100km / month",
         price: 55,
         priceCurrency: "€",
         businessFunction: "RENT",
-        availabilityStarts: "est. launch 2020 Q1",
+        availabilityStarts: "2020 Q2",
         category: "mobility"
       }),
       await prisma.createOffer({
-        name: "eFlat L",
+        name: "Flat XL",
         image: "minicar",
         description: "250km / month",
         price: 99,
         priceCurrency: "€",
         businessFunction: "RENT",
-        availabilityStarts: "est. launch 2020 Q3",
+        availabilityStarts: "2021 Q1",
         category: "mobility"
       }),
       await prisma.createOffer({
-        name: "eFlat XL",
+        name: "Flat XXL",
         image: "car",
         description: "500km / month",
         price: 199,
         priceCurrency: "€",
         businessFunction: "RENT",
-        availabilityStarts: "est. launch 2021 Q1",
+        availabilityStarts: "2021 Q1",
         category: "mobility"
       }),
       await prisma.createOffer({
-        name: "eFlat city",
+        name: "Flat CITY",
         image: "city",
         description: "750km / month",
         price: 255,
         priceCurrency: "€",
         businessFunction: "RENT",
-        availabilityStarts: "est. launch 2021 Q1",
+        availabilityStarts: "2021 Q3",
         category: "mobility"
       }),
       await prisma.createOffer({
-        name: "eFlat intercity",
+        name: "Flat INTERCITY",
         image: "intercity",
         description: "1000km / month",
         price: 555,
         priceCurrency: "€",
         businessFunction: "RENT",
-        availabilityStarts: "est. launch 2021 Q1",
+        availabilityStarts: "2022 Q3",
         category: "mobility"
       }),
       await prisma.createOffer({
@@ -166,5 +165,116 @@ export class OfferSeeder {
         description: "lifelong free eFlat intercity",
         category: "voucher"
       });
+    await prisma.createOffer({
+      name: "Plant the vision",
+      image: "",
+      description: "the first 100 subscribers are manifesting the vision",
+      category: "goal",
+      votesNeeded: 100,
+      benefit: "∞"
+    });
+    await prisma.createOffer({
+      name: "Founding the startup",
+      image: "",
+      description: "we will found a new startup out of the garage together",
+      category: "goal",
+      votesNeeded: 1000,
+      benefit: "5 years"
+    });
+    await prisma.createOffer({
+      name: "Start Development",
+      image: "",
+      description: "we start to develop the main sharing platform",
+      category: "goal",
+      votesNeeded: 10000,
+      benefit: "6 months"
+    });
+    await prisma.createOffer({
+      name: "Integrating bikes",
+      image: "bike",
+      description:
+        "we start to integrate bike rentals focussing first on the leading cities",
+      category: "goal",
+      votesNeeded: 100000,
+      benefit: "1 week"
+    });
+    await prisma.createOffer({
+      name: "Integrating pedelecs",
+      image: "pedelec",
+      description:
+        "We start to integrate mini scooter rentals focussing first on the leading cities",
+      category: "goal",
+      votesNeeded: 500000,
+      benefit: "5 days"
+    });
+    await prisma.createOffer({
+      name: "Integrating mini-scooters",
+      image: "miniscooter",
+      description:
+        "We start to integrate pedelec rentals focussing first on the leading cities",
+      category: "goal",
+      votesNeeded: 1000000,
+      benefit: "3 days"
+    });
+    await prisma.createOffer({
+      name: "Integrating scooters",
+      image: "scooter",
+      description:
+        "We start to integrate scooter rentals focussing first on the leading cities",
+      category: "goal",
+      votesNeeded: 50000000,
+      benefit: "1 days"
+    });
+    await prisma.createOffer({
+      name: "Integrating mini-cars",
+      image: "minicar",
+      description:
+        "We start to integrate mini car rentals focussing first on the leading cities",
+      category: "goal",
+      votesNeeded: 10000000,
+      benefit: "12 hours"
+    });
+    await prisma.createOffer({
+      name: "Integrating cars",
+      image: "car",
+      description:
+        "We start to integrate car rentals focussing first on the leading cities",
+      category: "goal",
+      votesNeeded: 50000000,
+      benefit: "9 hours"
+    });
+    await prisma.createOffer({
+      name: "Integrating public",
+      image: "intercity",
+      description:
+        "We start to integrate public transport focussing first on the leading cities",
+      category: "goal",
+      votesNeeded: 100000000,
+      benefit: "6 hours"
+    });
+    await prisma.createOffer({
+      name: "Integrating intercity",
+      image: "intercity",
+      description: "We start to integrate intercity trains & buses",
+      category: "goal",
+      votesNeeded: 250000000,
+      benefit: "3 hours"
+    });
+    await prisma.createOffer({
+      name: "Integrating air-taxi",
+      image: "",
+      description: "We start to integrate the first air-taxis",
+      category: "goal",
+      votesNeeded: 500000000,
+      benefit: "3 hours"
+    });
+    await prisma.createOffer({
+      name: "Integrating hyperloop",
+      image: "",
+      description: "We start to integrate hyperloops",
+      category: "goal",
+      votesNeeded: 1000000000,
+      benefit: "3 hours"
+    });
   }
 }

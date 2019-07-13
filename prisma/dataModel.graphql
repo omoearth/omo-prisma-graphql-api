@@ -46,6 +46,8 @@ type Offer {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
 
   count: Int
 }

@@ -1245,6 +1245,8 @@ type Offer {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
   count: Int
 }
 
@@ -1264,6 +1266,8 @@ input OfferCreateInput {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
   count: Int
 }
 
@@ -1291,6 +1295,10 @@ enum OfferOrderByInput {
   priceCurrency_DESC
   category_ASC
   category_DESC
+  votesNeeded_ASC
+  votesNeeded_DESC
+  benefit_ASC
+  benefit_DESC
   count_ASC
   count_DESC
 }
@@ -1305,6 +1313,8 @@ type OfferPreviousValues {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
   count: Int
 }
 
@@ -1335,6 +1345,8 @@ input OfferUpdateInput {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
   count: Int
 }
 
@@ -1347,6 +1359,8 @@ input OfferUpdateManyMutationInput {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
   count: Int
 }
 
@@ -1471,6 +1485,28 @@ input OfferWhereInput {
   category_not_starts_with: String
   category_ends_with: String
   category_not_ends_with: String
+  votesNeeded: Int
+  votesNeeded_not: Int
+  votesNeeded_in: [Int!]
+  votesNeeded_not_in: [Int!]
+  votesNeeded_lt: Int
+  votesNeeded_lte: Int
+  votesNeeded_gt: Int
+  votesNeeded_gte: Int
+  benefit: String
+  benefit_not: String
+  benefit_in: [String!]
+  benefit_not_in: [String!]
+  benefit_lt: String
+  benefit_lte: String
+  benefit_gt: String
+  benefit_gte: String
+  benefit_contains: String
+  benefit_not_contains: String
+  benefit_starts_with: String
+  benefit_not_starts_with: String
+  benefit_ends_with: String
+  benefit_not_ends_with: String
   count: Int
   count_not: Int
   count_in: [Int!]

@@ -642,6 +642,10 @@ export type OfferOrderByInput =
   | "priceCurrency_DESC"
   | "category_ASC"
   | "category_DESC"
+  | "votesNeeded_ASC"
+  | "votesNeeded_DESC"
+  | "benefit_ASC"
+  | "benefit_DESC"
   | "count_ASC"
   | "count_DESC";
 
@@ -1282,6 +1286,8 @@ export interface OfferUpdateManyMutationInput {
   price?: Maybe<Float>;
   priceCurrency?: Maybe<String>;
   category?: Maybe<String>;
+  votesNeeded?: Maybe<Int>;
+  benefit?: Maybe<String>;
   count?: Maybe<Int>;
 }
 
@@ -1860,6 +1866,8 @@ export interface OfferCreateInput {
   price?: Maybe<Float>;
   priceCurrency?: Maybe<String>;
   category?: Maybe<String>;
+  votesNeeded?: Maybe<Int>;
+  benefit?: Maybe<String>;
   count?: Maybe<Int>;
 }
 
@@ -2175,6 +2183,28 @@ export interface OfferWhereInput {
   category_not_starts_with?: Maybe<String>;
   category_ends_with?: Maybe<String>;
   category_not_ends_with?: Maybe<String>;
+  votesNeeded?: Maybe<Int>;
+  votesNeeded_not?: Maybe<Int>;
+  votesNeeded_in?: Maybe<Int[] | Int>;
+  votesNeeded_not_in?: Maybe<Int[] | Int>;
+  votesNeeded_lt?: Maybe<Int>;
+  votesNeeded_lte?: Maybe<Int>;
+  votesNeeded_gt?: Maybe<Int>;
+  votesNeeded_gte?: Maybe<Int>;
+  benefit?: Maybe<String>;
+  benefit_not?: Maybe<String>;
+  benefit_in?: Maybe<String[] | String>;
+  benefit_not_in?: Maybe<String[] | String>;
+  benefit_lt?: Maybe<String>;
+  benefit_lte?: Maybe<String>;
+  benefit_gt?: Maybe<String>;
+  benefit_gte?: Maybe<String>;
+  benefit_contains?: Maybe<String>;
+  benefit_not_contains?: Maybe<String>;
+  benefit_starts_with?: Maybe<String>;
+  benefit_not_starts_with?: Maybe<String>;
+  benefit_ends_with?: Maybe<String>;
+  benefit_not_ends_with?: Maybe<String>;
   count?: Maybe<Int>;
   count_not?: Maybe<Int>;
   count_in?: Maybe<Int[] | Int>;
@@ -2289,6 +2319,8 @@ export interface OfferUpdateInput {
   price?: Maybe<Float>;
   priceCurrency?: Maybe<String>;
   category?: Maybe<String>;
+  votesNeeded?: Maybe<Int>;
+  benefit?: Maybe<String>;
   count?: Maybe<Int>;
 }
 
@@ -3652,6 +3684,8 @@ export interface Offer {
   price?: Float;
   priceCurrency?: String;
   category?: String;
+  votesNeeded?: Int;
+  benefit?: String;
   count?: Int;
 }
 
@@ -3665,6 +3699,8 @@ export interface OfferPromise extends Promise<Offer>, Fragmentable {
   price: () => Promise<Float>;
   priceCurrency: () => Promise<String>;
   category: () => Promise<String>;
+  votesNeeded: () => Promise<Int>;
+  benefit: () => Promise<String>;
   count: () => Promise<Int>;
 }
 
@@ -3680,6 +3716,8 @@ export interface OfferSubscription
   price: () => Promise<AsyncIterator<Float>>;
   priceCurrency: () => Promise<AsyncIterator<String>>;
   category: () => Promise<AsyncIterator<String>>;
+  votesNeeded: () => Promise<AsyncIterator<Int>>;
+  benefit: () => Promise<AsyncIterator<String>>;
   count: () => Promise<AsyncIterator<Int>>;
 }
 
@@ -3695,6 +3733,8 @@ export interface OfferNullablePromise
   price: () => Promise<Float>;
   priceCurrency: () => Promise<String>;
   category: () => Promise<String>;
+  votesNeeded: () => Promise<Int>;
+  benefit: () => Promise<String>;
   count: () => Promise<Int>;
 }
 
@@ -3850,6 +3890,8 @@ export interface OfferPreviousValues {
   price?: Float;
   priceCurrency?: String;
   category?: String;
+  votesNeeded?: Int;
+  benefit?: String;
   count?: Int;
 }
 
@@ -3865,6 +3907,8 @@ export interface OfferPreviousValuesPromise
   price: () => Promise<Float>;
   priceCurrency: () => Promise<String>;
   category: () => Promise<String>;
+  votesNeeded: () => Promise<Int>;
+  benefit: () => Promise<String>;
   count: () => Promise<Int>;
 }
 
@@ -3880,6 +3924,8 @@ export interface OfferPreviousValuesSubscription
   price: () => Promise<AsyncIterator<Float>>;
   priceCurrency: () => Promise<AsyncIterator<String>>;
   category: () => Promise<AsyncIterator<String>>;
+  votesNeeded: () => Promise<AsyncIterator<Int>>;
+  benefit: () => Promise<AsyncIterator<String>>;
   count: () => Promise<AsyncIterator<Int>>;
 }
 

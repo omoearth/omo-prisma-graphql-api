@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/omo/omo-prisma/dev
-# timestamp: Sun Jun 30 2019 20:03:42 GMT+0200 (GMT+02:00)
+# timestamp: Fri Jul 05 2019 09:42:15 GMT+0200 (GMT+02:00)
 
 type AggregateAsset {
   count: Int!
@@ -2127,6 +2127,8 @@ type Offer implements Node {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
   count: Int
 }
 
@@ -2150,6 +2152,8 @@ input OfferCreateInput {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
   count: Int
 }
 
@@ -2181,6 +2185,10 @@ enum OfferOrderByInput {
   priceCurrency_DESC
   category_ASC
   category_DESC
+  votesNeeded_ASC
+  votesNeeded_DESC
+  benefit_ASC
+  benefit_DESC
   count_ASC
   count_DESC
 }
@@ -2195,6 +2203,8 @@ type OfferPreviousValues {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
   count: Int
 }
 
@@ -2244,6 +2254,8 @@ input OfferUpdateInput {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
   count: Int
 }
 
@@ -2256,6 +2268,8 @@ input OfferUpdateManyMutationInput {
   price: Float
   priceCurrency: String
   category: String
+  votesNeeded: Int
+  benefit: String
   count: Int
 }
 
@@ -2610,6 +2624,68 @@ input OfferWhereInput {
 
   """All values not ending with the given string."""
   category_not_ends_with: String
+  votesNeeded: Int
+
+  """All values that are not equal to given value."""
+  votesNeeded_not: Int
+
+  """All values that are contained in given list."""
+  votesNeeded_in: [Int!]
+
+  """All values that are not contained in given list."""
+  votesNeeded_not_in: [Int!]
+
+  """All values less than the given value."""
+  votesNeeded_lt: Int
+
+  """All values less than or equal the given value."""
+  votesNeeded_lte: Int
+
+  """All values greater than the given value."""
+  votesNeeded_gt: Int
+
+  """All values greater than or equal the given value."""
+  votesNeeded_gte: Int
+  benefit: String
+
+  """All values that are not equal to given value."""
+  benefit_not: String
+
+  """All values that are contained in given list."""
+  benefit_in: [String!]
+
+  """All values that are not contained in given list."""
+  benefit_not_in: [String!]
+
+  """All values less than the given value."""
+  benefit_lt: String
+
+  """All values less than or equal the given value."""
+  benefit_lte: String
+
+  """All values greater than the given value."""
+  benefit_gt: String
+
+  """All values greater than or equal the given value."""
+  benefit_gte: String
+
+  """All values containing the given string."""
+  benefit_contains: String
+
+  """All values not containing the given string."""
+  benefit_not_contains: String
+
+  """All values starting with the given string."""
+  benefit_starts_with: String
+
+  """All values not starting with the given string."""
+  benefit_not_starts_with: String
+
+  """All values ending with the given string."""
+  benefit_ends_with: String
+
+  """All values not ending with the given string."""
+  benefit_not_ends_with: String
   count: Int
 
   """All values that are not equal to given value."""
